@@ -125,8 +125,8 @@
     <costList>
       <Steel>80</Steel>
       <ComponentIndustrial>6</ComponentIndustrial>
-	  <Silver>10</Silver>
-	  <Gold>2</Gold>
+	  <Silver>100</Silver>
+	  <Gold>20</Gold>
     </costList>
     <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
     <comps>
