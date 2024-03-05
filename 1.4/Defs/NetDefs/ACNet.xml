@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <PipeSystem.PipeNetDef>
+    <defName>VTE_EfficiencyNet</defName>
+    <resource>
+      <name>Efficiency</name>
+      <unit>l</unit>
+      <color>(0.68, 0.43, 0.19)</color>
+      <onlyShowStored>True</onlyShowStored>
+      <offTexPath>UI/Commands/Gizmo_LinkWithACControlUnit</offTexPath>
+    </resource>
+    <pipeDefs>
+      <li>VTE_AirDuct</li>
+    </pipeDefs>
+    <designator>
+      <deconstructIconPath>UI/Commands/Deconstruct_ACDuct_MenuIcon</deconstructIconPath>
+      <designationCategoryDef>Temperature</designationCategoryDef>
+    </designator>
+    <overlayOptions>
+      <overlayColor>(0.68, 0.43, 0.19)</overlayColor>
+    </overlayOptions>
+  </PipeSystem.PipeNetDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_AirDuct</defName>
+    <label>air duct</label>
+    <description>tbd</description>
+    <thingClass>PipeSystem.Building_Pipe</thingClass>
+    <category>Building</category>
+    <tickerType>Rare</tickerType>
+    <graphicData>
+      <texPath>Things/Building/Linked/ACDuct_Atlas</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <linkType>Basic</linkType>
+      <linkFlags>
+        <li>Custom7</li>
+      </linkFlags>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Things/Building/Linked/ACDuct_MenuIcon</uiIconPath>
+    <uiIconScale>0.7</uiIconScale>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <blueprintGraphicData>
+        <texPath>Things/Building/Linked/ACDuct_Blueprint_Atlas</texPath>
+      </blueprintGraphicData>
+    </building>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>35</WorkToBuild>
+      <Flammability>0.7</Flammability>
+	  <MarketValue>2</MarketValue>
+    </statBases>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <costList>
+      <Steel>1</Steel>
+    </costList>
+    <comps>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="PipeSystem.CompProperties_SpillWhenDamaged">
+        <spillEachTicks>600</spillEachTicks>
+        <startAtHitPointsPercent>0.333</startAtHitPointsPercent>
+        <amountToDraw>1</amountToDraw>
+        <filthMaxSpawnRadius>1</filthMaxSpawnRadius>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PipeSystem.PlaceWorker_Pipe</li>
+    </placeWorkers>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Temperature</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <clearBuildingArea>false</clearBuildingArea>
+    <researchPrerequisites>
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACControlUnit</defName>
+    <label>AC control unit</label>
+    <description>tbd</description>
+    <graphicData>
+      <texPath>Things/Building/ACControlUnit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+	  <drawSize>(2, 2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+	<size>(2, 2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.5</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+	<minifiedDef>MinifiedThing</minifiedDef>
+    <statBases>
+      <WorkToBuild>12000</WorkToBuild>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+	  <MarketValue>840</MarketValue>
+	  <Mass>60</Mass>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>80</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+	  <Silver>10</Silver>
+	  <Gold>2</Gold>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>200</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <thingCategories>
+      <li>BuildingsTemperature</li>
+    </thingCategories>
+    <researchPrerequisites> 
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACUnit</defName>
+    <label>AC unit</label>
+    <description>tbd</description>
+    <graphicData>
+      <texPath>Things/Building/ACUnit/ACUnit</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <statBases>
+      <WorkToBuild>1600</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+	  <MarketValue>290</MarketValue>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>120</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACUnitWall</defName>
+    <label>wall-mounted AC unit</label>
+    <description>tbd</description>
+    <graphicData>
+      <texPath>Things/Building/WallMountedAC/WallMountedAC</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>false</castEdgeShadows>
+	<uiIconPath>Things/Building/WallMountedAC/WallMountedAC_MenuIcon</uiIconPath>
+    <statBases>
+      <WorkToBuild>1600</WorkToBuild>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+	  <MarketValue>245</MarketValue>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>80</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <building>
+	  <isInert>true</isInert>
+	  <isEdifice>false</isEdifice>
+	  <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACCompressor</defName>
+    <label>AC compressor</label>
+    <description>tbd</description>
+    <graphicData>
+      <texPath>Things/Building/ACCompressorSmall</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <statBases>
+      <WorkToBuild>1200</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+	  <MarketValue>180</MarketValue>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>50</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_LargeACCompressor</defName>
+    <label>large AC compressor</label>
+    <description>tbd</description>
+    <graphicData>
+      <texPath>Things/Building/ACCompressorLarge</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+	  <drawSize>(2, 2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+	<size>(2, 2)</size>
+    <statBases>
+      <WorkToBuild>1200</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+	  <MarketValue>180</MarketValue>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+</Defs>
