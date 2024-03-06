@@ -2,6 +2,7 @@
 <Defs>
   <PipeSystem.PipeNetDef>
     <defName>VTE_EfficiencyNet</defName>
+    <pipeNetClass>VanillaTemperatureExpanded.AcPipeNet</pipeNetClass>
     <resource>
       <name>Efficiency</name>
       <unit>l</unit>
@@ -134,7 +135,7 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>200</basePowerConsumption>
       </li>
-      <li Class="PipeSystem.CompProperties_Resource">
+      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceSingleton">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
       </li>
       <li Class="CompProperties_Flickable"/>
