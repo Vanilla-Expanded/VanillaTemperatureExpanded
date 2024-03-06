@@ -1,5 +1,6 @@
 ﻿using PipeSystem;
-using RimWorld;
+using UnityEngine;
+using Verse;
 
 namespace VanillaTemperatureExpanded;
 
@@ -11,40 +12,36 @@ public class CompProperties_ResourceSingleton : CompProperties_Resource
     }
 }
 
+[StaticConstructorOnStartup]
 public class CompResourceSingleton : CompResource
 {
-    public OverlayHandle? overlayHandle;
-
     private PipeNetOverlayDrawer pipeNetOverlayDrawer;
+
+    private static Material tooManyMat =
+        MaterialPool.MatFrom("UI/Overlays/Overlay_TooManyACControlUnits", ShaderDatabase.MetaOverlay);
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
-        base.PostSpawnSetup(respawningAfterLoad);
-        this.UpdateOverlayHandle();
         pipeNetOverlayDrawer = parent.Map.GetComponent<PipeNetOverlayDrawer>();
+        base.PostSpawnSetup(respawningAfterLoad);
     }
+
+    public override void PostDeSpawn(Map map)
+    {
+        pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
+        base.PostDeSpawn(map);
+    }
+
 
     public void UpdateOverlayHandle()
     {
-        if (!this.parent.Spawned)
+        if (!parent.Spawned)
         {
             return;
         }
 
-        // this.parent.Map.overlayDrawer.Disable(this.parent, ref this.overlayHandle);
-
-        //TODO: test if togglepulsing actually works
-        if (this.parent.Spawned && this.PipeNet is AcPipeNet acPipeNet &&
-            acPipeNet.singletonDict[this.parent.def].Count > 1)
-        {
-            pipeNetOverlayDrawer.TogglePulsing(this.parent, null, true);
-            // this.overlayHandle =
-            //     new OverlayHandle?(this.parent.Map.overlayDrawer.Enable(this.parent, OverlayTypes.BrokenDown));
-        }
-        else
-        {
-            
-            pipeNetOverlayDrawer.TogglePulsing(this.parent, null, false);
-        }
+        var showTooMany = PipeNet is AcPipeNet acPipeNet &&
+                          acPipeNet.singletonDict[parent.def].Count > 1;
+        pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, showTooMany);
     }
 }

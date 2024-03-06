@@ -16,7 +16,10 @@ public class AcPipeNet : PipeNet
             singletonDict[comp.parent.def] = new List<CompResourceSingleton>();
         }
 
-        singletonDict[comp.parent.def].Add(comp);
+        if (!singletonDict[comp.parent.def].Contains(comp))
+        {
+            singletonDict[comp.parent.def].Add(comp);
+        }
     }
 
     public void RemoveFromSingletonDict(CompResourceSingleton comp)
