@@ -20,6 +20,9 @@ public class CompResourceSingleton : CompResource
     private static Material tooManyMat =
         MaterialPool.MatFrom("UI/Overlays/Overlay_TooManyACControlUnits", ShaderDatabase.MetaOverlay);
 
+    private static Material missingCompressorsMat =
+        MaterialPool.MatFrom("UI/Overlays/Overlay_MissingCompressors", ShaderDatabase.MetaOverlay);
+
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         pipeNetOverlayDrawer = parent.Map.GetComponent<PipeNetOverlayDrawer>();
@@ -32,7 +35,6 @@ public class CompResourceSingleton : CompResource
         base.PostDeSpawn(map);
     }
 
-
     public void UpdateOverlayHandle()
     {
         if (!parent.Spawned)
@@ -40,8 +42,18 @@ public class CompResourceSingleton : CompResource
             return;
         }
 
-        var showTooMany = PipeNet is AcPipeNet acPipeNet &&
-                          acPipeNet.singletonDict[parent.def].Count > 1;
-        pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, showTooMany);
+        var acPipeNet = PipeNet as AcPipeNet;
+        var tooManyControls = acPipeNet != null &&
+                              acPipeNet.singletonDict[parent.def].Count > 1;
+
+        //toggle off all overlays first
+        pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
+        pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, false);
+
+        pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, tooManyControls);
+        if (!tooManyControls)
+        {
+            pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, acPipeNet is { Efficiency: 0f });
+        }
     }
 }

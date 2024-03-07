@@ -189,8 +189,9 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>100</basePowerConsumption>
       </li>
-      <li Class="PipeSystem.CompProperties_Resource">
+      <li Class="PipeSystem.CompProperties_ResourceTrader">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>1</consumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
@@ -238,8 +239,9 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>100</basePowerConsumption>
       </li>
-      <li Class="PipeSystem.CompProperties_Resource">
+      <li Class="PipeSystem.CompProperties_ResourceTrader">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>1</consumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
@@ -289,8 +291,9 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>50</basePowerConsumption>
       </li>
-      <li Class="PipeSystem.CompProperties_Resource">
+      <li Class="PipeSystem.CompProperties_ResourceTrader">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>-2</consumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
@@ -342,8 +345,9 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>100</basePowerConsumption>
       </li>
-      <li Class="PipeSystem.CompProperties_Resource">
+      <li Class="PipeSystem.CompProperties_ResourceTrader">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>-6</consumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
