@@ -245,6 +245,7 @@
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
+	  <li Class="VanillaFurnitureExpanded.CompProperties_MountableOnWall"/>
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites>
