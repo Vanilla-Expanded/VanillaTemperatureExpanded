@@ -198,4 +198,189 @@
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
   </ThingDef>
   
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_WallMountedHeater</defName>
+    <label>wall-mounted heater</label>
+    <description>tbd</description>
+    <thingClass>Building_Heater</thingClass>
+    <graphicData>
+      <texPath>Things/Building/WallMountedHeater/WallMountedHeater</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>false</castEdgeShadows>
+	<uiIconPath>Things/Building/WallMountedHeater/WallMountedHeater_MenuIcon</uiIconPath>
+    <statBases>
+      <WorkToBuild>800</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>6</Mass>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <building>
+	  <isInert>true</isInert>
+	  <isEdifice>false</isEdifice>
+	  <canPlaceOverWall>true</canPlaceOverWall>
+	  <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <placeWorkers>
+      <li>PlaceWorker_Heater</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>175</basePowerConsumption>
+        <shortCircuitInRain>true</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_TempControl">
+        <energyPerSecond>21</energyPerSecond>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(255,150,100,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+	  <li Class="VanillaFurnitureExpanded.CompProperties_MountableOnWall"/>
+    </comps>
+	<defaultPlacingRot>South</defaultPlacingRot>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_WallMountedCooler</defName>
+    <label>wall-mounted cooler</label>
+    <description>tbd</description>
+    <thingClass>Building_Cooler</thingClass>
+    <graphicData>
+      <texPath>Things/Building/WallMountedCooler/WallMountedCooler</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>false</castEdgeShadows>
+	<uiIconPath>Things/Building/WallMountedCooler/WallMountedCooler_MenuIcon</uiIconPath>
+    <statBases>
+      <WorkToBuild>1400</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>70</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <placeWorkers>
+      <li>PlaceWorker_Cooler</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <building>
+	  <isInert>true</isInert>
+	  <isEdifice>false</isEdifice>
+	  <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>200</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_TempControl">
+        <energyPerSecond>-21</energyPerSecond>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+	  <li Class="VanillaFurnitureExpanded.CompProperties_MountableOnWall"/>
+    </comps>
+	<defaultPlacingRot>South</defaultPlacingRot>
+    <designationCategory>Temperature</designationCategory>
+    <designationHotKey>Misc5</designationHotKey>
+    <researchPrerequisites>
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_WallMountedVent</defName>
+    <label>wall-mounted vent</label>
+    <description>tbd</description>
+    <thingClass>Building_Vent</thingClass>
+    <graphicData>
+      <texPath>Things/Building/WallMountedVent/WallMountedVent</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>false</castEdgeShadows>
+	<uiIconPath>Things/Building/WallMountedVent/WallMountedVent_MenuIcon</uiIconPath>
+    <statBases>
+      <WorkToBuild>130</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>20</Steel>
+    </costList>
+    <placeWorkers>
+      <li>PlaceWorker_Vent</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <building>
+	  <isInert>true</isInert>
+	  <isEdifice>false</isEdifice>
+	  <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
+    <designationCategory>Temperature</designationCategory>
+    <comps>
+      <li Class="CompProperties_Flickable">
+        <commandTexture>UI/Commands/Vent</commandTexture>
+        <commandLabelKey>CommandDesignateOpenCloseVentLabel</commandLabelKey>
+        <commandDescKey>CommandDesignateOpenCloseVentDesc</commandDescKey>
+      </li>
+	  <li Class="VanillaFurnitureExpanded.CompProperties_MountableOnWall"/>
+    </comps>
+	<defaultPlacingRot>South</defaultPlacingRot>
+  </ThingDef>
+  
 </Defs>
