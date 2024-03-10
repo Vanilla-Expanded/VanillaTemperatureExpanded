@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using PipeSystem;
-using Verse;
+using VanillaTemperatureExpanded.Buildings;
+using VanillaTemperatureExpanded.Comps;
 
 namespace VanillaTemperatureExpanded;
 
 public class AcPipeNet : PipeNet
 {
     // Singletons
-    public Dictionary<ThingDef, List<CompResourceSingleton>> singletonDict = new();
+    public List<Building_AcControlUnit> ControllerList = new();
 
     public float Efficiency = 1f;
 
@@ -17,22 +18,19 @@ public class AcPipeNet : PipeNet
     private static readonly float MaxEff = 1.5f;
     private static readonly float BaseEff = 1f;
 
-    public void AddToSingletonDict(CompResourceSingleton comp)
+    public void AddToSingletonList(CompResourceSingleton comp)
     {
-        if (!singletonDict.ContainsKey(comp.parent.def))
-        {
-            singletonDict[comp.parent.def] = new List<CompResourceSingleton>();
-        }
-
-        if (!singletonDict[comp.parent.def].Contains(comp))
-        {
-            singletonDict[comp.parent.def].Add(comp);
-        }
+        var controller = comp.parent as Building_AcControlUnit;
+        if (!ControllerList.Contains(controller))
+            ControllerList.Add(controller);
     }
 
-    public void RemoveFromSingletonDict(CompResourceSingleton comp)
+    public void RemoveFromSingletonList(CompResourceSingleton comp)
     {
-        singletonDict[comp.parent.def].Remove(comp);
+        
+        var controller = comp.parent as Building_AcControlUnit;
+        if (ControllerList.Contains(controller))
+            ControllerList.Remove(controller);
     }
 
     public override void RegisterComp(CompResource comp)
@@ -40,8 +38,8 @@ public class AcPipeNet : PipeNet
         base.RegisterComp(comp);
         if (comp is CompResourceSingleton singleton)
         {
-            AddToSingletonDict(singleton);
-            UpdateSingletonOverlays(singleton);
+            AddToSingletonList(singleton);
+            singleton.UpdateOverlayHandle();
         }
 
         receiversDirty = true;
@@ -53,8 +51,8 @@ public class AcPipeNet : PipeNet
         base.UnregisterComp(comp);
         if (comp is CompResourceSingleton singleton)
         {
-            RemoveFromSingletonDict(singleton);
-            UpdateSingletonOverlays(singleton);
+            RemoveFromSingletonList(singleton);
+            singleton.UpdateOverlayHandle();
         }
 
         receiversDirty = true;
@@ -108,9 +106,9 @@ public class AcPipeNet : PipeNet
                 }
             }
 
-            foreach (var singleton in singletonDict.SelectMany(kv => kv.Value))
+            foreach (var singleton in ControllerList)
             {
-                UpdateSingletonOverlays(singleton);
+                singleton.GetComp<CompResourceSingleton>().UpdateOverlayHandle();
             }
         }
     }
@@ -127,15 +125,6 @@ public class AcPipeNet : PipeNet
             Efficiency = efficiencyFactor < 0
                 ? Math.Max(MinEff, BaseEff - 0.05f * Math.Abs(efficiencyFactor))
                 : Math.Min(MaxEff, BaseEff + 0.01f * Math.Abs(efficiencyFactor));
-        }
-    }
-
-
-    private void UpdateSingletonOverlays(CompResourceSingleton singleton)
-    {
-        foreach (var s in singletonDict[singleton.parent.def])
-        {
-            s.UpdateOverlayHandle();
         }
     }
 }

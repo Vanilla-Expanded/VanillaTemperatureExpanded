@@ -2,7 +2,7 @@
 using UnityEngine;
 using Verse;
 
-namespace VanillaTemperatureExpanded;
+namespace VanillaTemperatureExpanded.Comps;
 
 public class CompProperties_ResourceSingleton : CompProperties_Resource
 {
@@ -15,6 +15,7 @@ public class CompProperties_ResourceSingleton : CompProperties_Resource
 [StaticConstructorOnStartup]
 public class CompResourceSingleton : CompResource
 {
+    //TODO: Nice to have: Move this to Building_AcControlUnit to make this generic (for reuse purposes) 
     private PipeNetOverlayDrawer pipeNetOverlayDrawer;
 
     private static Material tooManyMat =
@@ -34,7 +35,7 @@ public class CompResourceSingleton : CompResource
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
         base.PostDeSpawn(map);
     }
-    
+
     public AcPipeNet AcPipeNet => PipeNet as AcPipeNet;
 
     public void UpdateOverlayHandle()
@@ -44,8 +45,7 @@ public class CompResourceSingleton : CompResource
             return;
         }
 
-        var tooManyControls = AcPipeNet != null &&
-                              AcPipeNet.singletonDict[parent.def].Count > 1;
+        var tooManyControls = AcPipeNet.ControllerList.Count(controller => parent != controller) > 1;
 
         //toggle off all overlays first
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);

@@ -136,7 +136,7 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>200</basePowerConsumption>
       </li>
-      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceSingleton">
+      <li Class="VanillaTemperatureExpanded.Comps.CompProperties_ResourceSingleton">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
       </li>
       <li Class="CompProperties_Flickable"/>
@@ -196,6 +196,10 @@
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
+      <li Class="CompProperties_TempControl">
+        <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
+        <energyPerSecond>-21</energyPerSecond>
+      </li>
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites>
@@ -247,6 +251,10 @@
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
 	  <li Class="VanillaFurnitureExpanded.CompProperties_MountableOnWall"/>
+      <li Class="CompProperties_TempControl">
+        <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
+        <energyPerSecond>-21</energyPerSecond>
+      </li>
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites>
