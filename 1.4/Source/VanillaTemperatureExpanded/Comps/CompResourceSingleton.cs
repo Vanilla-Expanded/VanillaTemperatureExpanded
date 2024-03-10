@@ -34,6 +34,8 @@ public class CompResourceSingleton : CompResource
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
         base.PostDeSpawn(map);
     }
+    
+    public AcPipeNet AcPipeNet => PipeNet as AcPipeNet;
 
     public void UpdateOverlayHandle()
     {
@@ -42,9 +44,8 @@ public class CompResourceSingleton : CompResource
             return;
         }
 
-        var acPipeNet = PipeNet as AcPipeNet;
-        var tooManyControls = acPipeNet != null &&
-                              acPipeNet.singletonDict[parent.def].Count > 1;
+        var tooManyControls = AcPipeNet != null &&
+                              AcPipeNet.singletonDict[parent.def].Count > 1;
 
         //toggle off all overlays first
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
@@ -53,7 +54,7 @@ public class CompResourceSingleton : CompResource
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, tooManyControls);
         if (!tooManyControls)
         {
-            pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, acPipeNet is { Efficiency: 0f });
+            pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, AcPipeNet is { Efficiency: 0f });
         }
     }
 }

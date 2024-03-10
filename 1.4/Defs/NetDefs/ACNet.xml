@@ -95,6 +95,7 @@
     <defName>VTE_ACControlUnit</defName>
     <label>AC control unit</label>
     <description>tbd</description>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcControlUnit</thingClass>
     <graphicData>
       <texPath>Things/Building/ACControlUnit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
