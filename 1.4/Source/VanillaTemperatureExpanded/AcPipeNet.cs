@@ -63,32 +63,32 @@ public class AcPipeNet : PipeNet
 
     public override void PipeSystemTick()
     {
-        var effChanged = false;
+        var effToChange = false;
         if (receiversDirty || nextTickRDirty)
         {
             nextTickRDirty = ReceiversDirty();
-            effChanged = true;
+            effToChange = true;
         }
 
         if (producersDirty)
         {
             ProducersDirty();
-            effChanged = true;
+            effToChange = true;
         }
 
         foreach (var compResourceTrader in producersOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
         {
             compResourceTrader.ResourceOn = true;
-            effChanged = true;
+            effToChange = true;
         }
 
         foreach (var compResourceTrader in receiversOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
         {
             compResourceTrader.ResourceOn = true;
-            effChanged = true;
+            effToChange = true;
         }
 
-        if (effChanged)
+        if (effToChange)
         {
             CalculateEfficiency();
             //NB: Currently inspection string does not change shown power usage. TODO: add current power usage to inspection strings
