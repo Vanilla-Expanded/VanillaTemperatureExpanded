@@ -39,7 +39,7 @@ public class Building_AcControlUnit : Building
         float offset2 = this.RoundedToCurrentTempModeOffset(-10f);
         yield return new Command_Action
         {
-            action = delegate { this.InterfaceChangeTargetTemperature(offset2); },
+            action = delegate { this.InterfaceChangeTargetNetworkTemperature(offset2); },
             defaultLabel = offset2.ToStringTemperatureOffset("F0"),
             defaultDesc = "CommandLowerTempDesc".Translate(),
             hotKey = KeyBindingDefOf.Misc5,
@@ -48,7 +48,7 @@ public class Building_AcControlUnit : Building
         float offset3 = this.RoundedToCurrentTempModeOffset(-1f);
         yield return new Command_Action
         {
-            action = delegate { this.InterfaceChangeTargetTemperature(offset3); },
+            action = delegate { this.InterfaceChangeTargetNetworkTemperature(offset3); },
             defaultLabel = offset3.ToStringTemperatureOffset("F0"),
             defaultDesc = "CommandLowerTempDesc".Translate(),
             hotKey = KeyBindingDefOf.Misc4,
@@ -70,7 +70,7 @@ public class Building_AcControlUnit : Building
         float offset4 = this.RoundedToCurrentTempModeOffset(1f);
         yield return new Command_Action
         {
-            action = delegate { this.InterfaceChangeTargetTemperature(offset4); },
+            action = delegate { this.InterfaceChangeTargetNetworkTemperature(offset4); },
             defaultLabel = "+" + offset4.ToStringTemperatureOffset("F0"),
             defaultDesc = "CommandRaiseTempDesc".Translate(),
             hotKey = KeyBindingDefOf.Misc2,
@@ -79,7 +79,7 @@ public class Building_AcControlUnit : Building
         float offset = this.RoundedToCurrentTempModeOffset(10f);
         yield return new Command_Action
         {
-            action = delegate { this.InterfaceChangeTargetTemperature(offset); },
+            action = delegate { this.InterfaceChangeTargetNetworkTemperature(offset); },
             defaultLabel = "+" + offset.ToStringTemperatureOffset("F0"),
             defaultDesc = "CommandRaiseTempDesc".Translate(),
             hotKey = KeyBindingDefOf.Misc3,
@@ -94,7 +94,7 @@ public class Building_AcControlUnit : Building
             Prefs.TemperatureMode, TemperatureDisplayMode.Celsius);
     }
 
-    private void InterfaceChangeTargetTemperature(float offset)
+    private void InterfaceChangeTargetNetworkTemperature(float offset)
     {
         SoundDefOf.DragSlider.PlayOneShotOnCamera(null);
 
@@ -102,6 +102,8 @@ public class Building_AcControlUnit : Building
         this.TargetNetworkTemperature =
             Mathf.Clamp(this.TargetNetworkTemperature, -273.15f, 1000f);
         this.ThrowCurrentTemperatureText();
+        
+        //TODO: change target temp of all connected AC units
     }
 
     private void ThrowCurrentTemperatureText()
