@@ -6,7 +6,7 @@
     <resource>
       <name>Efficiency</name>
       <unit>l</unit>
-      <color>(0.68, 0.43, 0.19)</color>
+      <color>(0.31, 0.26, 0.27)</color>
       <onlyShowStored>True</onlyShowStored>
       <offTexPath>UI/Commands/Gizmo_LinkWithACControlUnit</offTexPath>
     </resource>
@@ -18,7 +18,7 @@
       <designationCategoryDef>Temperature</designationCategoryDef>
     </designator>
     <overlayOptions>
-      <overlayColor>(0.68, 0.43, 0.19)</overlayColor>
+      <overlayColor>(0.31, 0.26, 0.27)</overlayColor>
     </overlayOptions>
   </PipeSystem.PipeNetDef>
 
