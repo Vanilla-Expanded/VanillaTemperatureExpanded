@@ -166,6 +166,9 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
+    <placeWorkers>
+      <li>VanillaTemperatureExpanded.Placeworker_AcUnit</li>
+    </placeWorkers>
     <altitudeLayer>Building</altitudeLayer>
     <passability>Impassable</passability>
     <blockWind>true</blockWind>
@@ -216,6 +219,9 @@
       <texPath>Things/Building/WallMountedAC/WallMountedAC</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
     </graphicData>
+    <placeWorkers>
+      <li>VanillaTemperatureExpanded.Placeworker_AcUnit</li>
+    </placeWorkers>
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
     <blockWind>true</blockWind>
