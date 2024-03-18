@@ -310,6 +310,7 @@
         <basePowerConsumption>50</basePowerConsumption>
       </li>
       <li Class="PipeSystem.CompProperties_ResourceTrader">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_Compressor</compClass>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>-2</consumptionPerTick>
       </li>
@@ -364,6 +365,7 @@
         <basePowerConsumption>100</basePowerConsumption>
       </li>
       <li Class="PipeSystem.CompProperties_ResourceTrader">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_Compressor</compClass>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>-6</consumptionPerTick>
       </li>
