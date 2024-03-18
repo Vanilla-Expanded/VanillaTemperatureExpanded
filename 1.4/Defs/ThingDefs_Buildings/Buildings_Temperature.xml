@@ -442,7 +442,7 @@
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_HeatPusher">
         <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-22</heatPerSecond>
+        <heatPerSecond>-21</heatPerSecond>
         <heatPushMinTemperature>14</heatPushMinTemperature>
       </li>
       <li Class="CompProperties_Breakdownable"/>
