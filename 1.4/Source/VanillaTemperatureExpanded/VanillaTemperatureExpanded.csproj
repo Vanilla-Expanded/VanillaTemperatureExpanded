@@ -44,7 +44,9 @@
     <Compile Include="Buildings\Building_TwoCellHeater.cs" />
     <Compile Include="Buildings\Building_TwoCellCooler.cs" />
     <Compile Include="Buildings\Building_HeaterWithOffset.cs" />
-    <Compile Include="CompHeatPusherPowered_ShouldPushHeatNow_Patch.cs" />
+    <Compile Include="Buildings\Building_CeilingFan.cs" />
+    <Compile Include="Comps\CompHeatPusherPoweredWithIdleDraw.cs" />
+    <Compile Include="Comps\CompCeilingFan.cs" />
     <Compile Include="PlaceWorker_HeaterWithOffset.cs" />
     <Compile Include="PlaceWorker_TwoCellHeater.cs" />
     <Compile Include="PlaceWorker_TwoCellCooler.cs" />
@@ -54,7 +56,6 @@
     <Compile Include="Placeworker_AcUnit.cs" />
     <Compile Include="VanillaTemperatureExpanded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VTE_DefOf.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PipeSystem">

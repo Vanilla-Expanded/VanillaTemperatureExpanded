@@ -6,7 +6,6 @@ using UnityEngine;
 using Verse;
 
 namespace VanillaTemperatureExpanded.Comps;
-
 public class CompAcTempControl : CompTempControl
 {
     public bool IndependentTemp;
