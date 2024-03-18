@@ -45,7 +45,7 @@ public class CompResourceSingleton : CompResource
             return;
         }
 
-        var tooManyControls = AcPipeNet.ControllerList.Count(controller => parent != controller) > 1;
+        var tooManyControls = AcPipeNet.ControllerList.Count(controller => parent != controller) > 0;
 
         //toggle off all overlays first
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
