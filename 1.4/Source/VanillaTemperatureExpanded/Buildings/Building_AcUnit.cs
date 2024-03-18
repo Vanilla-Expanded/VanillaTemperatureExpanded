@@ -23,7 +23,8 @@ public class Building_AcUnit : Building_TempControl
         {
             var coolerVec = Position + IntVec3.North.RotatedBy(Rotation);
             var highPowerMode = false;
-            if (!coolerVec.Impassable(Map) && compTempControl.targetTemperature is > -40f and < 120f)
+            //TODO: add temperature condition here
+            if (!coolerVec.Impassable(Map))
             {
                 var energyDirection = compTempControl.targetTemperature < coolerVec.GetTemperature(Map) ? 1 : -1;
                 var energyLimit = compTempControl.Props.energyPerSecond * 4.1666665f * energyDirection;
