@@ -21,7 +21,7 @@
     <altitudeLayer>Building</altitudeLayer>
     <passability>Impassable</passability>
     <blockWind>true</blockWind>
-    <fillPercent>1</fillPercent>
+    <fillPercent>0.75</fillPercent>
     <coversFloor>true</coversFloor>
     <blockLight>true</blockLight>
     <canOverlapZones>false</canOverlapZones>
@@ -90,7 +90,7 @@
     <altitudeLayer>Building</altitudeLayer>
     <passability>Impassable</passability>
     <blockWind>true</blockWind>
-    <fillPercent>1</fillPercent>
+    <fillPercent>0.75</fillPercent>
     <coversFloor>true</coversFloor>
     <blockLight>true</blockLight>
     <canOverlapZones>false</canOverlapZones>
@@ -362,6 +362,7 @@
     </costList>
     <placeWorkers>
       <li>PlaceWorker_Vent</li>
+	  <li>VanillaFurnitureExpanded.PlaceWorker_OnWall</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <building>
@@ -438,6 +439,7 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>135</basePowerConsumption>
+		<idlePowerDraw>13</idlePowerDraw>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_HeatPusher">

@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using HarmonyLib;
+using Verse;
 
 namespace VanillaTemperatureExpanded
 {
@@ -6,6 +7,9 @@ namespace VanillaTemperatureExpanded
     {
         public VanillaTemperatureExpanded(ModContentPack content) : base(content)
         {
+            new Harmony("VanillaTemperatureExpandedMod").PatchAll();
         }
     }
+
+
 }

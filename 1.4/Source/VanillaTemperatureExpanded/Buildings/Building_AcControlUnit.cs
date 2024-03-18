@@ -6,7 +6,6 @@ using Verse;
 using Verse.Sound;
 
 namespace VanillaTemperatureExpanded.Buildings;
-
 public class Building_AcControlUnit : Building
 {
     public CompFacility facilityComp;

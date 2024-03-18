@@ -25,26 +25,18 @@ namespace ProxyHeat
                         props = new CompProperties_TemperatureSource();
                         if (compHeatPusher.heatPerSecond > 0)
                         {
+                            props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
                             if (compHeatPusher.heatPushMaxTemperature != default && compHeatPusher.heatPushMaxTemperature != 99999f)
                             {
-                                props.tempOutcome = compHeatPusher.heatPushMaxTemperature;
                                 props.maxTemperature = compHeatPusher.heatPushMaxTemperature;
-                            }
-                            else
-                            {
-                                props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
                             }
                         }
                         else
                         {
+                            props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
                             if (compHeatPusher.heatPushMinTemperature != default && compHeatPusher.heatPushMinTemperature != -99999f)
                             {
-                                props.tempOutcome = compHeatPusher.heatPushMinTemperature;
                                 props.minTemperature = compHeatPusher.heatPushMinTemperature;
-                            }
-                            else
-                            {
-                                props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
                             }
                         }
                         props.dependsOnFuel = thingDef.GetCompProperties<CompProperties_Refuelable>() != null;
