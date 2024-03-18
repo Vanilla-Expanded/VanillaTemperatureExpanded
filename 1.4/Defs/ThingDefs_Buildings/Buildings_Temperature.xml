@@ -74,7 +74,7 @@
     <defName>VTE_IndustrialCooler</defName>
     <label>industrial cooler</label>
     <description>tbd</description>
-    <thingClass>Building_Cooler</thingClass>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_TwoCellCooler</thingClass>
     <graphicData>
       <texPath>Things/Building/IndustrialCooler/IndustrialCooler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
