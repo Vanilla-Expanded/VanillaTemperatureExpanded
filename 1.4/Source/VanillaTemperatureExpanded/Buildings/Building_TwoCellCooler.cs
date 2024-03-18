@@ -12,9 +12,14 @@ public class Building_TwoCellCooler : Building_TempControl
         {
             return;
         }
-        bool flag = PushCoolAir();
+        IntVec3 intVec = base.Position + IntVec3.South.RotatedBy(base.Rotation);
+        IntVec3 intVec2 = base.Position + IntVec3.North.RotatedBy(base.Rotation);
+        IntVec3 c = base.Position + IntVec3.South.RotatedBy(base.Rotation) + IntVec3.East.RotatedBy(base.Rotation);
+        IntVec3 c2 = base.Position + IntVec3.North.RotatedBy(base.Rotation) + IntVec3.East.RotatedBy(base.Rotation);
+        bool flag = PushCoolAir(intVec, intVec2);
+        bool flag2 = PushCoolAir(c, c2);
         CompProperties_Power props = compPowerTrader.Props;
-        if (flag)
+        if (flag || flag2)
         {
             compPowerTrader.PowerOutput = 0f - props.PowerConsumption;
         }
@@ -22,13 +27,11 @@ public class Building_TwoCellCooler : Building_TempControl
         {
             compPowerTrader.PowerOutput = (0f - props.PowerConsumption) * compTempControl.Props.lowPowerConsumptionFactor;
         }
-        compTempControl.operatingAtHighPower = flag;
+        compTempControl.operatingAtHighPower = flag || flag2;
     }
 
-    private bool PushCoolAir()
+    private bool PushCoolAir(IntVec3 intVec, IntVec3 intVec2)
     {
-        IntVec3 intVec = base.Position + IntVec3.South.RotatedBy(base.Rotation);
-        IntVec3 intVec2 = base.Position + IntVec3.North.RotatedBy(base.Rotation);
         bool flag = false;
         if (!intVec2.Impassable(base.Map) && !intVec.Impassable(base.Map))
         {

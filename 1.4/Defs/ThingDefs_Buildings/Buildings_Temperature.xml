@@ -5,7 +5,7 @@
     <defName>VTE_IndustrialHeater</defName>
     <label>industrial heater</label>
     <description>tbd</description>
-    <thingClass>Building_Heater</thingClass>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_TwoCellHeater</thingClass>
     <graphicData>
       <texPath>Things/Building/IndustrialHeater/IndustrialHeater</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -21,7 +21,7 @@
     <altitudeLayer>Building</altitudeLayer>
     <passability>Impassable</passability>
     <blockWind>true</blockWind>
-    <fillPercent>0.75</fillPercent>
+    <fillPercent>1</fillPercent>
     <coversFloor>true</coversFloor>
     <blockLight>true</blockLight>
     <canOverlapZones>false</canOverlapZones>
@@ -44,7 +44,7 @@
     </costList>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <placeWorkers>
-      <li>PlaceWorker_Heater</li>
+      <li>VanillaTemperatureExpanded.PlaceWorker_TwoCellHeater</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <comps>
@@ -109,7 +109,7 @@
     </costList>
     <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
     <placeWorkers>
-      <li>PlaceWorker_Cooler</li>
+      <li>VanillaTemperatureExpanded.PlaceWorker_TwoCellCooler</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <building>
@@ -137,7 +137,7 @@
     <defName>VTE_WallHeater</defName>
     <label>wall heater</label>
     <description>tbd</description>
-    <thingClass>Building_Heater</thingClass>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_HeaterWithOffset</thingClass>
     <graphicData>
       <texPath>Things/Building/WallHeater/WallHeater</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -170,7 +170,7 @@
     </costList>
     <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
     <placeWorkers>
-      <li>PlaceWorker_Cooler</li>
+      <li>VanillaTemperatureExpanded.PlaceWorker_HeaterWithOffset</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <building>
@@ -202,7 +202,7 @@
     <defName>VTE_WallMountedHeater</defName>
     <label>wall-mounted heater</label>
     <description>tbd</description>
-    <thingClass>Building_Heater</thingClass>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_HeaterWithOffset</thingClass>
     <graphicData>
       <texPath>Things/Building/WallMountedHeater/WallMountedHeater</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -238,7 +238,8 @@
       <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <placeWorkers>
-      <li>PlaceWorker_Heater</li>
+      <li>VanillaTemperatureExpanded.PlaceWorker_HeaterWithOffset</li>
+	  <li>VanillaFurnitureExpanded.PlaceWorker_OnWall</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <comps>
@@ -299,6 +300,7 @@
       <ComponentIndustrial>3</ComponentIndustrial>
     </costList>
     <placeWorkers>
+	  <li>VanillaFurnitureExpanded.PlaceWorker_OnWall</li>
       <li>PlaceWorker_Cooler</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
@@ -386,7 +388,7 @@
     <defName>VTE_StandingCooler</defName>
     <label>standing cooler</label>
     <description>tbd</description>
-    <thingClass>Building_Cooler</thingClass>
+    <thingClass>Building</thingClass>
     <graphicData>
       <texPath>Things/Building/StandingCooler</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -429,7 +431,6 @@
     </costList>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <placeWorkers>
-      <li>PlaceWorker_Cooler</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <comps>
@@ -440,7 +441,7 @@
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_HeatPusher">
         <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-11</heatPerSecond>
+        <heatPerSecond>-22</heatPerSecond>
         <heatPushMinTemperature>14</heatPushMinTemperature>
       </li>
       <li Class="CompProperties_Breakdownable"/>

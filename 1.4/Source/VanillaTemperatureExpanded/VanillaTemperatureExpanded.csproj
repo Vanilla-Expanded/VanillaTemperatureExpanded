@@ -41,7 +41,12 @@
     <Compile Include="AcPipeNet.cs" />
     <Compile Include="Buildings\Building_AcControlUnit.cs" />
     <Compile Include="Buildings\Building_AcUnit.cs" />
+    <Compile Include="Buildings\Building_TwoCellHeater.cs" />
     <Compile Include="Buildings\Building_TwoCellCooler.cs" />
+    <Compile Include="Buildings\Building_HeaterWithOffset.cs" />
+    <Compile Include="PlaceWorker_HeaterWithOffset.cs" />
+    <Compile Include="PlaceWorker_TwoCellHeater.cs" />
+    <Compile Include="PlaceWorker_TwoCellCooler.cs" />
     <Compile Include="Comps\CompAcTempControl.cs" />
     <Compile Include="Comps\CompResourceSingleton.cs" />
     <Compile Include="Comps\CompResourceTrader_AC.cs" />
