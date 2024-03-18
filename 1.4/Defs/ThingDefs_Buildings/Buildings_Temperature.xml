@@ -491,6 +491,9 @@
 	  <isInert>true</isInert>
 	  <isEdifice>false</isEdifice>
     </building>
+    <placeWorkers>
+      <li>PlaceWorker_CoolerSimple</li>
+    </placeWorkers>
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
