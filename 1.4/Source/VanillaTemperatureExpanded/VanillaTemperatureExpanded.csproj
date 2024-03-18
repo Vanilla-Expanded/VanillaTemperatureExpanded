@@ -47,6 +47,7 @@
     <Compile Include="Buildings\Building_CeilingFan.cs" />
     <Compile Include="Comps\CompHeatPusherPoweredWithIdleDraw.cs" />
     <Compile Include="Comps\CompCeilingFan.cs" />
+    <Compile Include="RoofGrid_SetRoof_Patch.cs" />
     <Compile Include="PlaceWorker_HeaterWithOffset.cs" />
     <Compile Include="PlaceWorker_TwoCellHeater.cs" />
     <Compile Include="PlaceWorker_TwoCellCooler.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Comps\CompResourceSingleton.cs" />
     <Compile Include="Comps\CompResourceTrader_AC.cs" />
     <Compile Include="Placeworker_AcUnit.cs" />
+    <Compile Include="PlaceWorker_UnderRoof.cs" />
     <Compile Include="VanillaTemperatureExpanded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

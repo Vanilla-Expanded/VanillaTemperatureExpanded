@@ -3,5 +3,5 @@
 	<PH.EnableProxyHeatEffectIndoors>Enable proxy heat effect indoors</PH.EnableProxyHeatEffectIndoors>
 	<PH.AllowPlantGrowthInsideProxyHeatEffectRadius>Allow plant growth inside proxy heat effect radius</PH.AllowPlantGrowthInsideProxyHeatEffectRadius>
 	<VTE.MustPlaceHeaterWithFreeSpaces>The hot side of the heater must be exposed.</VTE.MustPlaceHeaterWithFreeSpaces>
-
+	<VTE.MustPlaceUnderRoof>Must be placed under a roof.</VTE.MustPlaceUnderRoof>
 </LanguageData>

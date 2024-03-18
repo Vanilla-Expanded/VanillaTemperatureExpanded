@@ -468,7 +468,6 @@
 			<drawSize>(2, 2)</drawSize>
 		</graphicData>
 		<drawerType>RealtimeOnly</drawerType>
-		<uiIconPath>Things/Building/CeilingFanSmall</uiIconPath>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>Standable</passability>
 		<blockWind>false</blockWind>
@@ -493,6 +492,7 @@
 		</building>
 		<placeWorkers>
 			<li>PlaceWorker_CoolerSimple</li>
+			<li>VanillaTemperatureExpanded.PlaceWorker_UnderRoof</li>
 		</placeWorkers>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -522,15 +522,13 @@
 		<description>tbd</description>
 		<thingClass>VanillaTemperatureExpanded.Buildings.Building_CeilingFan</thingClass>
 		<graphicData>
-			<texPath>Things/Building/CeilingFanSmall</texPath>
+			<texPath>Things/Building/CeilingFanLarge</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>TransparentPostLight</shaderType>
 			<drawSize>(4, 4)</drawSize>
 		</graphicData>
 		<drawerType>RealtimeOnly</drawerType>
-		<uiIconPath>Things/Building/CeilingFanSmall</uiIconPath>
 		<size>(2, 2)</size>
-		<uiIconScale>2</uiIconScale>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>Standable</passability>
 		<blockWind>false</blockWind>
@@ -551,6 +549,7 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<placeWorkers>
 			<li>PlaceWorker_CoolerSimple</li>
+			<li>VanillaTemperatureExpanded.PlaceWorker_UnderRoof</li>
 		</placeWorkers>
 		<building>
 			<isInert>true</isInert>
