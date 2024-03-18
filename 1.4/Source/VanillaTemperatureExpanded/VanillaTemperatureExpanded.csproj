@@ -42,6 +42,7 @@
     <ItemGroup>
         <Compile Include="AcPipeNet.cs" />
         <Compile Include="Buildings\Building_AcControlUnit.cs" />
+        <Compile Include="Buildings\Building_AcUnit.cs" />
         <Compile Include="Comps\CompAcTempControl.cs" />
         <Compile Include="Comps\CompResourceSingleton.cs" />
         <Compile Include="Comps\CompResourceTrader_AC.cs" />

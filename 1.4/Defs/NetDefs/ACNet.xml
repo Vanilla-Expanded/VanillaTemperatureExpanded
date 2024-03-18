@@ -156,6 +156,7 @@
     <defName>VTE_ACUnit</defName>
     <label>AC unit</label>
     <description>tbd</description>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcUnit</thingClass>
     <graphicData>
       <texPath>Things/Building/ACUnit/ACUnit</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -172,7 +173,7 @@
     <altitudeLayer>Building</altitudeLayer>
     <passability>Impassable</passability>
     <blockWind>true</blockWind>
-    <fillPercent>0.75</fillPercent>
+    <fillPercent>1</fillPercent>
     <canOverlapZones>false</canOverlapZones>
     <castEdgeShadows>true</castEdgeShadows>
     <staticSunShadowHeight>1.0</staticSunShadowHeight>
@@ -215,6 +216,7 @@
     <defName>VTE_ACUnitWall</defName>
     <label>wall-mounted AC unit</label>
     <description>tbd</description>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcUnit</thingClass>
     <graphicData>
       <texPath>Things/Building/WallMountedAC/WallMountedAC</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

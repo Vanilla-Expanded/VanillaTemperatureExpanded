@@ -98,13 +98,6 @@ public class AcPipeNet : PipeNet
                     rec.powerComp.PowerOutput = -rec.powerComp.Props.PowerConsumption;
                 }
             }
-            else
-            {
-                foreach (var rec in receivers)
-                {
-                    rec.powerComp.PowerOutput = -rec.powerComp.Props.PowerConsumption * (2 - Efficiency);
-                }
-            }
 
             foreach (var singleton in ControllerList)
             {
