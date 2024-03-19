@@ -6,6 +6,8 @@ using Verse;
 using Verse.Sound;
 
 namespace VanillaTemperatureExpanded.Buildings;
+
+[StaticConstructorOnStartup]
 public class Building_AcControlUnit : Building
 {
     public CompFacility facilityComp;
@@ -128,5 +130,56 @@ public class Building_AcControlUnit : Building
                     TargetNetworkTemperature.ToStringTemperature("F0"), Color.white);
             }
         }
+    }
+    
+    //Draw Methods Related Methods and Fields
+    private static readonly Vector2 BarSize = new(0.47f, 0.315f);
+    private static readonly Vector3 BarOffset = Vector3.up * 0.1f + Vector3.right * 0.62f + Vector3.back * 0.625f;
+
+    private static readonly Material HighEffFilledMat =
+        SolidColorMaterials.SimpleSolidColorMaterial(new Color(153f/255f, 143f/255f, 85f/255f));
+    private static readonly Material MedEffFilledMat =
+        SolidColorMaterials.SimpleSolidColorMaterial(new Color(153f/255f, 113f/255f, 86f/255f));
+    private static readonly Material LowEffFilledMat =
+        SolidColorMaterials.SimpleSolidColorMaterial(new Color(153f/255f, 86f/255f, 86f/255f));
+
+    private static readonly Material BatteryBarUnfilledMat =
+        SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.3f, 0.3f, 0.3f));
+    
+    public override void Draw()
+    {
+        base.Draw();
+        GenDraw.FillableBarRequest fillableBarRequest = default(GenDraw.FillableBarRequest);
+        fillableBarRequest.center = DrawPos + BarOffset;
+        fillableBarRequest.size = BarSize;
+        fillableBarRequest.fillPercent = FillPct();
+        fillableBarRequest.filledMat = BarMat();
+        fillableBarRequest.unfilledMat = BatteryBarUnfilledMat;
+        fillableBarRequest.margin = 0.06f;
+        Rot4 rotation = Rotation;
+        rotation.Rotate(RotationDirection.Clockwise);
+        fillableBarRequest.rotation = rotation;
+        GenDraw.DrawFillableBar(fillableBarRequest);
+    }
+    
+    
+    private float FillPct()
+    {
+        return resourceComp.AcPipeNet.Efficiency switch
+        {
+            < 1f => 0.2f,
+            > 1f => 1f,
+            _ => 0.5f
+        };
+    }
+    
+    private Material BarMat()
+    {
+        return resourceComp.AcPipeNet.Efficiency switch
+        {
+            < 1f => LowEffFilledMat,
+            > 1f => HighEffFilledMat,
+            _ => MedEffFilledMat
+        };
     }
 }
