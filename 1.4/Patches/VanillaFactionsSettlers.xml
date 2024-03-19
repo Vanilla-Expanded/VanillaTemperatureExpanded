@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Settlers</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<!-- ChemBoiler -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[defName = "ChemBoiler"]/comps</xpath>
+					<success>Always</success>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/ThingDef[defName = "ChemBoiler"]</xpath>
+						<value>
+							<comps />
+						</value>
+					</nomatch>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "ChemBoiler"]/comps</xpath>
+					<value>
+						<li Class="ProxyHeat.CompProperties_TemperatureSource">
+							<radius>2.5</radius>
+							<tempOutcome>30</tempOutcome>
+							<dependsOnFuel>true</dependsOnFuel>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>
