@@ -195,7 +195,8 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>100</basePowerConsumption>
       </li>
-      <li Class="PipeSystem.CompProperties_ResourceTrader">
+      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceTrader_AC">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>1</consumptionPerTick>
       </li>
@@ -253,7 +254,8 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>100</basePowerConsumption>
       </li>
-      <li Class="PipeSystem.CompProperties_ResourceTrader">
+      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceTrader_AC">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>1</consumptionPerTick>
       </li>

@@ -90,12 +90,13 @@ public class AcPipeNet : PipeNet
         {
             CalculateEfficiency();
             //NB: Currently inspection string does not change shown power usage. TODO: add current power usage to inspection strings
-            if (Efficiency == 0)
+            if (Efficiency == 0 || ControllerList.Count != 1)
             {
                 foreach (var rec in receivers)
                 {
                     rec.ResourceOn = false;
                     rec.powerComp.PowerOutput = -rec.powerComp.Props.PowerConsumption;
+                    (rec as CompResourceTrader_AC)?.UpdateOverlayHandle();
                 }
             }
 
