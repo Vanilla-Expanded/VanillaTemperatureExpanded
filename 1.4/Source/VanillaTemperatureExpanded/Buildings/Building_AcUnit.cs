@@ -23,11 +23,16 @@ public class Building_AcUnit : Building_TempControl
         {
             var coolerVec = Position + IntVec3.North.RotatedBy(Rotation);
             var highPowerMode = false;
-            //TODO: add temperature condition here
             if (!coolerVec.Impassable(Map))
             {
-                var energyDirection = compTempControl.targetTemperature < coolerVec.GetTemperature(Map) ? 1 : -1;
+                var vecTemperature = coolerVec.GetTemperature(Map);
+                var energyDirection = compTempControl.targetTemperature < vecTemperature ? 1 : -1;
                 var energyLimit = compTempControl.Props.energyPerSecond * 4.1666665f * energyDirection;
+                //upper temperature limit similar to that of core heaters
+                if (vecTemperature > 120)
+                {
+                    energyLimit = 0;
+                }
 
                 var tempChange = GenTemperature.ControlTemperatureTempChange(coolerVec, Map, energyLimit,
                     compTempControl.targetTemperature);
