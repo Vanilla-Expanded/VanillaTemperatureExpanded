@@ -6,9 +6,20 @@ using UnityEngine;
 using Verse;
 
 namespace VanillaTemperatureExpanded.Comps;
+
 public class CompAcTempControl : CompTempControl
 {
     public bool IndependentTemp;
+
+    public override void PostSpawnSetup(bool respawningAfterLoad)
+    {
+        base.PostSpawnSetup(respawningAfterLoad);
+        var pipeNet = (AcPipeNet)parent.GetComp<CompResourceTrader>().PipeNet;
+        if (!IndependentTemp && pipeNet?.ControllerList.FirstOrDefault() != null)
+        {
+            targetTemperature = pipeNet.ControllerList.First().TargetNetworkTemperature;
+        }
+    }
 
     public override void PostExposeData()
     {
