@@ -21,7 +21,7 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>Impassable</passability>
 		<blockWind>true</blockWind>
-		<fillPercent>0.75</fillPercent>
+		<fillPercent>1</fillPercent>
 		<coversFloor>true</coversFloor>
 		<blockLight>true</blockLight>
 		<canOverlapZones>false</canOverlapZones>
@@ -90,7 +90,7 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>Impassable</passability>
 		<blockWind>true</blockWind>
-		<fillPercent>0.75</fillPercent>
+		<fillPercent>1</fillPercent>
 		<coversFloor>true</coversFloor>
 		<blockLight>true</blockLight>
 		<canOverlapZones>false</canOverlapZones>
@@ -148,7 +148,7 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<passability>Impassable</passability>
 		<blockWind>true</blockWind>
 		<fillPercent>1</fillPercent>
@@ -213,7 +213,7 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<blockWind>true</blockWind>
 		<fillPercent>0.75</fillPercent>
@@ -282,7 +282,7 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<blockWind>true</blockWind>
 		<fillPercent>0.75</fillPercent>
@@ -344,7 +344,7 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<blockWind>true</blockWind>
 		<fillPercent>0.75</fillPercent>
@@ -468,7 +468,7 @@
 			<drawSize>(2, 2)</drawSize>
 		</graphicData>
 		<drawerType>RealtimeOnly</drawerType>
-		<altitudeLayer>Building</altitudeLayer>
+		<altitudeLayer>MoteOverheadLow</altitudeLayer>
 		<passability>Standable</passability>
 		<blockWind>false</blockWind>
 		<fillPercent>0</fillPercent>
@@ -525,11 +525,11 @@
 			<texPath>Things/Building/CeilingFanLarge</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>TransparentPostLight</shaderType>
-			<drawSize>(4, 4)</drawSize>
+			<drawSize>(3, 3)</drawSize>
 		</graphicData>
 		<drawerType>RealtimeOnly</drawerType>
 		<size>(2, 2)</size>
-		<altitudeLayer>Building</altitudeLayer>
+		<altitudeLayer>MoteOverheadLow</altitudeLayer>
 		<passability>Standable</passability>
 		<blockWind>false</blockWind>
 		<fillPercent>0</fillPercent>

@@ -11,8 +11,8 @@ public class Building_TwoCellHeater : Building_HeaterWithOffset
         {
             IntVec3 intVec = base.Position + IntVec3.North.RotatedBy(base.Rotation);
             IntVec3 c = base.Position + IntVec3.North.RotatedBy(base.Rotation) + IntVec3.East.RotatedBy(base.Rotation);
-            bool flag = PushHeat(intVec);
-            bool flag2 = PushHeat(c);
+            bool flag = PushHeat(intVec, maxTemperature: 1000);
+            bool flag2 = PushHeat(c, maxTemperature: 1000);
             CompProperties_Power props = compPowerTrader.Props;
             if (flag || flag2)
             {

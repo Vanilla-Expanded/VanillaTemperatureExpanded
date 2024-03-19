@@ -16,8 +16,8 @@ public class Building_TwoCellCooler : Building_TempControl
         IntVec3 intVec2 = base.Position + IntVec3.North.RotatedBy(base.Rotation);
         IntVec3 c = base.Position + IntVec3.South.RotatedBy(base.Rotation) + IntVec3.East.RotatedBy(base.Rotation);
         IntVec3 c2 = base.Position + IntVec3.North.RotatedBy(base.Rotation) + IntVec3.East.RotatedBy(base.Rotation);
-        bool flag = PushCoolAir(intVec, intVec2);
-        bool flag2 = PushCoolAir(c, c2);
+        bool flag = PushCoolAir(intVec, intVec2, 100);
+        bool flag2 = PushCoolAir(c, c2, 100);
         CompProperties_Power props = compPowerTrader.Props;
         if (flag || flag2)
         {
@@ -30,7 +30,7 @@ public class Building_TwoCellCooler : Building_TempControl
         compTempControl.operatingAtHighPower = flag || flag2;
     }
 
-    private bool PushCoolAir(IntVec3 intVec, IntVec3 intVec2)
+    private bool PushCoolAir(IntVec3 intVec, IntVec3 intVec2, float minTemperature)
     {
         bool flag = false;
         if (!intVec2.Impassable(base.Map) && !intVec.Impassable(base.Map))
@@ -38,9 +38,9 @@ public class Building_TwoCellCooler : Building_TempControl
             float temperature = intVec2.GetTemperature(base.Map);
             float temperature2 = intVec.GetTemperature(base.Map);
             float num = temperature - temperature2;
-            if (temperature - 40f > num)
+            if (temperature - minTemperature > num)
             {
-                num = temperature - 40f;
+                num = temperature - minTemperature;
             }
             float num2 = 1f - num * (1f / 130f);
             if (num2 < 0f)

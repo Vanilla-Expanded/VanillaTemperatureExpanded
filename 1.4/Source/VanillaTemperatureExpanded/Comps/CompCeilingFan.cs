@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 using VanillaTemperatureExpanded.Buildings;
 using Verse;
 
@@ -46,5 +47,20 @@ public class CompCeilingFan : CompHeatPusherPoweredWithIdleDraw
     {
         base.PostExposeData();
         Scribe_Values.Look(ref spinRate, "spinRate");
+    }
+
+    public override string CompInspectStringExtra()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append("PowerConsumptionMode".Translate() + ": ");
+        if (ShouldPushHeatNow)
+        {
+            stringBuilder.Append("PowerConsumptionHigh".Translate().CapitalizeFirst());
+        }
+        else
+        {
+            stringBuilder.Append("PowerConsumptionLow".Translate().CapitalizeFirst());
+        }
+        return stringBuilder.ToString();
     }
 }

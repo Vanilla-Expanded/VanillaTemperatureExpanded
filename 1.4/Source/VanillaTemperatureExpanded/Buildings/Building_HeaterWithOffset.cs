@@ -24,10 +24,14 @@ public class Building_HeaterWithOffset : Building_TempControl
         }
     }
 
-    protected bool PushHeat(IntVec3 cell)
+    protected bool PushHeat(IntVec3 cell, float? maxTemperature = null)
     {
         float temp = cell.GetTemperature(Map);
-        float num = ((temp < 20f) ? 1f : ((!(temp > 120f)) ? Mathf.InverseLerp(120f, 20f, temp) : 0f));
+        if (maxTemperature is null)
+        {
+            maxTemperature = 120f;
+        }
+        float num = ((temp < 20f) ? 1f : ((!(temp > maxTemperature)) ? Mathf.InverseLerp(maxTemperature.Value, 20f, temp) : 0f));
         float energyLimit = compTempControl.Props.energyPerSecond * num * 4.1666665f;
         float num2 = GenTemperature.ControlTemperatureTempChange(cell, base.Map, energyLimit, compTempControl.targetTemperature);
         bool flag = !Mathf.Approximately(num2, 0f);
