@@ -39,22 +39,25 @@ namespace ProxyHeat
                                 props.minTemperature = compHeatPusher.heatPushMinTemperature;
                             }
                         }
-                        props.dependsOnFuel = thingDef.GetCompProperties<CompProperties_Refuelable>() != null;
-                        props.dependsOnPower = thingDef.GetCompProperties<CompProperties_Power>()?.basePowerConsumption > 0;
-                        props.radius = ((thingDef.Size.x + thingDef.Size.z) / 2f) + 0.5f;
-                        props.smeltSnowRadius = props.radius;
+                        SetData(thingDef, props);
                         thingDef.comps.Add(props);
                     }
-                    else
+                    else if (thingDef.thingClass != null && typeof(Building_TempControl).IsAssignableFrom(thingDef.thingClass))
                     {
-                        var compTarget = thingDef.GetCompProperties<CompProperties_TempControl>();
-                        if (compTarget != null) 
-                        {
-                            Log.Message("[VTE] Found no data for " + thingDef + " to autogenerate proxy heat");
-                        }
+                        props = new CompProperties_TemperatureSource();
+                        SetData(thingDef, props);
+                        thingDef.comps.Add(props);
                     }
                 }
             }
 		}
+
+        private static void SetData(ThingDef thingDef, CompProperties_TemperatureSource props)
+        {
+            props.dependsOnFuel = thingDef.GetCompProperties<CompProperties_Refuelable>() != null;
+            props.dependsOnPower = thingDef.GetCompProperties<CompProperties_Power>()?.basePowerConsumption > 0;
+            props.radius = ((thingDef.Size.x + thingDef.Size.z) / 2f) + 0.5f;
+            props.smeltSnowRadius = props.radius;
+        }
     }
 }

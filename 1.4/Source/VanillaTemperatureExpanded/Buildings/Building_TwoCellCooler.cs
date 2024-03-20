@@ -3,7 +3,6 @@ using UnityEngine;
 using Verse;
 
 namespace VanillaTemperatureExpanded.Buildings;
-
 public class Building_TwoCellCooler : Building_TempControl
 {
     public override void TickRare()
@@ -37,7 +36,7 @@ public class Building_TwoCellCooler : Building_TempControl
         {
             float temperature = intVec2.GetTemperature(base.Map);
             float temperature2 = intVec.GetTemperature(base.Map);
-            float num = temperature - temperature2;
+            float num = temperature;// - temperature2;
             if (temperature - minTemperature > num)
             {
                 num = temperature - minTemperature;

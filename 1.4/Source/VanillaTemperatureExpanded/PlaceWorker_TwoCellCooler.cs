@@ -5,7 +5,6 @@ using UnityEngine;
 using Verse;
 
 namespace VanillaTemperatureExpanded;
-
 public class PlaceWorker_TwoCellCooler : PlaceWorker
 {
     public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)

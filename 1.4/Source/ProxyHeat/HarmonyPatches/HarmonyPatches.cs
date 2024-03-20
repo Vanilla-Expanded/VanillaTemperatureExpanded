@@ -17,7 +17,26 @@ namespace ProxyHeat
 	internal static class HarmonyPatches
 	{
 		public static Dictionary<Map, ProxyHeatManager> proxyHeatManagers = new Dictionary<Map, ProxyHeatManager>();
-		static HarmonyPatches()
+		public static List<string> temperatureBuildingMethodsForRegisterMethod = new List<string>
+		{
+            "RimWorld.Building_Heater:TickRare",
+            "RimWorld.Building_Cooler:TickRare",
+            "VanillaTemperatureExpanded.Buildings.Building_AcUnit:TickRare",
+            "VanillaTemperatureExpanded.Buildings.Building_HeaterWithOffset:PushHeat",
+            "VanillaTemperatureExpanded.Buildings.Building_TwoCellCooler:PushCoolAir",
+        };
+
+        public static List<string> temperatureBuildingMethodsForPostfixMethod = new List<string>
+        {
+            "RimWorld.Building_Heater:TickRare",
+            "RimWorld.Building_Cooler:TickRare",
+            "VanillaTemperatureExpanded.Buildings.Building_AcUnit:TickRare",
+            "VanillaTemperatureExpanded.Buildings.Building_HeaterWithOffset:TickRare",
+            "VanillaTemperatureExpanded.Buildings.Building_TwoCellHeater:TickRare",
+            "VanillaTemperatureExpanded.Buildings.Building_TwoCellCooler:TickRare",
+        };
+
+        static HarmonyPatches()
 		{
 			Harmony harmony = new Harmony("LongerCFloor.ProxyHeat");
 			CompTemperatureSource.gasCompType = AccessTools.TypeByName("GasNetwork.CompGasTrader");
@@ -26,10 +45,30 @@ namespace ProxyHeat
 				CompTemperatureSource.methodInfoGasOn = AccessTools.PropertyGetter(CompTemperatureSource.gasCompType, "GasOn");
 			}
 			harmony.PatchAll();
-			if (ModLister.HasActiveModWithName("Brrr and Phew (Continued)"))
+            var transpiler = AccessTools.Method(typeof(HarmonyPatches), nameof(TickRare_Transpiler));
+
+            foreach (var methodName in temperatureBuildingMethodsForRegisterMethod)
+			{
+				var method = AccessTools.Method(methodName);
+				if (method != null)
+				{
+                    harmony.Patch(method, transpiler: new HarmonyMethod(transpiler));
+                }
+			}
+			var postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.TickRare_Postfix));
+            foreach (var methodName in temperatureBuildingMethodsForPostfixMethod)
+            {
+                var method = AccessTools.Method(methodName);
+                if (method != null)
+                {
+                    harmony.Patch(method, postfix: new HarmonyMethod(postfix));
+                }
+            }
+
+            if (ModLister.HasActiveModWithName("Brrr and Phew (Continued)"))
 			{
 				var prefix = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.TryGiveJobPrefix));
-				var postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.TryGiveJobPostfix));
+				postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.TryGiveJobPostfix));
 				foreach (var type in GenTypes.AllSubclasses(typeof(ThinkNode_JobGiver)))
 				{
 					if (type.Namespace == "Brrr")
@@ -50,7 +89,146 @@ namespace ProxyHeat
 			}
 		}
 
-		public static IEnumerable<CodeInstruction> JobGiver_BrrrTranspiler(IEnumerable<CodeInstruction> instructions)
+		public static float? heatpushCurrent;
+		public static void TickRare_Postfix(Building_TempControl __instance)
+		{
+			if (heatpushCurrent.HasValue)
+			{
+                var compPowerTrader = __instance.compPowerTrader;
+                CompProperties_Power props = compPowerTrader.Props;
+                var flag = !Mathf.Approximately(heatpushCurrent.Value, 0f);
+                if (flag)
+                {
+                    compPowerTrader.PowerOutput = 0f - props.PowerConsumption;
+                }
+                else
+                {
+                    compPowerTrader.PowerOutput = (0f - props.PowerConsumption) * __instance.compTempControl.Props.lowPowerConsumptionFactor;
+                }
+                __instance.compTempControl.operatingAtHighPower = flag;
+            }
+			heatpushCurrent = null;
+        }
+
+		private static MethodInfo get_Position = AccessTools.PropertyGetter(typeof(Thing), nameof(Thing.Position));
+        private static MethodInfo controlTemperatureTempChange = AccessTools.Method(typeof(GenTemperature), nameof(GenTemperature.ControlTemperatureTempChange));
+        private static MethodInfo registerRoomTemperatureChange = AccessTools.Method(typeof(HarmonyPatches), nameof(RegisterRoomTemperatureChange));
+ 
+        public static IEnumerable<CodeInstruction> TickRare_Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+           var codes = instructions.ToList();
+			for (var i = 0; i < codes.Count; i++)
+			{
+				var code = codes[i];
+				yield return code;
+				if (i > 1 && codes[i - 1].Calls(controlTemperatureTempChange))
+				{
+                    if (code.opcode == OpCodes.Stloc_S)
+                    {
+                        foreach (var codeInstruction in AddRegisterMethod(registerRoomTemperatureChange, codes, i,
+                            Gen.YieldSingle(new CodeInstruction(OpCodes.Ldloc_S, (code.operand as LocalBuilder).LocalIndex))))
+                        {
+                            yield return codeInstruction;
+                        }
+                    }
+                    else if (code.opcode == OpCodes.Stloc_3)
+                    {
+                        foreach (var codeInstruction in AddRegisterMethod(registerRoomTemperatureChange, codes, i,
+                            Gen.YieldSingle(new CodeInstruction(OpCodes.Ldloc_3))))
+                        {
+                            yield return codeInstruction;
+                        }
+                    }
+                }
+            }
+		}
+
+        private static IEnumerable<CodeInstruction> AddRegisterMethod(MethodInfo registerRoomTemperatureChange, 
+			List<CodeInstruction> codes, int i, IEnumerable<CodeInstruction> cellCodeInstructions)
+        {
+            if (codes[i - 8].Calls(get_Position))
+			{
+                yield return codes[i - 9];
+                yield return codes[i - 8];
+            }
+            else if (codes[i - 8].IsLdloc() || codes[i - 8].opcode == OpCodes.Ldarg_1)
+			{
+				yield return codes[i - 8];
+			}
+            foreach (var code in cellCodeInstructions)
+			{
+				yield return code;
+			}
+            yield return new CodeInstruction(OpCodes.Ldarg_0);
+            yield return codes[i - 5];
+            yield return new CodeInstruction(OpCodes.Call, registerRoomTemperatureChange);
+        }
+
+        private static void RegisterRoomTemperatureChange(IntVec3 cell, float result, 
+			Building_TempControl building, float energyLimit)
+		{
+			if (result == 0)
+			{
+                Room room = cell.GetRoom(building.Map);
+                if (room != null && room.UsesOutdoorTemperature)
+                {
+					var comp = building.GetComp<CompTemperatureSource>();
+                    float b = energyLimit / (float)comp.AffectedCells.Count;
+					var cellTemperature = cell.GetTemperature(building.Map);
+					GlobalControls_TemperatureString_Patch.ModifyTemperatureIfNeeded(ref cellTemperature, cell, building.Map);
+                    float a = building.compTempControl.targetTemperature - cellTemperature;
+                    float heatPush;
+                    float num;
+                    if (energyLimit > 0f)
+                    {
+                        num = Mathf.Min(a, b);
+                        heatPush = Mathf.Max(num, 0f);
+                    }
+                    else
+                    {
+                        num = Mathf.Max(a, b);
+                        heatPush = Mathf.Min(num, 0f);
+                    }
+					if (comp.lastRoomTemperatureChangeTicks != Find.TickManager.TicksGame)
+					{
+                        heatpushCurrent = heatPush;
+                    }
+					else
+					{
+                        heatpushCurrent += heatPush;
+                    }
+                    var ticksPassed = Find.TickManager.TicksGame - comp.lastRoomTemperatureChangeTicks;
+					if (ticksPassed > GenTicks.TickRareInterval)
+					{
+						comp.lastRoomTemperatureChange = heatPush;
+					}
+					else
+					{
+						comp.lastRoomTemperatureChange += heatPush;
+                    }
+                    comp.lastRoomTemperatureChangeTicks = Find.TickManager.TicksGame;
+                    float diff = TempDiffFromOutdoorsAdjusted(building.Map, cellTemperature);
+					var intervalChange = diff * 0.0007f * (float)ticksPassed;
+                    comp.lastRoomTemperatureChange += intervalChange;
+                    //Log.Message("cellTemperature: " + cellTemperature + " - b: " +
+					//	b + " - heatPush: " + heatPush + " - a: " + a + " - energyLimit: " + energyLimit
+					//	+ " - cellCount: " + comp.AffectedCells.Count + " - intervalChange: " + intervalChange);
+                }
+            }
+        }
+
+        private static float TempDiffFromOutdoorsAdjusted(Map map, float cellTemperature)
+        {
+            float num = map.mapTemperature.OutdoorTemp - cellTemperature;
+            if (Mathf.Abs(num) < 100f)
+            {
+                return num;
+            }
+            return Mathf.Sign(num) * 100f + 5f * (num - Mathf.Sign(num) * 100f);
+        }
+
+
+        public static IEnumerable<CodeInstruction> JobGiver_BrrrTranspiler(IEnumerable<CodeInstruction> instructions)
 		{
 			var jobDefInfo = AccessTools.Field(AccessTools.TypeByName("Brrr.JobGiver_Brrr+BrrrJobDef"), "Brrr_BrrrRecovery");
 			bool found = false;
