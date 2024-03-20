@@ -15,6 +15,7 @@ public class CompProperties_ResourceSingleton : CompProperties_ResourceTrader
 [StaticConstructorOnStartup]
 public class CompResourceSingleton : CompResourceTrader
 {
+    private PipeNetOverlayDrawer pipeNetOverlayDrawer;
     //TODO: Nice to have: Move this to Building_AcControlUnit to make this generic (for reuse purposes) 
 
     private static Material tooManyMat =

@@ -18,6 +18,7 @@ public class CompProperties_ResourceTrader_AC : CompProperties_ResourceTrader
 public class CompResourceTrader_AC : CompResourceTrader
 {
 
+    private PipeNetOverlayDrawer pipeNetOverlayDrawer;
     private static Material tooManyMat =
         MaterialPool.MatFrom("UI/Overlays/Overlay_TooManyACControlUnits", ShaderDatabase.MetaOverlay);
 

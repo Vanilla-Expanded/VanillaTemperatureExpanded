@@ -7,6 +7,7 @@ namespace VanillaTemperatureExpanded;
 [StaticConstructorOnStartup]
 public class CompResourceTrader_Compressor : CompResourceTrader
 {
+    private PipeNetOverlayDrawer pipeNetOverlayDrawer;
     public override bool CanBeOn()
     {
         return base.CanBeOn() && !RoofUtility.IsAnyCellUnderRoof(parent);
