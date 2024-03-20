@@ -68,7 +68,7 @@ public class CompResourceTrader_AC : CompResourceTrader
             {
                 pipeNetOverlayDrawer.TogglePulsing(parent, missingControlMat, true);
             }
-            else if(AcPipeNet.WouldOverload(Consumption))
+            else
             {
                 pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, true);
             }

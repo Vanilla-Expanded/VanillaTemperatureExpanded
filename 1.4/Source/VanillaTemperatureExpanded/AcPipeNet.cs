@@ -59,6 +59,7 @@ public class AcPipeNet : PipeNet
         producersDirty = true;
     }
 
+    //TODO: optimize
     public override void PipeSystemTick()
     {
         var effToChange = false;
@@ -77,28 +78,23 @@ public class AcPipeNet : PipeNet
         foreach (var compResourceTrader in producersOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
         {
             compResourceTrader.ResourceOn = true;
-            producersDirty = true;
             effToChange = true;
+            (compResourceTrader as CompResourceTrader_AC)?.UpdateOverlayHandle();
         }
 
-        // var wouldOverload = WouldOverload(receiversOff.Where(compResourceTrader => compResourceTrader.CanBeOn())
-            // .Sum(c => c.Consumption));
-        // if((Consumption == 0 && !wouldOverload) || Consumption != 0)
-        // {
-        //TODO: only do this if net is offline and won't overload
+        if(receiversOn.Count > 0 || (!WouldOverload() && receiversOn.Count == 0))
             foreach (var compResourceTrader in receiversOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
             {
                 compResourceTrader.ResourceOn = true;
                 effToChange = true;
-                receiversDirty = true;
+                (compResourceTrader as CompResourceTrader_AC)?.UpdateOverlayHandle();
             }
-        // }
 
         if (effToChange)
         {
             CalculateEfficiency();
             //NB: Currently inspection string does not change shown power usage. TODO: add current power usage to inspection strings
-            if (Efficiency == 0 || ControllerList.Count(c => c.resourceComp.CanBeOn()) != 1)
+            if (Efficiency == 0 || ControllerList.Count(c => c.resourceComp.ResourceOn || c.resourceComp.CanBeOn()) != 1)
             {
                 foreach (var rec in receivers)
                 {
@@ -114,14 +110,12 @@ public class AcPipeNet : PipeNet
                 }
             }
 
-            //TODO: perhaps move this into the if statement?
             foreach (var singleton in ControllerList)
             {
-                if (ControllerList.Count(c => c.resourceComp.CanBeOn()) == 1 && singleton.resourceComp.CanBeOn())
+                if(!WouldOverload() && ControllerList.Count(c => c.resourceComp.CanBeOn()) == 1 && singleton.resourceComp.CanBeOn())
                 {
                     singleton.resourceComp.ResourceOn = true;
                 }
-
                 singleton.GetComp<CompResourceSingleton>().UpdateOverlayHandle();
             }
         }
@@ -142,19 +136,15 @@ public class AcPipeNet : PipeNet
         }
     }
 
-    public bool WouldOverload(float extra)
+    public bool WouldOverload()
     {
-        if (Production == 0)
-        {
-            return true;
-        }
-    
-        var efficiencyFactor = Production - (Consumption + extra);
-        
+        var efficiencyFactor = Production - producersOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption) -
+                               (Consumption + receiversOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption));
+
         var x = efficiencyFactor < 0
             ? Math.Max(MinEff, BaseEff - 0.05f * Math.Abs(efficiencyFactor))
             : Math.Min(MaxEff, BaseEff + 0.01f * Math.Abs(efficiencyFactor));
-    
+
         return x <= MinEff;
     }
 }
