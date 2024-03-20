@@ -38,55 +38,58 @@ public class Building_AcControlUnit : Building
             yield return gizmo;
         }
 
-        float offset2 = RoundedToCurrentTempModeOffset(-10f);
-        yield return new Command_Action
+        if(resourceComp.ResourceOn)
         {
-            action = delegate { InterfaceChangeTargetNetworkTemperature(offset2); },
-            defaultLabel = offset2.ToStringTemperatureOffset("F0"),
-            defaultDesc = "CommandLowerTempDesc".Translate(),
-            hotKey = KeyBindingDefOf.Misc5,
-            icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_LowerNetworkTemperatureGreatly")
-        };
-        float offset3 = RoundedToCurrentTempModeOffset(-1f);
-        yield return new Command_Action
-        {
-            action = delegate { InterfaceChangeTargetNetworkTemperature(offset3); },
-            defaultLabel = offset3.ToStringTemperatureOffset("F0"),
-            defaultDesc = "CommandLowerTempDesc".Translate(),
-            hotKey = KeyBindingDefOf.Misc4,
-            icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_LowerNetworkTemperature")
-        };
-        yield return new Command_Action
-        {
-            action = delegate
+            float offset2 = RoundedToCurrentTempModeOffset(-10f);
+            yield return new Command_Action
             {
-                TargetNetworkTemperature = AmbientTemperature;
-                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                ThrowCurrentTemperatureText();
-            },
-            defaultLabel = "CommandResetTemp".Translate(),
-            defaultDesc = "CommandResetTempDesc".Translate(),
-            hotKey = KeyBindingDefOf.Misc1,
-            icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_ResetNetworkTemperature")
-        };
-        float offset4 = RoundedToCurrentTempModeOffset(1f);
-        yield return new Command_Action
-        {
-            action = delegate { InterfaceChangeTargetNetworkTemperature(offset4); },
-            defaultLabel = "+" + offset4.ToStringTemperatureOffset("F0"),
-            defaultDesc = "CommandRaiseTempDesc".Translate(),
-            hotKey = KeyBindingDefOf.Misc2,
-            icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_IncreaseNetworkTemperature")
-        };
-        float offset = RoundedToCurrentTempModeOffset(10f);
-        yield return new Command_Action
-        {
-            action = delegate { InterfaceChangeTargetNetworkTemperature(offset); },
-            defaultLabel = "+" + offset.ToStringTemperatureOffset("F0"),
-            defaultDesc = "CommandRaiseTempDesc".Translate(),
-            hotKey = KeyBindingDefOf.Misc3,
-            icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_IncreaseNetworkTemperatureGreatly")
-        };
+                action = delegate { InterfaceChangeTargetNetworkTemperature(offset2); },
+                defaultLabel = offset2.ToStringTemperatureOffset("F0"),
+                defaultDesc = "CommandLowerTempDesc".Translate(),
+                hotKey = KeyBindingDefOf.Misc5,
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_LowerNetworkTemperatureGreatly")
+            };
+            float offset3 = RoundedToCurrentTempModeOffset(-1f);
+            yield return new Command_Action
+            {
+                action = delegate { InterfaceChangeTargetNetworkTemperature(offset3); },
+                defaultLabel = offset3.ToStringTemperatureOffset("F0"),
+                defaultDesc = "CommandLowerTempDesc".Translate(),
+                hotKey = KeyBindingDefOf.Misc4,
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_LowerNetworkTemperature")
+            };
+            yield return new Command_Action
+            {
+                action = delegate
+                {
+                    TargetNetworkTemperature = AmbientTemperature;
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    ThrowCurrentTemperatureText();
+                },
+                defaultLabel = "CommandResetTemp".Translate(),
+                defaultDesc = "CommandResetTempDesc".Translate(),
+                hotKey = KeyBindingDefOf.Misc1,
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_ResetNetworkTemperature")
+            };
+            float offset4 = RoundedToCurrentTempModeOffset(1f);
+            yield return new Command_Action
+            {
+                action = delegate { InterfaceChangeTargetNetworkTemperature(offset4); },
+                defaultLabel = "+" + offset4.ToStringTemperatureOffset("F0"),
+                defaultDesc = "CommandRaiseTempDesc".Translate(),
+                hotKey = KeyBindingDefOf.Misc2,
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_IncreaseNetworkTemperature")
+            };
+            float offset = RoundedToCurrentTempModeOffset(10f);
+            yield return new Command_Action
+            {
+                action = delegate { InterfaceChangeTargetNetworkTemperature(offset); },
+                defaultLabel = "+" + offset.ToStringTemperatureOffset("F0"),
+                defaultDesc = "CommandRaiseTempDesc".Translate(),
+                hotKey = KeyBindingDefOf.Misc3,
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_IncreaseNetworkTemperatureGreatly")
+            };
+        }
     }
 
     private float RoundedToCurrentTempModeOffset(float celsiusTemp)
@@ -167,6 +170,7 @@ public class Building_AcControlUnit : Building
     {
         return resourceComp.AcPipeNet.Efficiency switch
         {
+            0f => 0f,
             < 1f => 0.2f,
             > 1f => 1f,
             _ => 0.5f

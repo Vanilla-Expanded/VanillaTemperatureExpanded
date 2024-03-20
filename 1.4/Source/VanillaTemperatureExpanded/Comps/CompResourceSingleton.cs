@@ -16,7 +16,6 @@ public class CompProperties_ResourceSingleton : CompProperties_ResourceTrader
 public class CompResourceSingleton : CompResourceTrader
 {
     //TODO: Nice to have: Move this to Building_AcControlUnit to make this generic (for reuse purposes) 
-    private PipeNetOverlayDrawer pipeNetOverlayDrawer;
 
     private static Material tooManyMat =
         MaterialPool.MatFrom("UI/Overlays/Overlay_TooManyACControlUnits", ShaderDatabase.MetaOverlay);
@@ -33,6 +32,7 @@ public class CompResourceSingleton : CompResourceTrader
     public override void PostDeSpawn(Map map)
     {
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
+        pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, false);
         base.PostDeSpawn(map);
     }
 
@@ -45,16 +45,21 @@ public class CompResourceSingleton : CompResourceTrader
             return;
         }
 
-        var tooManyControls = AcPipeNet.ControllerList.Count(controller => parent != controller) > 0;
+        var tooManyControls =
+            AcPipeNet.ControllerList.Count(controller => parent != controller && controller.resourceComp.CanBeOn()) > 0;
 
         //toggle off all overlays first
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
         pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, false);
 
-        pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, tooManyControls);
-        if (!tooManyControls)
+        if (CanBeOn())
         {
-            pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, AcPipeNet is { Efficiency: 0f });
+            if (tooManyControls)
+                pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, true);
+            else
+            {
+                pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, AcPipeNet is { Efficiency: 0f });
+            }
         }
     }
 }
