@@ -4,7 +4,7 @@ using Verse;
 
 namespace VanillaTemperatureExpanded.Comps;
 
-public class CompProperties_ResourceSingleton : CompProperties_Resource
+public class CompProperties_ResourceSingleton : CompProperties_ResourceTrader
 {
     public CompProperties_ResourceSingleton()
     {
@@ -13,7 +13,7 @@ public class CompProperties_ResourceSingleton : CompProperties_Resource
 }
 
 [StaticConstructorOnStartup]
-public class CompResourceSingleton : CompResource
+public class CompResourceSingleton : CompResourceTrader
 {
     //TODO: Nice to have: Move this to Building_AcControlUnit to make this generic (for reuse purposes) 
     private PipeNetOverlayDrawer pipeNetOverlayDrawer;

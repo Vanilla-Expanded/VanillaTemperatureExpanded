@@ -139,6 +139,7 @@
       </li>
       <li Class="VanillaTemperatureExpanded.Comps.CompProperties_ResourceSingleton">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>-2</consumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
