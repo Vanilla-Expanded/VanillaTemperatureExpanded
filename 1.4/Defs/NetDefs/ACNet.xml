@@ -25,7 +25,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_AirDuct</defName>
     <label>air duct</label>
-    <description>tbd</description>
+    <description>An air duct used by the AC network to transport air between the AC units and compressors.</description>
     <thingClass>PipeSystem.Building_Pipe</thingClass>
     <category>Building</category>
     <tickerType>Rare</tickerType>
@@ -94,7 +94,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACControlUnit</defName>
     <label>AC control unit</label>
-    <description>tbd</description>
+    <description>A main air conditioning control unit. Connects to compressors to allow AC units to generate cool or hot air. Needs to be connected to compressors by air ducts. AC control unit dictates the desired temperature for all AC units in the same network. Installing too many AC units may decrease the efficiency of the network, increasing the power drain of all devices. Constructing additional compressors will improve the efficiency of the network.</description>
     <drawerType>MapMeshAndRealTime</drawerType>
     <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcControlUnit</thingClass>
     <graphicData>
@@ -156,7 +156,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACUnit</defName>
     <label>AC unit</label>
-    <description>tbd</description>
+    <description>An air-conditioning machine that fits into a wall. Emits either cool or warm air in the same direction, depending on the current temperature of the room. Unless unlinked from the network settings, it will aim to achieve the temperature specified in the AC control unit. Needs to be connected to the AC control unit via air ducts.</description>
     <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcUnit</thingClass>
     <graphicData>
       <texPath>Things/Building/ACUnit/ACUnit</texPath>
@@ -217,7 +217,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACUnitWall</defName>
     <label>wall-mounted AC unit</label>
-    <description>tbd</description>
+    <description>A wall-mounted air-conditioning machine. Emits either cool or warm air in the same direction, depending on the current temperature of the room. Unless unlinked from the network settings, it will aim to achieve the temperature specified in the AC control unit. Needs to be connected to the AC control unit via air ducts. Can only be constructed on a wall.</description>
     <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcUnit</thingClass>
     <graphicData>
       <texPath>Things/Building/WallMountedAC/WallMountedAC</texPath>
@@ -277,7 +277,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACCompressor</defName>
     <label>AC compressor</label>
-    <description>tbd</description>
+    <description>An air conditioning compressor that needs to be connected to an AC control unit via air ducts. Can only be placed outside. When powered, it allows the AC network to operate two additional AC devices without losing efficiency.</description>
     <graphicData>
       <texPath>Things/Building/ACCompressorSmall</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -331,7 +331,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_LargeACCompressor</defName>
     <label>large AC compressor</label>
-    <description>tbd</description>
+    <description>A large air conditioning compressor that needs to be connected to an AC control unit via air ducts. Can only be placed outside. When powered, it allows the AC network to operate six additional AC devices without losing efficiency.</description>
     <graphicData>
       <texPath>Things/Building/ACCompressorLarge</texPath>
       <graphicClass>Graphic_Single</graphicClass>
