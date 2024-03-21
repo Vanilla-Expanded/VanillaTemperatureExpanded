@@ -59,7 +59,6 @@ public class AcPipeNet : PipeNet
         producersDirty = true;
     }
 
-    //TODO: optimize
     public override void PipeSystemTick()
     {
         var effToChange = false;
@@ -82,7 +81,9 @@ public class AcPipeNet : PipeNet
             (compResourceTrader as CompResourceTrader_AC)?.UpdateOverlayHandle();
         }
 
-        if(receiversOn.Count > 0 || (!WouldOverload() && receiversOn.Count == 0))
+        var wouldOverload = WouldOverload();
+        //if in normal flow OR in zero state but can start gracefully
+        if (receiversOn.Count > 0 || (wouldOverload && receiversOn.Count == 0))
             foreach (var compResourceTrader in receiversOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
             {
                 compResourceTrader.ResourceOn = true;
@@ -93,8 +94,8 @@ public class AcPipeNet : PipeNet
         if (effToChange)
         {
             CalculateEfficiency();
-            //NB: Currently inspection string does not change shown power usage. TODO: add current power usage to inspection strings
-            if (Efficiency == 0 || ControllerList.Count(c => c.resourceComp.ResourceOn || c.resourceComp.CanBeOn()) != 1)
+            if (Efficiency == 0 ||
+                ControllerList.Count(c => c.resourceComp.ResourceOn || c.resourceComp.CanBeOn()) != 1)
             {
                 foreach (var rec in receivers)
                 {
@@ -110,13 +111,17 @@ public class AcPipeNet : PipeNet
                 }
             }
 
-            foreach (var singleton in ControllerList)
+            if (!wouldOverload)
             {
-                if(!WouldOverload() && ControllerList.Count(c => c.resourceComp.CanBeOn()) == 1 && singleton.resourceComp.CanBeOn())
+                foreach (var singleton in ControllerList)
                 {
-                    singleton.resourceComp.ResourceOn = true;
+                    if (ControllerList.Count(c => c.resourceComp.CanBeOn()) == 1 && singleton.resourceComp.CanBeOn())
+                    {
+                        singleton.resourceComp.ResourceOn = true;
+                    }
+
+                    singleton.GetComp<CompResourceSingleton>().UpdateOverlayHandle();
                 }
-                singleton.GetComp<CompResourceSingleton>().UpdateOverlayHandle();
             }
         }
     }
