@@ -48,6 +48,7 @@
     <Compile Include="Comps\CompHeatPusherPoweredWithIdleDraw.cs" />
     <Compile Include="Comps\CompCeilingFan.cs" />
     <Compile Include="Comps\CompResourceTrader_Compressor.cs" />
+    <Compile Include="PlaceWorker_NeverAdjacentCeilingFan.cs" />
     <Compile Include="RoofGrid_SetRoof_Patch.cs" />
     <Compile Include="PlaceWorker_HeaterWithOffset.cs" />
     <Compile Include="PlaceWorker_TwoCellHeater.cs" />

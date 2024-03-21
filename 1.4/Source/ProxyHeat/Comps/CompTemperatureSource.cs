@@ -14,7 +14,7 @@ namespace ProxyHeat
     public class CompProperties_TemperatureSource : CompProperties
 	{
 		public float radius;
-		public float tempOutcome;
+		public float? tempOutcome;
 		public float? minTemperature;
 		public float? maxTemperature;
 		public bool dependsOnPower;
@@ -47,15 +47,22 @@ namespace ProxyHeat
 		public HashSet<IntVec3> AffectedCells => affectedCells;
 		private List<IntVec3> affectedCellsList = new List<IntVec3>();
 		private ProxyHeatManager proxyHeatManager;
-		public float TemperatureOutcome
+		public float lastRoomTemperatureChange;
+		public int lastRoomTemperatureChangeTicks;
+
+        public float TemperatureOutcome
         {
 			get
             {
-				//if (tempControlComp != null)
-                //{
-				//	return tempControlComp.targetTemperature;
-				//}
-				return this.Props.tempOutcome;
+				if (Props.tempOutcome.HasValue)
+				{
+                    return this.Props.tempOutcome.Value;
+                }
+				if (lastRoomTemperatureChangeTicks > 0 && Find.TickManager.TicksGame - lastRoomTemperatureChangeTicks <= GenTicks.TickRareInterval)
+				{
+					return lastRoomTemperatureChange;
+                }
+				return 0;
             }
         }
 		public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -145,19 +152,23 @@ namespace ProxyHeat
 					return result;
 				};
 		
-				var offset = this.Props.tileOffset != IntVec3.Invalid ? this.parent.OccupiedRect().MovedBy(this.Props.tileOffset.RotatedBy(this.parent.Rotation)).CenterCell : position;
-				map.floodFiller.FloodFill(offset, validator, delegate (IntVec3 x)
+
+				foreach (var cell in GetCells())
 				{
-					if (tempCells.Contains(x))
-					{
-						var edifice = x.GetEdifice(map);
-						var result = edifice == null || edifice.def.passability != Traversability.Impassable || edifice == this.parent;
-						if (result && (GenSight.LineOfSight(offset, x, map) || offset.DistanceTo(x) <= 1.5f))
-						{
-							affectedCells.Add(x);
-						}
-					}
-				}, int.MaxValue, rememberParents: false, (IEnumerable<IntVec3>)null);
+                    map.floodFiller.FloodFill(cell, validator, delegate (IntVec3 x)
+                    {
+                        if (tempCells.Contains(x))
+                        {
+                            var edifice = x.GetEdifice(map);
+                            var result = edifice == null || edifice.def.passability != Traversability.Impassable || edifice == this.parent;
+                            if (result && (GenSight.LineOfSight(cell, x, map) || cell.DistanceTo(x) <= 1.5f))
+                            {
+                                affectedCells.Add(x);
+                            }
+                        }
+                    }, int.MaxValue, rememberParents: false, (IEnumerable<IntVec3>)null);
+                }
+
 				affectedCells.AddRange(this.parent.OccupiedRect().Where(x => CanWorkIn(x)));
 				affectedCellsList.AddRange(affectedCells.ToList());
 				foreach (var cell in affectedCells)
@@ -190,11 +201,12 @@ namespace ProxyHeat
         public override void PostDrawExtraSelectionOverlays()
         {
             base.PostDrawExtraSelectionOverlays();
-			if (this.TemperatureOutcome >= 0)
+			var tempOutcome = this.TemperatureOutcome;
+            if (tempOutcome > 0)
             {
 				GenDraw.DrawFieldEdges(affectedCellsList, GenTemperature.ColorRoomHot);
             }
-			else
+			else if (tempOutcome < 0)
             {
 				GenDraw.DrawFieldEdges(affectedCellsList, GenTemperature.ColorRoomCold);
 			}
@@ -326,7 +338,9 @@ namespace ProxyHeat
 		public override void PostExposeData()
         {
             base.PostExposeData();
-			Scribe_Values.Look(ref active, "active");
+            Scribe_Values.Look(ref active, "active");
+            Scribe_Values.Look(ref lastRoomTemperatureChange, "lastRoomTemperatureChange");
+            Scribe_Values.Look(ref lastRoomTemperatureChangeTicks, "lastRoomTemperatureChangeTicks");
         }
     }
 }
