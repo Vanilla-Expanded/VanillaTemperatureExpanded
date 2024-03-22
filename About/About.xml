@@ -25,4 +25,7 @@
     <li>Ludeon.RimWorld</li>
     <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
   </loadAfter>
+  <incompatibleWith>
+	<li>LongerCFloor.ProxyHeat</li>
+  </incompatibleWith>
 </ModMetaData>

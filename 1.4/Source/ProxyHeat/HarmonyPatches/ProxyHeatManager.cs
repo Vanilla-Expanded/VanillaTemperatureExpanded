@@ -104,6 +104,7 @@ namespace ProxyHeat
                         {
                             continue;
                         }
+                        //Log.Message("cell: " + cell + " tempSourceCandidate: " + tempSourceCandidate + " - tempOutcome: " + tempOutcome);
                         tempResult += tempOutcome;
                         if (props.maxTemperature.HasValue && result < props.maxTemperature.Value && tempResult > props.maxTemperature.Value && tempResult > result)
                         {

@@ -17,7 +17,7 @@
 				<xpath>/Defs/ThingDef[defName = "Campfire"]/comps</xpath>
 				<value>
 					<li Class="ProxyHeat.CompProperties_TemperatureSource">
-						<radius>2.6</radius>
+						<radius>2.5</radius>
 						<tempOutcome>18</tempOutcome>
 						<dependsOnFuel>true</dependsOnFuel>
 						<maxTemperature>30</maxTemperature>
@@ -86,7 +86,7 @@
 				<xpath>/Defs/ThingDef[defName = "Heater"]/comps</xpath>
 				<value>
 					<li Class="ProxyHeat.CompProperties_TemperatureSource">
-						<radius>2</radius>
+						<radius>2.5</radius>
 						<tempOutcome>21</tempOutcome>
 						<minTemperature>0</minTemperature>
 						<maxTemperature>40</maxTemperature>
@@ -112,7 +112,7 @@
 				<xpath>/Defs/ThingDef[defName = "Cooler"]/comps</xpath>
 				<value>
 					<li Class="ProxyHeat.CompProperties_TemperatureSource">
-						<radius>2</radius>
+						<radius>2.5</radius>
 						<tempOutcome>-10</tempOutcome>
 						<maxTemperature>-1</maxTemperature>
 						<minTemperature>-40</minTemperature>
