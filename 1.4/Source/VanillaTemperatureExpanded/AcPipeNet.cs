@@ -74,22 +74,28 @@ public class AcPipeNet : PipeNet
             effToChange = true;
         }
 
-        foreach (var compResourceTrader in producersOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
-        {
-            compResourceTrader.ResourceOn = true;
-            effToChange = true;
-            (compResourceTrader as CompResourceTrader_AC)?.UpdateOverlayHandle();
-        }
-
         var wouldOverload = WouldOverload();
-        //if in normal flow OR in zero state but can start gracefully
-        if (receiversOn.Count > 0 || (wouldOverload && receiversOn.Count == 0))
-            foreach (var compResourceTrader in receiversOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
+        if (ControllerList.Count(c => c.resourceComp.ResourceOn || c.resourceComp.CanBeOn()) == 1)
+        {
+            //if in normal flow OR in zero state but can start gracefully
+            if (receiversOn.Count > 0 || (!wouldOverload && receiversOn.Count == 0))
+            {
+                foreach (var compResourceTrader in receiversOff.Where(
+                             compResourceTrader => compResourceTrader.CanBeOn()))
+                {
+                    compResourceTrader.ResourceOn = true;
+                    effToChange = true;
+                    (compResourceTrader as CompResourceTrader_AC)?.UpdateOverlayHandle();
+                }
+            }
+
+            foreach (var compResourceTrader in producersOff.Where(compResourceTrader => compResourceTrader.CanBeOn()))
             {
                 compResourceTrader.ResourceOn = true;
                 effToChange = true;
                 (compResourceTrader as CompResourceTrader_AC)?.UpdateOverlayHandle();
             }
+        }
 
         if (effToChange)
         {
