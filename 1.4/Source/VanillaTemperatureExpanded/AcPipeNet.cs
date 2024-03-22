@@ -143,13 +143,13 @@ public class AcPipeNet : PipeNet
 
     public bool WouldOverload()
     {
-        var efficiencyFactor = Production - producersOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption) -
+        var efficiencyFactor = Production + producersOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption) -
                                (Consumption + receiversOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption));
 
         var x = efficiencyFactor < 0
             ? Math.Max(MinEff, BaseEff - 0.05f * Math.Abs(efficiencyFactor))
             : Math.Min(MaxEff, BaseEff + 0.01f * Math.Abs(efficiencyFactor));
 
-        return x <= MinEff;
+        return x < MinEff;
     }
 }
