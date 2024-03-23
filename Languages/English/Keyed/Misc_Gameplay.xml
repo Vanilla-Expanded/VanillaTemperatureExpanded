@@ -5,4 +5,10 @@
 	<VTE.MustPlaceHeaterWithFreeSpaces>The hot side of the heater must be exposed.</VTE.MustPlaceHeaterWithFreeSpaces>
 	<VTE.MustPlaceUnderRoof>Must be placed under a roof.</VTE.MustPlaceUnderRoof>
 	<VTE.CannotPlaceAdjacentCeilingFan>Cannot be placed next to ceiling fans.</VTE.CannotPlaceAdjacentCeilingFan>
+	<VTE.Efficiency>Network efficiency</VTE.Efficiency>
+	<VTE.NetworkTargetTemp>Network target temperature</VTE.NetworkTargetTemp>
+	<VTE.Production>Production</VTE.Production>
+	<VTE.Consumption>Consumption</VTE.Consumption>
+	<VTE.TotalProduction>Total production</VTE.TotalProduction>
+	<VTE.TotalConsumption>Total consumption</VTE.TotalConsumption>
 </LanguageData>

@@ -195,16 +195,16 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>100</basePowerConsumption>
       </li>
-      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceTrader_AC">
-        <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
-        <pipeNet>VTE_EfficiencyNet</pipeNet>
-        <consumptionPerTick>1</consumptionPerTick>
-      </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_TempControl">
         <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
         <energyPerSecond>-21</energyPerSecond>
+      </li>
+      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceTrader_AC">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>1</consumptionPerTick>
       </li>
     </comps>
     <designationCategory>Temperature</designationCategory>
@@ -254,17 +254,17 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>100</basePowerConsumption>
       </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="VanillaFurnitureExpanded.CompProperties_MountableOnWall"/>
+      <li Class="CompProperties_TempControl">
+        <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
+        <energyPerSecond>-21</energyPerSecond>
+      </li>
       <li Class="VanillaTemperatureExpanded.CompProperties_ResourceTrader_AC">
         <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>1</consumptionPerTick>
-      </li>
-      <li Class="CompProperties_Flickable"/>
-      <li Class="CompProperties_Breakdownable"/>
-	  <li Class="VanillaFurnitureExpanded.CompProperties_MountableOnWall"/>
-      <li Class="CompProperties_TempControl">
-        <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
-        <energyPerSecond>-21</energyPerSecond>
       </li>
     </comps>
     <designationCategory>Temperature</designationCategory>

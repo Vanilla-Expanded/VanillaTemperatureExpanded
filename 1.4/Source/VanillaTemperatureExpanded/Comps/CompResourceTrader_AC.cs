@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Text;
 using PipeSystem;
 using UnityEngine;
 using Verse;
@@ -74,5 +73,14 @@ public class CompResourceTrader_AC : CompResourceTrader
             }
             
         }
+    }
+
+    public override string CompInspectStringExtra()
+    {        
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
+        stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
+        stringBuilder.Append("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
+        return stringBuilder.ToString();
     }
 }

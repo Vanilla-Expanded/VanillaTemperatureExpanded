@@ -1,3 +1,4 @@
+using System.Text;
 using PipeSystem;
 using UnityEngine;
 using Verse;
@@ -81,5 +82,17 @@ public class CompResourceTrader_Compressor : CompResourceTrader
                 pipeNetOverlayDrawer.TogglePulsing(parent, missingControlMat, true);
             }
         }
+    }
+    
+    
+    public override string CompInspectStringExtra()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
+        stringBuilder.AppendLine("VTE.Production".Translate() + ": " + Consumption * -1);
+        stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
+        stringBuilder.Append("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
+
+        return stringBuilder.ToString();
     }
 }

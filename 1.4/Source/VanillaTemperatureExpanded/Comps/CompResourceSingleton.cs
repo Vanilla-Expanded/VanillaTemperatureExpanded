@@ -1,5 +1,7 @@
-﻿using PipeSystem;
+﻿using System.Text;
+using PipeSystem;
 using UnityEngine;
+using VanillaTemperatureExpanded.Buildings;
 using Verse;
 
 namespace VanillaTemperatureExpanded.Comps;
@@ -62,5 +64,17 @@ public class CompResourceSingleton : CompResourceTrader
                 pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, AcPipeNet is { Efficiency: 0f });
             }
         }
+    }
+
+    public override string CompInspectStringExtra()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine("VTE.NetworkTargetTemp".Translate() + ": " +
+                                 ((Building_AcControlUnit)parent).TargetNetworkTemperature.ToStringTemperature("F0"));
+        stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
+        stringBuilder.AppendLine("VTE.Production".Translate() + ": " + Consumption * -1);
+        stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
+        stringBuilder.Append("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
+        return stringBuilder.ToString();
     }
 }
