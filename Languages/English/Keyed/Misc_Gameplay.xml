@@ -11,4 +11,8 @@
 	<VTE.Consumption>Consumption</VTE.Consumption>
 	<VTE.TotalProduction>Total production</VTE.TotalProduction>
 	<VTE.TotalConsumption>Total consumption</VTE.TotalConsumption>
+	<VTE.Relink>Link temperature</VTE.Relink>
+	<VTE.Unlink>Unlink temperature</VTE.Unlink>
+	<VTE.AcRelinkDescription>Link this AC unit with the system, inheriting the desired temperature.</VTE.AcRelinkDescription>
+	<VTE.AcUnlinkDescription>Unlink this AC unit from inheriting desired temperature from the system.</VTE.AcUnlinkDescription>
 </LanguageData>

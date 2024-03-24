@@ -43,8 +43,8 @@ public class CompAcTempControl : CompTempControl
                         targetTemperature = pipeNet.ControllerList.First().TargetNetworkTemperature;
                     }
                 },
-                defaultLabel = IndependentTemp ? "Relink" : "Unlink",
-                defaultDesc = "todo".Translate(),
+                defaultLabel = IndependentTemp ? "VTE.Relink".Translate() : "VTE.Unlink".Translate(),
+                defaultDesc =IndependentTemp ? "VTE.AcRelinkDescription".Translate() : "VTE.AcUnlinkDescription".Translate(),
                 hotKey = KeyBindingDefOf.Misc3,
                 icon = IndependentTemp
                     ? ContentFinder<Texture2D>.Get("UI/Commands/Gizmo_LinkWithACControlUnit")
