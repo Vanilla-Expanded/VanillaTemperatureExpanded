@@ -74,11 +74,10 @@ public class AcPipeNet : PipeNet
             effToChange = true;
         }
 
-        var wouldOverload = WouldOverload();
         if (ControllerList.Count(c => c.resourceComp.ResourceOn || c.resourceComp.CanBeOn()) == 1)
         {
             //if in normal flow OR in zero state but can start gracefully
-            if (receiversOn.Count > 0 || (!wouldOverload && receiversOn.Count == 0))
+            if (receiversOn.Count > 0 || (!WouldOverload() && receiversOn.Count == 0))
             {
                 foreach (var compResourceTrader in receiversOff.Where(
                              compResourceTrader => compResourceTrader.CanBeOn()))
@@ -117,7 +116,7 @@ public class AcPipeNet : PipeNet
                 }
             }
 
-            if (!wouldOverload)
+            if (!WouldOverload())
             {
                 foreach (var singleton in ControllerList)
                 {
