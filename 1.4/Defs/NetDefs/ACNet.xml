@@ -89,6 +89,75 @@
       <li>AirConditioning</li>
     </researchPrerequisites>
   </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_UndergroundAirDuct</defName>
+    <label>subterranean air duct</label>
+    <description>A subterranean air duct used by the AC network to transport air between the AC units and compressors.</description>
+    <thingClass>PipeSystem.Building_Pipe</thingClass>
+    <category>Building</category>
+    <tickerType>Rare</tickerType>
+    <graphicData>
+      <texPath>UI/CSG/IConduit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <linkType>Basic</linkType>
+      <linkFlags>
+        <li>Custom7</li>
+      </linkFlags>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Things/Building/Linked/ACDuct_MenuIcon</uiIconPath>
+    <uiIconScale>0.7</uiIconScale>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <blueprintGraphicData>
+        <texPath>Things/Building/Linked/ACDuct_Blueprint_Atlas</texPath>
+      </blueprintGraphicData>
+    </building>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>35</WorkToBuild>
+      <Flammability>0.7</Flammability>
+	  <MarketValue>2</MarketValue>
+    </statBases>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <costList>
+      <Steel>1</Steel>
+    </costList>
+    <comps>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="PipeSystem.CompProperties_SpillWhenDamaged">
+        <spillEachTicks>600</spillEachTicks>
+        <startAtHitPointsPercent>0.333</startAtHitPointsPercent>
+        <amountToDraw>1</amountToDraw>
+        <filthMaxSpawnRadius>1</filthMaxSpawnRadius>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PipeSystem.PlaceWorker_Pipe</li>
+    </placeWorkers>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Temperature</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <clearBuildingArea>false</clearBuildingArea>
+    <researchPrerequisites>
+      <li>AirConditioning</li>
+    </researchPrerequisites>
+  </ThingDef>
 
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACControlUnit</defName>
