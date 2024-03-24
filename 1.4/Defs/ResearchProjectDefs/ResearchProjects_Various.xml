@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  
+	<ResearchProjectDef>
+		<defName>VTE_HVAC</defName>
+		<label>HVAC</label>
+		<description>Build a reliable air conditioning system connecting AC control units and compressors to AC units via air ducts.</description>
+		<baseCost>1000</baseCost>
+		<techLevel>Industrial</techLevel>
+		<prerequisites>
+	        <li>AirConditioning</li>
+		</prerequisites>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+        <researchViewX>4.00</researchViewX>
+        <researchViewY>4.30</researchViewY>
+		<tab>VanillaExpanded</tab>
+	</ResearchProjectDef>
+
+</Defs>
