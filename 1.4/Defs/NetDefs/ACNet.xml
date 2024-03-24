@@ -86,7 +86,7 @@
     <constructEffect>ConstructMetal</constructEffect>
     <clearBuildingArea>false</clearBuildingArea>
     <researchPrerequisites>
-      <li>AirConditioning</li>
+      <li>VTE_HVAC</li>
     </researchPrerequisites>
   </ThingDef>
   
@@ -155,7 +155,7 @@
     <constructEffect>ConstructMetal</constructEffect>
     <clearBuildingArea>false</clearBuildingArea>
     <researchPrerequisites>
-      <li>AirConditioning</li>
+      <li>VTE_HVAC</li>
     </researchPrerequisites>
   </ThingDef>
 
@@ -217,7 +217,7 @@
       <li>BuildingsTemperature</li>
     </thingCategories>
     <researchPrerequisites> 
-      <li>AirConditioning</li>
+      <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
   </ThingDef>
@@ -278,7 +278,7 @@
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites>
-      <li>AirConditioning</li>
+      <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
   </ThingDef>
@@ -338,7 +338,7 @@
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites>
-      <li>AirConditioning</li>
+      <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
   </ThingDef>
@@ -392,7 +392,7 @@
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites>
-      <li>AirConditioning</li>
+      <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
   </ThingDef>
@@ -448,7 +448,7 @@
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites>
-      <li>AirConditioning</li>
+      <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
   </ThingDef>
