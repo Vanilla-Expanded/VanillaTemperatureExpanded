@@ -93,7 +93,7 @@ public class AcPipeNet : PipeNet
             {
                 compResourceTrader.ResourceOn = true;
                 effToChange = true;
-                (compResourceTrader as CompResourceTrader_AC)?.UpdateOverlayHandle();
+                (compResourceTrader as CompResourceTrader_Compressor)?.UpdateOverlayHandle();
             }
         }
 
