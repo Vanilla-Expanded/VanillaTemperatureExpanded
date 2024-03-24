@@ -295,7 +295,7 @@
     <placeWorkers>
       <li>VanillaTemperatureExpanded.Placeworker_AcUnit</li>
     </placeWorkers>
-    <altitudeLayer>Building</altitudeLayer>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
     <passability>PassThroughOnly</passability>
     <blockWind>true</blockWind>
     <fillPercent>0.75</fillPercent>
