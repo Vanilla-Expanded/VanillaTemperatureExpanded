@@ -14,6 +14,9 @@
         <researchViewX>4.00</researchViewX>
         <researchViewY>4.30</researchViewY>
 		<tab>VanillaExpanded</tab>
+	    <!-- <unlocksDesignators>
+		    <li></li>
+	    </unlocksDesignators> -->
 	</ResearchProjectDef>
 
 </Defs>
