@@ -6,7 +6,7 @@
     <resource>
       <name>Efficiency</name>
       <unit>l</unit>
-      <color>(0.31, 0.26, 0.27)</color>
+      <color>(244, 144, 12)</color>
       <onlyShowStored>True</onlyShowStored>
     </resource>
     <pipeDefs>
@@ -17,7 +17,7 @@
       <designationCategoryDef>Temperature</designationCategoryDef>
     </designator>
     <overlayOptions>
-      <overlayColor>(0.31, 0.26, 0.27)</overlayColor>
+      <overlayColor>(244, 144, 12)</overlayColor>
     </overlayOptions>
   </PipeSystem.PipeNetDef>
 
