@@ -15,4 +15,8 @@
 	<VTE.Unlink>Unlink temperature</VTE.Unlink>
 	<VTE.AcRelinkDescription>Link this AC unit with the system, inheriting the desired temperature.</VTE.AcRelinkDescription>
 	<VTE.AcUnlinkDescription>Unlink this AC unit from inheriting desired temperature from the system.</VTE.AcUnlinkDescription>
+	<VTE.MissingCompressors>Cannot work: Not enough compressors connected.</VTE.MissingCompressors>
+	<VTE.MissingController>Cannot work: Missing AC control unit.</VTE.MissingController>
+	<VTE.TooManyControllers>Cannot work: Connected to more than one AC control unit.</VTE.TooManyControllers>
+	<VTE.CompressorCovered>Cannot work: Covered by roof.</VTE.CompressorCovered>
 </LanguageData>

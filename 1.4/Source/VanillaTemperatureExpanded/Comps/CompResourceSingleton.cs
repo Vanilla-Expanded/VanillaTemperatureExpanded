@@ -69,12 +69,29 @@ public class CompResourceSingleton : CompResourceTrader
     public override string CompInspectStringExtra()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine("VTE.NetworkTargetTemp".Translate() + ": " +
-                                 ((Building_AcControlUnit)parent).TargetNetworkTemperature.ToStringTemperature("F0"));
-        stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
-        stringBuilder.AppendLine("VTE.Production".Translate() + ": " + Consumption * -1);
-        stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
-        stringBuilder.Append("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
-        return stringBuilder.ToString();
+        if (!ResourceOn)
+        {
+            if (AcPipeNet.ControllerList.Count(controller =>
+                    parent != controller && controller.resourceComp.CanBeOn()) > 0)
+            {
+                stringBuilder.AppendLine("VTE.TooManyControllers".Translate());
+            }
+            else if (AcPipeNet.Efficiency == 0f)
+            {
+                stringBuilder.AppendLine("VTE.MissingCompressors".Translate());
+            }
+        }
+        else
+        {
+            stringBuilder.AppendLine("VTE.NetworkTargetTemp".Translate() + ": " +
+                                     ((Building_AcControlUnit)parent).TargetNetworkTemperature
+                                     .ToStringTemperature("F0"));
+            stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
+            stringBuilder.AppendLine("VTE.Production".Translate() + ": " + Consumption * -1);
+            stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
+            stringBuilder.AppendLine("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
+        }
+
+        return stringBuilder.ToString().Trim();
     }
 }

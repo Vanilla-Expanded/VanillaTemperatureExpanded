@@ -9,6 +9,7 @@ namespace VanillaTemperatureExpanded;
 public class CompResourceTrader_Compressor : CompResourceTrader
 {
     private PipeNetOverlayDrawer pipeNetOverlayDrawer;
+
     public override bool CanBeOn()
     {
         return base.CanBeOn() && !RoofUtility.IsAnyCellUnderRoof(parent);
@@ -28,7 +29,7 @@ public class CompResourceTrader_Compressor : CompResourceTrader
     {
         pipeNetOverlayDrawer = parent.Map.GetComponent<PipeNetOverlayDrawer>();
         base.PostSpawnSetup(respawningAfterLoad);
-        // UpdateOverlayHandle();
+        UpdateOverlayHandle();
     }
 
     public override void PostDeSpawn(Map map)
@@ -83,16 +84,42 @@ public class CompResourceTrader_Compressor : CompResourceTrader
             }
         }
     }
-    
-    
+
+
     public override string CompInspectStringExtra()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
-        stringBuilder.AppendLine("VTE.Production".Translate() + ": " + Consumption * -1);
-        stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
-        stringBuilder.Append("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
+        if (!ResourceOn)
+        {
+            var tooManyControls = AcPipeNet.ControllerList.Count(c => c.resourceComp.CanBeOn()) > 1;
+            var notEnough = !AcPipeNet.ControllerList.Any(c => c.resourceComp.CanBeOn());
+            var anyRoofed = RoofUtility.IsAnyCellUnderRoof(parent);
 
-        return stringBuilder.ToString();
+            if (anyRoofed)
+            {
+                stringBuilder.AppendLine("VTE.CompressorCovered".Translate());
+            }
+            else if (tooManyControls)
+            {
+                stringBuilder.AppendLine("VTE.TooManyControllers".Translate());
+            }
+            else if (notEnough)
+            {
+                stringBuilder.AppendLine("VTE.MissingController".Translate());
+            }
+            else
+            {
+                stringBuilder.AppendLine("VTE.MissingCompressors".Translate());
+            }
+        }
+        else
+        {
+            stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
+            stringBuilder.AppendLine("VTE.Production".Translate() + ": " + Consumption * -1);
+            stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
+            stringBuilder.AppendLine("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
+        }
+
+        return stringBuilder.ToString().Trim();
     }
 }
