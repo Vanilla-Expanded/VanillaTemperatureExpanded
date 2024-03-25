@@ -86,7 +86,7 @@ public class CompResourceSingleton : CompResourceTrader
             stringBuilder.AppendLine("VTE.NetworkTargetTemp".Translate() + ": " +
                                      ((Building_AcControlUnit)parent).TargetNetworkTemperature
                                      .ToStringTemperature("F0"));
-            stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency * 100 + "%");
+            stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency.ToStringPercent());
             stringBuilder.AppendLine("VTE.Production".Translate() + ": " + Consumption * -1);
             stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
             stringBuilder.AppendLine("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
