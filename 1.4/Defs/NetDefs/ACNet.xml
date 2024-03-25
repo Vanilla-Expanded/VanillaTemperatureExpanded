@@ -208,6 +208,7 @@
       <li Class="VanillaTemperatureExpanded.Comps.CompProperties_ResourceSingleton">
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>-2</consumptionPerTick>
+        <idleConsumptionPerTick>-2</idleConsumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
@@ -274,6 +275,7 @@
         <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>1</consumptionPerTick>
+        <idleConsumptionPerTick>1</idleConsumptionPerTick>
       </li>
     </comps>
     <designationCategory>Temperature</designationCategory>
@@ -334,6 +336,7 @@
         <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>1</consumptionPerTick>
+        <idleConsumptionPerTick>1</idleConsumptionPerTick>
       </li>
     </comps>
     <designationCategory>Temperature</designationCategory>
@@ -386,6 +389,7 @@
         <soundAmbientReceivingResource>GeothermalPlant_Ambience</soundAmbientReceivingResource>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>-2</consumptionPerTick>
+        <idleConsumptionPerTick>-2</idleConsumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
@@ -442,6 +446,7 @@
         <soundAmbientReceivingResource>GeothermalPlant_Ambience</soundAmbientReceivingResource>
         <pipeNet>VTE_EfficiencyNet</pipeNet>
         <consumptionPerTick>-6</consumptionPerTick>
+        <idleConsumptionPerTick>-6</idleConsumptionPerTick>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>

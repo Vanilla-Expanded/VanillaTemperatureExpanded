@@ -116,11 +116,11 @@ public class AcPipeNet : PipeNet
                 }
             }
 
-            if (!WouldOverload())
+            var stable = !WouldOverload();
             {
                 foreach (var singleton in ControllerList)
                 {
-                    if (ControllerList.Count(c => c.resourceComp.CanBeOn()) == 1 && singleton.resourceComp.CanBeOn())
+                    if (stable && ControllerList.Count(c => c.resourceComp.CanBeOn()) == 1 && singleton.resourceComp.CanBeOn())
                     {
                         singleton.resourceComp.ResourceOn = true;
                     }
@@ -148,13 +148,13 @@ public class AcPipeNet : PipeNet
 
     public bool WouldOverload()
     {
-        var efficiencyFactor = Production + producersOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption) -
+        var efficiencyFactor = Production + -producersOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption) -
                                (Consumption + receiversOff.Where(c => c.CanBeOn()).Sum(c => c.Consumption));
 
         var x = efficiencyFactor < 0
             ? Math.Max(MinEff, BaseEff - 0.05f * Math.Abs(efficiencyFactor))
             : Math.Min(MaxEff, BaseEff + 0.01f * Math.Abs(efficiencyFactor));
 
-        return x < MinEff;
+        return x <= MinEff;
     }
 }
