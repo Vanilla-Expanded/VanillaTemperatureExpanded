@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
 using VanillaTemperatureExpanded.Comps;
@@ -171,8 +172,8 @@ public class Building_AcControlUnit : Building
         return resourceComp.AcPipeNet.Efficiency switch
         {
             0f => 0f,
-            < 1f => 0.2f,
-            > 1f => 1f,
+            <= 1f => Math.Max(0.01f,resourceComp.AcPipeNet.Efficiency * 0.5f),
+            > 1f => resourceComp.AcPipeNet.Efficiency - 0.5f,
             _ => 0.5f
         };
     }
@@ -181,7 +182,7 @@ public class Building_AcControlUnit : Building
     {
         return resourceComp.AcPipeNet.Efficiency switch
         {
-            < 1f => LowEffFilledMat,
+            < 0.75f => LowEffFilledMat,
             > 1f => HighEffFilledMat,
             _ => MedEffFilledMat
         };
