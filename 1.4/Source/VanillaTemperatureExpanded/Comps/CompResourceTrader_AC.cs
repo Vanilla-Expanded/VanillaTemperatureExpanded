@@ -100,8 +100,6 @@ public class CompResourceTrader_AC : CompResourceTrader
         else
         {
             stringBuilder.AppendLine("VTE.Efficiency".Translate() + ": " + AcPipeNet.Efficiency.ToStringPercent());
-            stringBuilder.AppendLine("VTE.TotalProduction".Translate() + ": " + AcPipeNet.Production);
-            stringBuilder.Append("VTE.TotalConsumption".Translate() + ": " + AcPipeNet.Consumption);
         }
 
         return stringBuilder.ToString().Trim();
