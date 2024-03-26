@@ -172,7 +172,7 @@ public class Building_AcControlUnit : Building
         return resourceComp.AcPipeNet.Efficiency switch
         {
             0f => 0f,
-            <= 1f => Math.Max(0.01f,resourceComp.AcPipeNet.Efficiency * 0.5f),
+            <= 1f => Math.Max(0.1f,resourceComp.AcPipeNet.Efficiency * 0.5f),
             > 1f => resourceComp.AcPipeNet.Efficiency - 0.5f,
             _ => 0.5f
         };
