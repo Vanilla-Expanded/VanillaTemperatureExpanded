@@ -19,4 +19,6 @@
 	<VTE.MissingController>Cannot work: Missing AC control unit.</VTE.MissingController>
 	<VTE.TooManyControllers>Cannot work: Connected to more than one AC control unit.</VTE.TooManyControllers>
 	<VTE.CompressorCovered>Cannot work: Covered by roof.</VTE.CompressorCovered>
+	<VTE_VentValve>Switches air flow on/off.</VTE_VentValve>
+	<VTE_VentValveDesc>Switches air flow on/off. A pawn will come open/close the valve.</VTE_VentValveDesc>
 </LanguageData>
