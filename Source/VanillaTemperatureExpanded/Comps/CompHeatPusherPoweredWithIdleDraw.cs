@@ -5,7 +5,7 @@ namespace VanillaTemperatureExpanded.Comps;
 
 public class CompHeatPusherPoweredWithIdleDraw : CompHeatPusherPowered
 {
-    protected override bool ShouldPushHeatNow
+    public override bool ShouldPushHeatNow
     {
         get
         {

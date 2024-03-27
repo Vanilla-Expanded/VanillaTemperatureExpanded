@@ -150,11 +150,11 @@ public class Building_AcControlUnit : Building
     private static readonly Material BatteryBarUnfilledMat =
         SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.3f, 0.3f, 0.3f));
     
-    public override void Draw()
+    protected override void DrawAt(Vector3 drawLoc, bool flip = false)
     {
-        base.Draw();
+        base.DrawAt(drawLoc, flip);
         GenDraw.FillableBarRequest fillableBarRequest = default(GenDraw.FillableBarRequest);
-        fillableBarRequest.center = DrawPos + BarOffset;
+        fillableBarRequest.center = drawLoc + BarOffset;
         fillableBarRequest.size = BarSize;
         fillableBarRequest.fillPercent = FillPct();
         fillableBarRequest.filledMat = BarMat();
