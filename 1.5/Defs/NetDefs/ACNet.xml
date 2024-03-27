@@ -91,6 +91,60 @@
   </ThingDef>
   
   <ThingDef ParentName="BuildingBase">
+    <defName>VTE_VentValve</defName>
+    <label>air duct valve</label>
+    <description>Switches air flow on/off.</description>
+    <thingClass>PipeSystem.Building_PipeValve</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Things/Building/Linked/VentValve</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <allowWireConnection>false</allowWireConnection>
+    </building>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToBuild>200</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <placingDraggableDimensions>0</placingDraggableDimensions>
+    <costList>
+      <Steel>10</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="PipeSystem.CompProperties_PipeValve">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <alwaysLinkToPipes>true</alwaysLinkToPipes>
+      </li>
+      <li Class="CompProperties_Flickable">
+        <commandTexture>UI/Overlays/AirFlowIcon</commandTexture>
+        <commandLabelKey>VTE_VentValve</commandLabelKey>
+        <commandDescKey>VTE_VentValveDesc</commandDescKey>
+      </li>
+    </comps>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>false</neverMultiSelect>
+    <tickerType>Normal</tickerType>
+    <designationCategory>Temperature</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
     <defName>VTE_UndergroundAirDuct</defName>
     <label>subterranean air duct</label>
     <description>A subterranean air duct used by the AC network to transport air between the AC units and compressors.</description>
@@ -197,7 +251,6 @@
       <Steel>80</Steel>
       <ComponentIndustrial>6</ComponentIndustrial>
 	  <Silver>100</Silver>
-	  <Gold>20</Gold>
     </costList>
     <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
     <comps>
