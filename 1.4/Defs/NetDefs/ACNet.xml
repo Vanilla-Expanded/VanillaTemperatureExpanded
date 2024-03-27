@@ -92,7 +92,7 @@
   
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_VentValve</defName>
-    <label>airduct valve</label>
+    <label>air duct valve</label>
     <description>Switches air flow on/off.</description>
     <thingClass>PipeSystem.Building_PipeValve</thingClass>
     <category>Building</category>

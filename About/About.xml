@@ -2,7 +2,15 @@
 <ModMetaData>
   <name>Vanilla Temperature Expanded</name>
   <author>Oskar Potocki, xrushha, Arquebus, Taranchuk</author>
-  <description>Text.todo</description>
+  <description>Introducing "Vanilla Temperature Expanded," a mod that adds a detailed and controllable central heating system to your game. This mod brings in a new feature called Efficiency, which affects how well your heating system runs. It's all about giving you more control over the temperature in your colony.
+
+You'll find new research options that lead you to better ways of managing temperature, creating a more engaging gameplay experience. The mod includes various components like air ducts, AC units, and compressors that you can connect to manage your air conditioning system efficiently.
+
+We've also added a new mechanic, AC Efficiency, to keep things interesting. It's a simple concept: the more devices you connect, the more your efficiency might drop, affecting power use. But you can balance things out with the right setup and planning.
+
+There are lots of new structures to play with, such as industrial coolers, heaters, wall-mounted units, and ceiling fans, giving you plenty of options for controlling your environment's temperature.
+
+"Vanilla Temperature Expanded" is designed to enhance your game by making temperature management more interactive and fun, without complicating things too much. If you're interested in adding more depth to your game's temperature system, give this mod a try!</description>
   <supportedVersions>
     <li>1.4</li>
   </supportedVersions>
