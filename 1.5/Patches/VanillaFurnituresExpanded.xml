@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Furniture Expanded</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<!-- Stone_Campfire -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[defName = "Stone_Campfire"]/comps</xpath>
+					<success>Always</success>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/ThingDef[defName = "Stone_Campfire"]</xpath>
+						<value>
+							<comps />
+						</value>
+					</nomatch>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "Stone_Campfire"]/comps</xpath>
+					<value>
+						<li Class="ProxyHeat.CompProperties_TemperatureSource">
+							<radius>2.6</radius>
+							<tempOutcome>18</tempOutcome>
+							<dependsOnFuel>true</dependsOnFuel>
+							<maxTemperature>30</maxTemperature>
+						</li>
+					</value>
+				</li>
+
+				<!-- AirConditioningUnit -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[defName = "AirConditioningUnit"]/comps</xpath>
+					<success>Always</success>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/ThingDef[defName = "AirConditioningUnit"]</xpath>
+						<value>
+							<comps />
+						</value>
+					</nomatch>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "AirConditioningUnit"]/comps</xpath>
+					<value>
+						<li Class="ProxyHeat.CompProperties_TemperatureSource">
+							<radius>3.5</radius>
+							<tempOutcome>-10</tempOutcome>
+							<maxTemperature>-1</maxTemperature>
+							<minTemperature>-40</minTemperature>
+							<dependsOnPower>true</dependsOnPower>
+							<tileOffset>(0, 0, -1)</tileOffset>
+						</li>
+					</value>
+				</li>
+
+			</operations>
+		</match>
+	</Operation>
+</Patch>
