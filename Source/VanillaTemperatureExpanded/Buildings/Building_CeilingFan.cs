@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using UnityEngine;
+using Verse;
 
 namespace VanillaTemperatureExpanded.Buildings;
 
@@ -6,7 +7,7 @@ public class Building_CeilingFan : Building
 {
     public float angle;
 
-    public override void Draw()
+    protected override void DrawAt(Vector3 drawLoc, bool flip = false)
     {
         Graphic.Draw(DrawPos, Rotation, this, angle);
     }

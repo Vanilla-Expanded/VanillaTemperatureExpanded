@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Vikings</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<!-- VFEV_FuneralPyre -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[defName = "VFEV_FuneralPyre"]/comps</xpath>
+					<success>Always</success>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/ThingDef[defName = "VFEV_FuneralPyre"]</xpath>
+						<value>
+							<comps />
+						</value>
+					</nomatch>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "VFEV_FuneralPyre"]/comps</xpath>
+					<value>
+						<li Class="ProxyHeat.CompProperties_TemperatureSource">
+							<radius>2.5</radius>
+							<tempOutcome>24</tempOutcome>
+							<dependsOnFuel>true</dependsOnFuel>
+						</li>
+					</value>
+				</li>
+				<!-- VFEV_Hearth -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[defName = "VFEV_Hearth"]/comps</xpath>
+					<success>Always</success>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/ThingDef[defName = "VFEV_Hearth"]</xpath>
+						<value>
+							<comps />
+						</value>
+					</nomatch>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "VFEV_Hearth"]/comps</xpath>
+					<value>
+						<li Class="ProxyHeat.CompProperties_TemperatureSource">
+							<radius>2.5</radius>
+							<tempOutcome>16</tempOutcome>
+							<dependsOnFuel>true</dependsOnFuel>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

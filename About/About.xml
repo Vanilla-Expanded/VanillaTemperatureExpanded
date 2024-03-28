@@ -13,6 +13,7 @@ There are lots of new structures to play with, such as industrial coolers, heate
 "Vanilla Temperature Expanded" is designed to enhance your game by making temperature management more interactive and fun, without complicating things too much. If you're interested in adding more depth to your game's temperature system, give this mod a try!</description>
   <supportedVersions>
     <li>1.4</li>
+    <li>1.5</li>
   </supportedVersions>
   <packageId>VanillaExpanded.Temperature</packageId>
   <modDependencies>
