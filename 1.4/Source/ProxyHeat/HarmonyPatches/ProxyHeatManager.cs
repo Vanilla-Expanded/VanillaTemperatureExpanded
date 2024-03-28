@@ -89,9 +89,11 @@ namespace ProxyHeat
                     }
                     return result;
                 }
-                var tempResult = result;
+
+                var tempResults = new List<float>();
                 foreach (var tempSourceCandidate in tempSources)
                 {
+                    var tempResult = result;
                     var props = tempSourceCandidate.Props;
                     var tempOutcome = tempSourceCandidate.TemperatureOutcome;
                     if (tempOutcome != 0)
@@ -115,8 +117,16 @@ namespace ProxyHeat
                             tempResult = props.minTemperature.Value;
                         }
                     }
+                    tempResults.Add(tempResult);
                 }
-                result = tempResult;
+                if (tempResults.Count > 1)
+                {
+                    result = tempResults.Average();
+                }
+                else if (tempResults.Count == 1)
+                {
+                    result = tempResults[0];
+                }
             }
             return result;
         }

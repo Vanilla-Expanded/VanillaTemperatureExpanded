@@ -89,14 +89,14 @@ namespace ProxyHeat
 			}
 		}
 
-		public static float? heatpushCurrent;
+		public static (Building source, float heatpush)? heatpushData;
 		public static void TickRare_Postfix(Building_TempControl __instance)
 		{
-			if (heatpushCurrent.HasValue)
+			if (heatpushData.HasValue && heatpushData.Value.source == __instance)
 			{
                 var compPowerTrader = __instance.compPowerTrader;
                 CompProperties_Power props = compPowerTrader.Props;
-                var flag = !Mathf.Approximately(heatpushCurrent.Value, 0f);
+                var flag = !Mathf.Approximately(heatpushData.Value.heatpush, 0f);
                 if (flag)
                 {
                     compPowerTrader.PowerOutput = 0f - props.PowerConsumption;
@@ -107,7 +107,7 @@ namespace ProxyHeat
                 }
                 __instance.compTempControl.operatingAtHighPower = flag;
             }
-			heatpushCurrent = null;
+			heatpushData = null;
         }
 
 		private static MethodInfo get_Position = AccessTools.PropertyGetter(typeof(Thing), nameof(Thing.Position));
@@ -174,8 +174,7 @@ namespace ProxyHeat
                 {
                     var comp = building.GetComp<CompTemperatureSource>();
                     float b = energyLimit / (float)comp.AffectedCells.Count;
-					var cellTemperature = cell.GetTemperature(building.Map);
-					GlobalControls_TemperatureString_Patch.ModifyTemperatureIfNeeded(ref cellTemperature, cell, building.Map);
+                    var cellTemperature = cell.GetTemperature(building.Map);
                     float a = building.compTempControl.targetTemperature - cellTemperature;
                     float heatPush;
                     float num;
@@ -189,42 +188,46 @@ namespace ProxyHeat
                         num = Mathf.Max(a, b);
                         heatPush = Mathf.Min(num, 0f);
                     }
-                    var ticksPassed = Find.TickManager.TicksGame - comp.lastRoomTemperatureChangeTicks;
-                    comp.lastRoomTemperatureChangeTicks = Find.TickManager.TicksGame;
-                    if (ticksPassed > GenTicks.TickRareInterval)
-                    {
-                        comp.lastRoomTemperatureChange = heatPush;
-                    }
-                    else if (ticksPassed > GenDate.TicksPerHour)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        comp.lastRoomTemperatureChange += heatPush;
-                    }
-
-                    if (comp.lastRoomTemperatureChangeTicks != Find.TickManager.TicksGame)
-                    {
-                        heatpushCurrent = heatPush;
-                    }
-                    else
-                    {
-                        heatpushCurrent += heatPush;
-                    }
-                    //Log.Message("BEFORE: cellTemperature: " + cellTemperature + " - b: " +
-					//	b + " - heatPush: " + heatPush + " - a: " + a + " - energyLimit: " + energyLimit
-					//	+ " - cellCount: " + comp.AffectedCells.Count + " - ticksPassed: " + ticksPassed + " - cell: " + cell);
-
-                    float diff = TempDiffFromOutdoorsAdjusted(building.Map, cellTemperature);
-					var intervalChange = diff * 0.0007f * (float)ticksPassed;
-                    comp.lastRoomTemperatureChange += intervalChange;
-                    //Log.Message("AFTER: cellTemperature: " + cellTemperature + " - b: " +
-					//	b + " - heatPush: " + heatPush + " - a: " + a + " - energyLimit: " + energyLimit
-					//	+ " - cellCount: " + comp.AffectedCells.Count + " - intervalChange: " + intervalChange
-					//	+ " - ticksPassed: " + ticksPassed + " - diff: " + diff + " - cell: " + cell);
+                    RegisterHeatPush(building, comp, cellTemperature, heatPush);
                 }
             }
+        }
+
+        private static void RegisterHeatPush(Building_TempControl building, CompTemperatureSource comp, float cellTemperature, float heatPush)
+        {
+            var ticksPassed = Find.TickManager.TicksGame - comp.lastRoomTemperatureChangeTicks;
+            if (ticksPassed > GenDate.TicksPerHour)
+            {
+                comp.lastRoomTemperatureChange = 0;
+                comp.lastRoomTemperatureChangeTicks = Find.TickManager.TicksGame;
+				heatpushData = null;
+                return;
+            }
+            else if (ticksPassed > GenTicks.TickRareInterval)
+            {
+                comp.lastRoomTemperatureChange = heatPush;
+            }
+            else
+            {
+                comp.lastRoomTemperatureChange += heatPush;
+            }
+            if (comp.lastRoomTemperatureChangeTicks != Find.TickManager.TicksGame || heatpushData is null)
+            {
+                heatpushData = (building, heatPush);
+            }
+            else
+            {
+				heatpushData = (building, heatPush + heatpushData.Value.heatpush);
+            }
+
+            comp.lastRoomTemperatureChangeTicks = Find.TickManager.TicksGame;
+            float diff = TempDiffFromOutdoorsAdjusted(building.Map, cellTemperature + comp.lastRoomTemperatureChange);
+            var intervalChange = diff * 0.0007f * (float)ticksPassed;
+            comp.lastRoomTemperatureChange += intervalChange;
+            //Log.Message("cellTemperature: " + cellTemperature + " - heatPush: " + heatPush
+			//	+ " - cellCount: " + comp.AffectedCells.Count + " - intervalChange: " + intervalChange
+            //	+ " - ticksPassed: " + ticksPassed + " - diff: " + diff 
+			//	+ " - comp.lastRoomTemperatureChange: " + comp.lastRoomTemperatureChange + " - " + comp);
         }
 
         private static float TempDiffFromOutdoorsAdjusted(Map map, float cellTemperature)
