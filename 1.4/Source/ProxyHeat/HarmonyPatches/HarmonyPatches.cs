@@ -189,8 +189,8 @@ namespace ProxyHeat
                         num = Mathf.Max(a, b);
                         heatPush = Mathf.Min(num, 0f);
                     }
-                    comp.lastRoomTemperatureChangeTicks = Find.TickManager.TicksGame;
                     var ticksPassed = Find.TickManager.TicksGame - comp.lastRoomTemperatureChangeTicks;
+                    comp.lastRoomTemperatureChangeTicks = Find.TickManager.TicksGame;
                     if (ticksPassed > GenTicks.TickRareInterval)
                     {
                         comp.lastRoomTemperatureChange = heatPush;
