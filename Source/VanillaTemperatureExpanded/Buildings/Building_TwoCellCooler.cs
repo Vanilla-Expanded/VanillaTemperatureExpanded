@@ -47,7 +47,7 @@ public class Building_TwoCellCooler : Building_TempControl
                 num2 = 0f;
             }
             float num3 = compTempControl.Props.energyPerSecond * num2 * 4.1666665f;
-            float num4 = GenTemperature.ControlTemperatureTempChange(intVec, base.Map, num3, compTempControl.targetTemperature);
+            float num4 = GenTemperature.ControlTemperatureTempChange(intVec, base.Map, num3, compTempControl.TargetTemperature);
             flag = !Mathf.Approximately(num4, 0f);
             if (flag)
             {

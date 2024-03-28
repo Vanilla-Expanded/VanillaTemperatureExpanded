@@ -26,7 +26,7 @@ public class Building_AcUnit : Building_TempControl
             if (!coolerVec.Impassable(Map))
             {
                 var vecTemperature = coolerVec.GetTemperature(Map);
-                var energyDirection = compTempControl.targetTemperature < vecTemperature ? 1 : -1;
+                var energyDirection = compTempControl.TargetTemperature < vecTemperature ? 1 : -1;
                 var energyLimit = compTempControl.Props.energyPerSecond * 4.1666665f * energyDirection;
                 //upper temperature limit similar to that of core heaters
                 if (vecTemperature > 120)
@@ -35,7 +35,7 @@ public class Building_AcUnit : Building_TempControl
                 }
 
                 var tempChange = GenTemperature.ControlTemperatureTempChange(coolerVec, Map, energyLimit,
-                    compTempControl.targetTemperature);
+                    compTempControl.TargetTemperature);
 
                 highPowerMode = !Mathf.Approximately(tempChange, 0f);
                 if (highPowerMode)

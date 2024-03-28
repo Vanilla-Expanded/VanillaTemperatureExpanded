@@ -17,7 +17,7 @@ public class CompAcTempControl : CompTempControl
         var pipeNet = (AcPipeNet)parent.GetComp<CompResourceTrader>().PipeNet;
         if (!IndependentTemp && pipeNet?.ControllerList.FirstOrDefault() != null)
         {
-            targetTemperature = pipeNet.ControllerList.First().TargetNetworkTemperature;
+            TargetTemperature = pipeNet.ControllerList.First().TargetNetworkTemperature;
         }
     }
 
@@ -40,7 +40,7 @@ public class CompAcTempControl : CompTempControl
 
                     if (!IndependentTemp)
                     {
-                        targetTemperature = pipeNet.ControllerList.First().TargetNetworkTemperature;
+                        TargetTemperature = pipeNet.ControllerList.First().TargetNetworkTemperature;
                     }
                 },
                 defaultLabel = IndependentTemp ? "VTE.Relink".Translate() : "VTE.Unlink".Translate(),

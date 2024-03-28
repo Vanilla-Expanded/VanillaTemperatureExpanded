@@ -33,7 +33,7 @@ public class Building_HeaterWithOffset : Building_TempControl
         }
         float num = ((temp < 20f) ? 1f : ((!(temp > maxTemperature)) ? Mathf.InverseLerp(maxTemperature.Value, 20f, temp) : 0f));
         float energyLimit = compTempControl.Props.energyPerSecond * num * 4.1666665f;
-        float num2 = GenTemperature.ControlTemperatureTempChange(cell, base.Map, energyLimit, compTempControl.targetTemperature);
+        float num2 = GenTemperature.ControlTemperatureTempChange(cell, base.Map, energyLimit, compTempControl.TargetTemperature);
         bool flag = !Mathf.Approximately(num2, 0f);
         if (flag)
         {
