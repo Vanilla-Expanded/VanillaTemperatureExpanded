@@ -11,6 +11,7 @@
     </resource>
     <pipeDefs>
       <li>VTE_AirDuct</li>
+      <li>VTE_UndergroundAirDuct</li>
     </pipeDefs>
     <designator>
       <deconstructIconPath>UI/Commands/Deconstruct_ACDuct_MenuIcon</deconstructIconPath>
