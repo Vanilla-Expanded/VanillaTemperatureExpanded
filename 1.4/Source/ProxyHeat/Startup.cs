@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 using Verse;
 
 namespace ProxyHeat
@@ -39,6 +40,7 @@ namespace ProxyHeat
                                 props.minTemperature = compHeatPusher.heatPushMinTemperature;
                             }
                         }
+                        props.tempOutcome = Mathf.Clamp(props.tempOutcome.Value, -50f, 50f);
                         SetData(thingDef, props);
                         thingDef.comps.Add(props);
                     }

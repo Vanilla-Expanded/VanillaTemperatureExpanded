@@ -193,8 +193,20 @@ namespace ProxyHeat
             }
         }
 
-        private static void RegisterHeatPush(Building_TempControl building, CompTemperatureSource comp, float cellTemperature, float heatPush)
+        private static void RegisterHeatPush(Building_TempControl building, CompTemperatureSource comp, 
+			float cellTemperature, float heatPush)
         {
+			var roomTemperature = cellTemperature;
+			GlobalControls_TemperatureString_Patch.ModifyTemperatureIfNeeded(ref roomTemperature, building.Position, building.Map);
+            if (heatPush > 0 && roomTemperature > building.compTempControl.targetTemperature)
+			{
+                heatPush = 0;
+            }
+            else if (heatPush < 0 && roomTemperature < building.compTempControl.targetTemperature)
+			{
+                heatPush = 0;
+            }
+
             var ticksPassed = Find.TickManager.TicksGame - comp.lastRoomTemperatureChangeTicks;
             if (ticksPassed > GenDate.TicksPerHour)
             {
