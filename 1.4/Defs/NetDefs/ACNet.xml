@@ -486,8 +486,8 @@
     </statBases>
     <tickerType>Rare</tickerType>
     <costList>
-      <Steel>60</Steel>
-      <ComponentIndustrial>1</ComponentIndustrial>
+      <Steel>110</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
     <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
     <comps>
