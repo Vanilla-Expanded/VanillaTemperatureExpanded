@@ -5,7 +5,6 @@
 			<li>Vanilla Factions Expanded - Vikings</li>
 		</mods>
 		<match Class="PatchOperationSequence">
-			<success>Always</success>
 			<operations>
 				<!-- VFEV_FuneralPyre -->
 				<li Class="PatchOperationConditional">
@@ -24,7 +23,6 @@
 						<li Class="ProxyHeat.CompProperties_TemperatureSource">
 							<radius>2.5</radius>
 							<tempOutcome>24</tempOutcome>
-							<dependsOnFuel>true</dependsOnFuel>
 						</li>
 					</value>
 				</li>
@@ -45,7 +43,6 @@
 						<li Class="ProxyHeat.CompProperties_TemperatureSource">
 							<radius>2.5</radius>
 							<tempOutcome>16</tempOutcome>
-							<dependsOnFuel>true</dependsOnFuel>
 						</li>
 					</value>
 				</li>

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProxyHeat</RootNamespace>
     <AssemblyName>ProxyHeat</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -31,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PipeSystem">
+      <HintPath>..\..\..\VanillaExpandedFramework\1.5\Assemblies\PipeSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,9 +44,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="VFETribals">
+      <HintPath>..\..\..\VanillaFactionsExpanded-Tribals\1.5\Assemblies\VFETribals.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comps\CompTemperatureSource.cs" />
+    <Compile Include="CompTempData.cs" />
+    <Compile Include="ModCompatibility.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="HarmonyPatches\ProxyHeatManager.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />

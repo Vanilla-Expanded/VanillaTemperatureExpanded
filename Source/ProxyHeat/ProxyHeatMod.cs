@@ -25,25 +25,25 @@ namespace ProxyHeat
         public override void WriteSettings()
         {
             base.WriteSettings();
-            SettingsApplier.ApplySettings();
-        }
-        public override string SettingsCategory()
-        {
-            return "Proxy Heat";
-        }
-    }
-
-    [StaticConstructorOnStartup]
-    static class SettingsApplier
-    {
-        static SettingsApplier()
-        {
             ApplySettings();
         }
 
         public static void ApplySettings()
         {
+            foreach (var data in ProxyHeatMod.settings.compTempData)
+            {
+                var def = DefDatabase<ThingDef>.GetNamedSilentFail(data.Key);
+                if (def != null)
+                {
+                    var compProps = def.GetCompProperties<CompProperties_TemperatureSource>();
+                    data.Value.ApplyData(compProps);
+                }
+            }
+        }
 
+        public override string SettingsCategory()
+        {
+            return "Proxy Heat";
         }
     }
 }

@@ -19,7 +19,6 @@
 					<li Class="ProxyHeat.CompProperties_TemperatureSource">
 						<radius>2.5</radius>
 						<tempOutcome>18</tempOutcome>
-						<dependsOnFuel>true</dependsOnFuel>
 						<maxTemperature>30</maxTemperature>
 						
 						<smeltSnowRadius>3</smeltSnowRadius>
@@ -45,7 +44,6 @@
 					<li Class="ProxyHeat.CompProperties_TemperatureSource">
 						<radius>1.5</radius>
 						<tempOutcome>-6</tempOutcome>
-						<dependsOnFuel>true</dependsOnFuel>
 					</li>
 				</value>
 			</li>
@@ -66,58 +64,6 @@
 					<li Class="ProxyHeat.CompProperties_TemperatureSource">
 						<radius>2.5</radius>
 						<tempOutcome>30</tempOutcome>
-					</li>
-				</value>
-			</li>
-			
-		<!-- Heater -->
-
-			<li Class="PatchOperationConditional">
-				<xpath>/Defs/ThingDef[defName = "Heater"]/comps</xpath>
-				<success>Always</success>
-				<nomatch Class="PatchOperationAdd">
-					<xpath>/Defs/ThingDef[defName = "Heater"]</xpath>
-					<value>
-						<comps />
-					</value>
-				</nomatch>
-			</li>
-			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName = "Heater"]/comps</xpath>
-				<value>
-					<li Class="ProxyHeat.CompProperties_TemperatureSource">
-						<radius>2.5</radius>
-						<tempOutcome>21</tempOutcome>
-						<minTemperature>0</minTemperature>
-						<maxTemperature>40</maxTemperature>
-						<dependsOnPower>true</dependsOnPower>
-					</li>
-				</value>
-			</li>
-
-		<!-- Cooler -->
-
-			<li Class="PatchOperationConditional">
-				<xpath>/Defs/ThingDef[defName = "Cooler"]/comps</xpath>
-				<success>Always</success>
-				<nomatch Class="PatchOperationAdd">
-					<xpath>/Defs/ThingDef[defName = "Cooler"]</xpath>
-					<value>
-						<comps />
-					</value>
-				</nomatch>
-			</li>
-
-			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName = "Cooler"]/comps</xpath>
-				<value>
-					<li Class="ProxyHeat.CompProperties_TemperatureSource">
-						<radius>2.5</radius>
-						<tempOutcome>-10</tempOutcome>
-						<maxTemperature>-1</maxTemperature>
-						<minTemperature>-40</minTemperature>
-						<dependsOnPower>true</dependsOnPower>
-						<tileOffset>(0, 0, -1)</tileOffset>
 					</li>
 				</value>
 			</li>

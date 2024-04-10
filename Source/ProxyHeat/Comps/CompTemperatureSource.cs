@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using PipeSystem;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,12 @@ namespace ProxyHeat
 {
     public class CompProperties_TemperatureSource : CompProperties
 	{
+		public bool disabled;
 		public float radius;
 		public float? tempOutcome;
 		public float? minTemperature;
 		public float? maxTemperature;
-		public bool dependsOnPower;
-		public bool dependsOnFuel;
-		public bool dependsOnGas;
 		public IntVec3 tileOffset = IntVec3.Invalid;
-
 		public float smeltSnowRadius;
 		public float smeltSnowAtTemperature;
 		public float smeltSnowPower = 0.001f;
@@ -37,12 +35,10 @@ namespace ProxyHeat
 		private bool active;
 		private Map map;
 		private CompPowerTrader powerComp;
-		private ThingComp gasComp;
+		private List<CompResourceTrader> compResourceTraders;
 		private CompRefuelable fuelComp;
-		private CompFlickable compFlickable;
-		public static MethodInfo methodInfoGasOn;
-		public static Type gasCompType;
-		public IntVec3 position;
+        private CompFlickable compFlickable;
+        public IntVec3 position;
 		private HashSet<IntVec3> affectedCells = new HashSet<IntVec3>();
 		public HashSet<IntVec3> AffectedCells => affectedCells;
 		private List<IntVec3> affectedCellsList = new List<IntVec3>();
@@ -68,46 +64,21 @@ namespace ProxyHeat
 		public override void PostSpawnSetup(bool respawningAfterLoad)
         {
 			base.PostSpawnSetup(respawningAfterLoad);
-			if (Props.dependsOnPower)
-            {
-				powerComp = this.parent.GetComp<CompPowerTrader>();
-            }
-			if (Props.dependsOnFuel)
-            {
-				fuelComp = this.parent.GetComp<CompRefuelable>();
-			}
-			if (Props.dependsOnGas)
-			{
-				gasComp = GetGasComp();
-			}
+			powerComp = this.parent.GetComp<CompPowerTrader>();
+			fuelComp = this.parent.GetComp<CompRefuelable>();
+			compResourceTraders = parent.GetComps<CompResourceTrader>().ToList();
             compFlickable = this.parent.GetComp<CompFlickable>();
-            if (!Props.dependsOnFuel && !Props.dependsOnPower)
-            {
-				active = true;
-            }
-
 			this.position = this.parent.Position;
 			this.map = this.parent.Map;
 			this.proxyHeatManager = this.map.GetComponent<ProxyHeatManager>();
-			if (Props.dependsOnPower || Props.dependsOnFuel || Props.dependsOnGas || compFlickable != null)
+			if (powerComp != null || fuelComp != null || compResourceTraders.Any() || compFlickable != null)
 			{
 				this.proxyHeatManager.compTemperaturesToTick.Add(this);
 			}
-
+			this.active = ShouldBeActive;
 			this.MarkDirty();
 		}
 
-		private ThingComp GetGasComp()
-        {
-			foreach (var comp in this.parent.AllComps)
-			{
-				if (comp.GetType() == gasCompType)
-				{
-					return comp;
-				}
-			}
-			return null;
-		}
 		public override void PostDeSpawn(Map map)
 		{
 			base.PostDeSpawn(map);
@@ -127,12 +98,13 @@ namespace ProxyHeat
         {
 			return cell.UsesOutdoorTemperature(map) || ProxyHeatMod.settings.enableProxyHeatEffectIndoors;
 		}
+
         public void RecalculateAffectedCells()
         {
 			affectedCells.Clear();
 			affectedCellsList.Clear();
 			proxyHeatManager.RemoveComp(this);
-		
+			
 			if (this.active)
             {
 				HashSet<IntVec3> tempCells = new HashSet<IntVec3>();
@@ -225,6 +197,36 @@ namespace ProxyHeat
 			this.dirty = true;
         }
 
+
+		private bool ShouldBeActive
+		{
+			get
+			{
+				if (Props.disabled)
+				{
+					return false;
+				}
+                if (powerComp != null && powerComp.PowerOn is false)
+                {
+					return false;
+                }
+                if (fuelComp != null && fuelComp.HasFuel is false)
+                {
+                    return false;
+                }
+				if (compResourceTraders.Count > 0 && compResourceTraders.All(x => x.ResourceOn) is false)
+                {
+                    return false;
+                }
+
+				if (ModCompatibility.ShouldWork(parent) is false)
+				{
+					return false;
+				}
+                return true;
+			}
+		}
+
 		public void TempTick()
         {
 			if (compFlickable != null)
@@ -243,57 +245,19 @@ namespace ProxyHeat
 					return;
 				}
 			}
-		
-			if (Props.dependsOnFuel && Props.dependsOnPower)
-            {
-				if (powerComp != null && powerComp.PowerOn && fuelComp != null && fuelComp.HasFuel)
-                {
-					if (!this.active)
-                    {
-						this.SetActive(true);
-					}
-				}
-				else if (this.active)
-                {
-					this.SetActive(false);
-                }
-            }
-		
-			else if (powerComp != null)
-            {
-				if (!powerComp.PowerOn && this.active)
-                {
-					this.SetActive(false);
-				}
-				else if (powerComp.PowerOn && !this.active)
-				{
-					this.SetActive(true);
-				}
-			}
-		
-			else if (fuelComp != null)
-            {
-				if (!fuelComp.HasFuel && this.active)
-                {
-					this.SetActive(false);
-				}
-				else if (fuelComp.HasFuel && !this.active)
-				{
-					this.SetActive(true);
-				}
-            }
-			else if (gasComp != null)
-            {
-				if (!(bool)methodInfoGasOn.Invoke(gasComp, null) && this.active)
-                {
-					this.SetActive(false);
-				}
-				else if ((bool)methodInfoGasOn.Invoke(gasComp, null) && !this.active)
-                {
-					this.SetActive(true);
-				}
 
+			if (ShouldBeActive)
+			{
+				if (active is false)
+				{
+					SetActive(true);
+				}
 			}
+			else if (active)
+			{
+                SetActive(false);
+            }
+
 			if (dirty)
 			{
 				MarkDirty();

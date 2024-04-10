@@ -2,6 +2,14 @@
 <LanguageData>
 	<PH.EnableProxyHeatEffectIndoors>Enable proxy heat effect indoors</PH.EnableProxyHeatEffectIndoors>
 	<PH.AllowPlantGrowthInsideProxyHeatEffectRadius>Allow plant growth inside proxy heat effect radius</PH.AllowPlantGrowthInsideProxyHeatEffectRadius>
+	<PH.ProxyHeatBuildings>Proxy heat building settings:</PH.ProxyHeatBuildings>
+	<PH.ProxyHeatRadius>Proxy heat radius</PH.ProxyHeatRadius>
+	<PH.MinTemperature>Minimum temperature threshold</PH.MinTemperature>
+	<PH.MaxTemperature>Maximum temperature threshold</PH.MaxTemperature>
+	<PN.NotSet> (not set)</PN.NotSet>
+	<PH.TemperatureOutput>Temperature output</PH.TemperatureOutput>
+	<PH.Search>Search: </PH.Search>
+	<PH.BuildingHasTemperatureControl>Building has own temperature target control</PH.BuildingHasTemperatureControl>
 	<VTE.MustPlaceHeaterWithFreeSpaces>The hot side of the heater must be exposed.</VTE.MustPlaceHeaterWithFreeSpaces>
 	<VTE.MustPlaceUnderRoof>Must be placed under a roof.</VTE.MustPlaceUnderRoof>
 	<VTE.CannotPlaceAdjacentCeilingFan>Cannot be placed next to ceiling fans.</VTE.CannotPlaceAdjacentCeilingFan>

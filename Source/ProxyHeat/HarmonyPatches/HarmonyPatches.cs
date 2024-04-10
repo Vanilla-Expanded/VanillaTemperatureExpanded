@@ -39,11 +39,6 @@ namespace ProxyHeat
         static HarmonyPatches()
 		{
 			Harmony harmony = new Harmony("LongerCFloor.ProxyHeat");
-			CompTemperatureSource.gasCompType = AccessTools.TypeByName("GasNetwork.CompGasTrader");
-			if (CompTemperatureSource.gasCompType != null)
-			{
-				CompTemperatureSource.methodInfoGasOn = AccessTools.PropertyGetter(CompTemperatureSource.gasCompType, "GasOn");
-			}
 			harmony.PatchAll();
             var transpiler = AccessTools.Method(typeof(HarmonyPatches), nameof(TickRare_Transpiler));
 

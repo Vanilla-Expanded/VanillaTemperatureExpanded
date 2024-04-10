@@ -14,50 +14,90 @@ namespace ProxyHeat
 	public static class Startup
 	{
 		static Startup()
-		{
-			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
-			{
-				var props = thingDef.GetCompProperties<CompProperties_TemperatureSource>();
-				if (props is null)
-				{
+        {
+            AutogenerateProxyHeatComps();
+        }
+
+        private static void AutogenerateProxyHeatComps()
+        {
+            if (ProxyHeatMod.settings.compTempData is null)
+            {
+                ProxyHeatMod.settings.compTempData = new Dictionary<string, CompTempData>();
+            }
+            foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
+            {
+                var props = thingDef.GetCompProperties<CompProperties_TemperatureSource>();
+                if (props is null)
+                {
                     var compHeatPusher = thingDef.GetCompProperties<CompProperties_HeatPusher>();
                     if (compHeatPusher != null)
                     {
-                        props = new CompProperties_TemperatureSource();
-                        if (compHeatPusher.heatPerSecond > 0)
+                        if (thingDef.category != ThingCategory.Ethereal && thingDef.category != ThingCategory.PsychicEmitter)
                         {
-                            props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
-                            if (compHeatPusher.heatPushMaxTemperature != default && compHeatPusher.heatPushMaxTemperature != 99999f)
+                            props = new CompProperties_TemperatureSource();
+                            if (compHeatPusher.heatPerSecond > 0)
                             {
-                                props.maxTemperature = compHeatPusher.heatPushMaxTemperature;
+                                props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
+                                if (compHeatPusher.heatPushMaxTemperature != default && compHeatPusher.heatPushMaxTemperature != 99999f)
+                                {
+                                    props.maxTemperature = compHeatPusher.heatPushMaxTemperature;
+                                }
                             }
-                        }
-                        else
-                        {
-                            props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
-                            if (compHeatPusher.heatPushMinTemperature != default && compHeatPusher.heatPushMinTemperature != -99999f)
+                            else
                             {
-                                props.minTemperature = compHeatPusher.heatPushMinTemperature;
+                                props.tempOutcome = compHeatPusher.heatPerSecond * 5f;
+                                if (compHeatPusher.heatPushMinTemperature != default && compHeatPusher.heatPushMinTemperature != -99999f)
+                                {
+                                    props.minTemperature = compHeatPusher.heatPushMinTemperature;
+                                }
                             }
+                            props.tempOutcome = Mathf.Clamp(props.tempOutcome.Value, -50f, 50f);
+                            SetData(thingDef, props);
+                            thingDef.comps.Add(props);
                         }
-                        props.tempOutcome = Mathf.Clamp(props.tempOutcome.Value, -50f, 50f);
-                        SetData(thingDef, props);
-                        thingDef.comps.Add(props);
                     }
-                    else if (thingDef.thingClass != null && typeof(Building_TempControl).IsAssignableFrom(thingDef.thingClass))
+                    else if (thingDef.thingClass != null
+                        && typeof(Building_TempControl).IsAssignableFrom(thingDef.thingClass)
+                        && typeof(Building_Vent).IsAssignableFrom(thingDef.thingClass) is false)
                     {
                         props = new CompProperties_TemperatureSource();
                         SetData(thingDef, props);
                         thingDef.comps.Add(props);
                     }
                 }
+
+                if (props != null)
+                {
+                    if (ProxyHeatMod.settings.compTempDataReset.ContainsKey(thingDef.defName) is false)
+                    {
+                        ProxyHeatMod.settings.compTempDataReset[thingDef.defName] = GetTempData(props);
+                    }
+                    if (ProxyHeatMod.settings.compTempData.TryGetValue(thingDef.defName, out var tempData))
+                    {
+                        tempData.ApplyData(props);
+                    }
+                    else
+                    {
+                        ProxyHeatMod.settings.compTempData[thingDef.defName] = GetTempData(props);
+                    }
+                }
             }
-		}
+        }
+
+        private static CompTempData GetTempData(CompProperties_TemperatureSource props)
+        {
+            return new CompTempData
+            {
+                enabled = true,
+                radius = props.radius,
+                maxTemperature = props.maxTemperature,
+                minTemperature = props.minTemperature,
+                tempOutcome = props.tempOutcome,
+            };
+        }
 
         private static void SetData(ThingDef thingDef, CompProperties_TemperatureSource props)
         {
-            props.dependsOnFuel = thingDef.GetCompProperties<CompProperties_Refuelable>() != null;
-            props.dependsOnPower = thingDef.GetCompProperties<CompProperties_Power>()?.basePowerConsumption > 0;
             props.radius = ((thingDef.Size.x + thingDef.Size.z) / 2f) + 0.5f;
             props.smeltSnowRadius = props.radius;
         }
