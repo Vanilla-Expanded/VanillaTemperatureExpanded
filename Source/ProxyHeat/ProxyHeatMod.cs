@@ -43,7 +43,7 @@ namespace ProxyHeat
 
         public override string SettingsCategory()
         {
-            return "Proxy Heat";
+            return Content.Name;
         }
     }
 }
