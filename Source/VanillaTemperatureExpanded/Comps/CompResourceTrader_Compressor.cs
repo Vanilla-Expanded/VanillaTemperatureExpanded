@@ -68,7 +68,7 @@ public class CompResourceTrader_Compressor : CompResourceTrader
         pipeNetOverlayDrawer.TogglePulsing(parent, missingControlMat, false);
         pipeNetOverlayDrawer.TogglePulsing(parent, roofedBadMat, false);
 
-        if (!ResourceOn)
+        if (!ResourceOn && CanBeOn())
         {
             if (anyRoofed)
             {
