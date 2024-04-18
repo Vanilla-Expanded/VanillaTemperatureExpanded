@@ -154,6 +154,7 @@
 		<fillPercent>1</fillPercent>
 		<coversFloor>true</coversFloor>
 		<blockLight>true</blockLight>
+		<holdsRoof>true</holdsRoof>
 		<canOverlapZones>false</canOverlapZones>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>1.0</staticSunShadowHeight>
