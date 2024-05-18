@@ -50,7 +50,7 @@ namespace ProxyHeat
                     harmony.Patch(method, transpiler: new HarmonyMethod(transpiler));
                 }
 			}
-			var postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.TickRare_Postfix));
+			var postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(TickRare_Postfix));
             foreach (var methodName in temperatureBuildingMethodsForPostfixMethod)
             {
                 var method = AccessTools.Method(methodName);
@@ -60,10 +60,13 @@ namespace ProxyHeat
                 }
             }
 
+			postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(CanWanderToCellPostfix));
+			harmony.Patch(AccessTools.Method(typeof(RCellFinder), "CanWanderToCell"), postfix: new HarmonyMethod(postfix));
+
             if (ModLister.HasActiveModWithName("Brrr and Phew (Continued)"))
 			{
-				var prefix = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.TryGiveJobPrefix));
-				postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(HarmonyPatches.TryGiveJobPostfix));
+				var prefix = AccessTools.Method(typeof(HarmonyPatches), nameof(TryGiveJobPrefix));
+				postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(TryGiveJobPostfix));
 				foreach (var type in GenTypes.AllSubclasses(typeof(ThinkNode_JobGiver)))
 				{
 					if (type.Namespace == "Brrr")
@@ -74,19 +77,40 @@ namespace ProxyHeat
 				}
 
 				var genNewRRJobMethod = AccessTools.Method("Brrr.BrrrGlobals:GenNewRRJob");
-				harmony.Patch(genNewRRJobMethod, new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.GenNewRRJobPrefix)));
+				harmony.Patch(genNewRRJobMethod, new HarmonyMethod(typeof(HarmonyPatches), nameof(GenNewRRJobPrefix)));
 
-				var meth_JobGiver_Brrr_TryGiveJob = AccessTools.Method("Brrr.JobGiver_Brrr:TryGiveJob");
-				harmony.Patch(meth_JobGiver_Brrr_TryGiveJob, null, null, new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.JobGiver_BrrrTranspiler)));
 
 				var meth_JobGiver_Phew_TryGiveJob = AccessTools.Method("Brrr.JobGiver_Phew:TryGiveJob");
-				harmony.Patch(meth_JobGiver_Phew_TryGiveJob, null, null, new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.JobGiver_PhewTranspiler)));
+				harmony.Patch(meth_JobGiver_Phew_TryGiveJob, null, null, new HarmonyMethod(typeof(HarmonyPatches), nameof(JobGiver_PhewTranspiler)));
 			}
+		}
+
+        public static void CanWanderToCellPostfix(ref bool __result, IntVec3 c, Pawn pawn)
+		{
+			if (__result)
+			{
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+                if (proxyHeatManagers.TryGetValue(pawn.Map, out ProxyHeatManager proxyHeatManager))
+                {
+					var temp = c.GetTemperature(pawn.Map);
+					var tempRange = pawn.SafeTemperatureRange();
+					if (tempRange.Includes(temp))
+					{
+                        var outcome = proxyHeatManager.GetTemperatureOutcomeFor(c, temp);
+                        if (temp != outcome && tempRange.Includes(outcome) is false)
+                        {
+                            __result = false;
+                        }
+                    }
+                }
+            }
 		}
 
 		public static (Building source, float heatpush)? heatpushData;
 		public static void TickRare_Postfix(Building_TempControl __instance)
 		{
+			if (ProxyHeatMod.settings.enableProxyHeat is false) return;
 			if (heatpushData.HasValue && heatpushData.Value.source == __instance)
 			{
                 var compPowerTrader = __instance.compPowerTrader;
@@ -161,8 +185,10 @@ namespace ProxyHeat
 
         private static void RegisterRoomTemperatureChange(IntVec3 cell, float result, 
 			Building_TempControl building, float energyLimit)
-		{
-			if (result == 0)
+        {
+            if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+            if (result == 0)
 			{
                 Room room = cell.GetRoom(building.Map);
                 if (room != null && room.UsesOutdoorTemperature)
@@ -191,7 +217,9 @@ namespace ProxyHeat
         private static void RegisterHeatPush(Building_TempControl building, CompTemperatureSource comp, 
 			float cellTemperature, float heatPush)
         {
-			var roomTemperature = cellTemperature;
+            if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+            var roomTemperature = cellTemperature;
 			GlobalControls_TemperatureString_Patch.ModifyTemperatureIfNeeded(ref roomTemperature, building.Position, building.Map);
             if (heatPush > 0 && roomTemperature > building.compTempControl.TargetTemperature)
 			{
@@ -247,63 +275,38 @@ namespace ProxyHeat
             return Mathf.Sign(num) * 100f + 5f * (num - Mathf.Sign(num) * 100f);
         }
 
-
-        public static IEnumerable<CodeInstruction> JobGiver_BrrrTranspiler(IEnumerable<CodeInstruction> instructions)
-		{
-			var jobDefInfo = AccessTools.Field(AccessTools.TypeByName("Brrr.JobGiver_Brrr+BrrrJobDef"), "Brrr_BrrrRecovery");
-			bool found = false;
-			var list = instructions.ToList();
-			for (int i = 0; i < list.Count; i++)
-			{
-				var instruction = list[i];
-				yield return instruction;
-				if (jobDefInfo != null && !found && i > 1 && list[i - 1].opcode == OpCodes.Brfalse_S && list[i].LoadsField(jobDefInfo) && i < list.Count - 1 && list[i + 1].opcode == OpCodes.Ldloc_S)
-				{
-					yield return new CodeInstruction(OpCodes.Ldarg_1);
-					yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "BrrrJob"));
-					i += 2;
-					found = true;
-				}
-			}
-			if (jobDefInfo is null)
-			{
-				Log.Error("Proxy Heat failed to transpile Brr and Phew");
-			}
-		}
 		public static IEnumerable<CodeInstruction> JobGiver_PhewTranspiler(IEnumerable<CodeInstruction> instructions)
 		{
-			var jobDefInfo = AccessTools.Field(AccessTools.TypeByName("Brrr.JobGiver_Phew+BrrrJobDef"), "Brrr_PhewRecovery");
-			bool found = false;
 			var list = instructions.ToList();
 			for (int i = 0; i < list.Count; i++)
 			{
 				var instruction = list[i];
 				yield return instruction;
 
-				if (jobDefInfo != null && !found && i > 1 && list[i - 1].opcode == OpCodes.Brfalse_S && 
-					list[i].LoadsField(jobDefInfo) && i < list.Count - 1 && list[i + 1].opcode == OpCodes.Ldloc_S)
+				if (instruction.opcode == OpCodes.Newobj && list[i + 1].opcode == OpCodes.Ret)
 				{
 					yield return new CodeInstruction(OpCodes.Ldarg_1);
 					yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "BrrrJob"));
-					i += 4;
-					found = true;
 				}
-
 			}
-			if (jobDefInfo is null)
-            {
-				Log.Error("Proxy Heat failed to transpile Brr and Phew");
-            }
 		}
-		public static Job BrrrJob(JobDef def, Pawn pawn)
-		{
-			var tempRange = pawn.SafeTemperatureRange();
-			if (!tempRange.Includes(pawnToLookUp.AmbientTemperature))
+
+		public static Job BrrrJob(Job job, Pawn pawn)
+        {
+            if (ProxyHeatMod.settings.enableProxyHeat is false) return job;
+            if (job.targetA.HasThing is false)
 			{
-				var result = Patch_TryGiveJob.SeekSafeTemperature(def, pawn, tempRange);
-				return result;
-			}
-			return null;
+                var tempRange = pawn.SafeTemperatureRange();
+                if (!tempRange.Includes(pawn.AmbientTemperature))
+                {
+                    var result = Patch_TryGiveJob.SeekSafeTemperature(job.def, pawn, tempRange);
+					if (result != null)
+                    {
+                        return result;
+                    }
+                }
+            }
+			return job;
 		}
 
 		private static Pawn pawnToLookUp;
@@ -318,6 +321,7 @@ namespace ProxyHeat
 
 		public static bool GenNewRRJobPrefix(ref Job __result, JobDef def, Region reg)
 		{
+			if (ProxyHeatMod.settings.enableProxyHeat is false) return true;
 			if (pawnToLookUp != null)
 			{
 				var map = reg.Map;
@@ -368,8 +372,10 @@ namespace ProxyHeat
 		public static class Patch_SpawnSetup
 		{
 			private static void Postfix(Building __instance)
-			{
-				if (proxyHeatManagers.TryGetValue(__instance.Map, out ProxyHeatManager proxyHeatManager))
+            {
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+                if (proxyHeatManagers.TryGetValue(__instance.Map, out ProxyHeatManager proxyHeatManager))
 				{
 					foreach (var comp in proxyHeatManager.compTemperatures)
 					{
@@ -386,8 +392,10 @@ namespace ProxyHeat
 		public static class Patch_DeSpawn
 		{
 			private static void Prefix(Building __instance)
-			{
-				if (__instance.Map != null && proxyHeatManagers.TryGetValue(__instance.Map, out ProxyHeatManager proxyHeatManager))
+            {
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+                if (__instance.Map != null && proxyHeatManagers.TryGetValue(__instance.Map, out ProxyHeatManager proxyHeatManager))
 				{
 					foreach (var comp in proxyHeatManager.compTemperatures)
 					{
@@ -422,8 +430,10 @@ namespace ProxyHeat
 			}
 
 			public static void ModifyTemperatureIfNeeded(ref float result, IntVec3 cell, Map map)
-			{
-				if (proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
+            {
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+                if (proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
 				{
 					result = proxyHeatManager.GetTemperatureOutcomeFor(cell, result);
 				}
@@ -434,8 +444,10 @@ namespace ProxyHeat
 		public static class Patch_AmbientTemperature
 		{
 			private static void Postfix(Thing __instance, ref float __result)
-			{
-				var map = __instance.Map;
+            {
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+                var map = __instance.Map;
 				if (map != null && proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
 				{
 					__result = proxyHeatManager.GetTemperatureOutcomeFor(__instance.Position, __result);
@@ -448,8 +460,10 @@ namespace ProxyHeat
 		{
 			public static bool checkForPlantGrowth;
 			private static void Prefix(Plant __instance)
-			{
-				if (ProxyHeatMod.settings.allowPlantGrowthInsideProxyHeatEffectRadius)
+            {
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+                if (ProxyHeatMod.settings.allowPlantGrowthInsideProxyHeatEffectRadius)
 				{
 					checkForPlantGrowth = true;
 				}
@@ -465,8 +479,10 @@ namespace ProxyHeat
 		public static class Patch_GrowthSeasonNow
 		{
 			private static bool Prefix(ref bool __result, IntVec3 c, Map map, bool forSowing = false)
-			{
-				if (ProxyHeatMod.settings.allowPlantGrowthInsideProxyHeatEffectRadius)
+            {
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return true;
+
+                if (ProxyHeatMod.settings.allowPlantGrowthInsideProxyHeatEffectRadius)
                 {
 					if (proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
 					{
@@ -494,8 +510,10 @@ namespace ProxyHeat
 		public static class Patch_TryGetTemperatureForCell
 		{
 			private static void Postfix(bool __result, IntVec3 c, Map map, ref float tempResult)
-			{
-				if (__result && Patch_GrowthRateFactor_Temperature.checkForPlantGrowth)
+            {
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return;
+
+                if (__result && Patch_GrowthRateFactor_Temperature.checkForPlantGrowth)
 				{
 					if (proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
 					{
@@ -514,7 +532,9 @@ namespace ProxyHeat
 		{
 			public static bool Prefix(Pawn pawn, ref Job __result)
             {
-				if (!pawn.health.hediffSet.HasTemperatureInjury(TemperatureInjuryStage.Serious))
+                if (ProxyHeatMod.settings.enableProxyHeat is false) return true;
+
+                if (!pawn.health.hediffSet.HasTemperatureInjury(TemperatureInjuryStage.Serious))
 				{
 					return false;
 				}
@@ -534,7 +554,8 @@ namespace ProxyHeat
 			public static Job SeekSafeTemperature(JobDef def, Pawn pawn, FloatRange tempRange)
 			{
 				var map = pawn.Map;
-				if (pawn.Position.UsesOutdoorTemperature(map) && proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
+				if (pawn.Position.UsesOutdoorTemperature(map) 
+					&& proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
 				{
 					var candidates = new List<IntVec3>();
 					foreach (var tempSource in proxyHeatManager.temperatureSources)

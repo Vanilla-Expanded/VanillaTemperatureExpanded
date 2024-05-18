@@ -31,7 +31,6 @@
 		<statBases>
 			<WorkToBuild>2400</WorkToBuild>
 			<MaxHitPoints>200</MaxHitPoints>
-			<MarketValue>310</MarketValue>
 			<Flammability>0.7</Flammability>
 		</statBases>
 		<tickerType>Rare</tickerType>
@@ -100,7 +99,6 @@
 			<WorkToBuild>2400</WorkToBuild>
 			<MaxHitPoints>200</MaxHitPoints>
 			<Flammability>0.7</Flammability>
-			<MarketValue>385</MarketValue>
 		</statBases>
 		<tickerType>Rare</tickerType>
 		<costList>
@@ -162,7 +160,6 @@
 			<WorkToBuild>1200</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>0.7</Flammability>
-			<MarketValue>150</MarketValue>
 		</statBases>
 		<tickerType>Rare</tickerType>
 		<costList>
@@ -419,7 +416,6 @@
 		<statBases>
 			<WorkToBuild>1000</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
-			<MarketValue>131</MarketValue>
 			<Mass>6</Mass>
 			<Flammability>0.5</Flammability>
 		</statBases>
@@ -479,7 +475,6 @@
 		<statBases>
 			<WorkToBuild>240</WorkToBuild>
 			<MaxHitPoints>80</MaxHitPoints>
-			<MarketValue>96</MarketValue>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<tickerType>Normal</tickerType>
@@ -540,7 +535,6 @@
 		<statBases>
 			<WorkToBuild>460</WorkToBuild>
 			<MaxHitPoints>80</MaxHitPoints>
-			<MarketValue>192</MarketValue>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<tickerType>Normal</tickerType>

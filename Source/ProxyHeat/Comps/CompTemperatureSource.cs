@@ -45,6 +45,7 @@ namespace ProxyHeat
 		private ProxyHeatManager proxyHeatManager;
 		public float lastRoomTemperatureChange;
 		public int lastRoomTemperatureChangeTicks;
+		private List<IntVec3> cachedSmeltRadiusCells;
 
         public float TemperatureOutcome
         {
@@ -76,6 +77,17 @@ namespace ProxyHeat
 				this.proxyHeatManager.compTemperaturesToTick.Add(this);
 			}
 			this.active = ShouldBeActive;
+			cachedSmeltRadiusCells = new List<IntVec3>();
+			foreach (var cell in this.parent.OccupiedRect())
+			{
+				foreach (var cell2 in GenRadial.RadialCellsAround(cell, Props.smeltSnowRadius, true))
+				{
+					if (cachedSmeltRadiusCells.Contains(cell2) is false)
+					{
+                        cachedSmeltRadiusCells.Add(cell2);
+                    }
+				}
+			}
 			this.MarkDirty();
 		}
 
@@ -263,30 +275,21 @@ namespace ProxyHeat
 				MarkDirty();
 			}
 
-			if (active)
+			if (active && Find.TickManager.TicksGame % 60 == 0)
             {
 				if (map != null && Props.smeltSnowRadius > 0)
 				{
-					var cellToSmeltSnow = new HashSet<IntVec3>();
-					foreach (var cell in this.parent.OccupiedRect())
+					foreach (var cell in cachedSmeltRadiusCells)
 					{
-						foreach (var cell2 in GenRadial.RadialCellsAround(cell, Props.smeltSnowRadius, true))
-						{
-							if (cell2.GetSnowDepth(map) > 0 && HarmonyPatches.proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
-							{
-								var finalTemperature = proxyHeatManager.GetTemperatureOutcomeFor(cell2, cell2.GetTemperature(map));
-								if (finalTemperature >= Props.smeltSnowAtTemperature)
-								{
-									cellToSmeltSnow.Add(cell2);
-								}
-							}
-						}
-					}
-
-					foreach (var cell in cellToSmeltSnow)
-					{
-						map.snowGrid.AddDepth(cell, -Props.smeltSnowPower);
-					}
+                        if (cell.GetSnowDepth(map) > 0 && HarmonyPatches.proxyHeatManagers.TryGetValue(map, out ProxyHeatManager proxyHeatManager))
+                        {
+                            var finalTemperature = proxyHeatManager.GetTemperatureOutcomeFor(cell, cell.GetTemperature(map));
+                            if (finalTemperature >= Props.smeltSnowAtTemperature)
+                            {
+                                map.snowGrid.AddDepth(cell, -(Props.smeltSnowPower * 60));
+                            }
+                        }
+                    }
 				}
 			}
 		}

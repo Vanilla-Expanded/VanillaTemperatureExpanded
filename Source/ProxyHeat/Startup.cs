@@ -32,7 +32,9 @@ namespace ProxyHeat
                     var compHeatPusher = thingDef.GetCompProperties<CompProperties_HeatPusher>();
                     if (compHeatPusher != null)
                     {
-                        if (thingDef.category != ThingCategory.Ethereal && thingDef.category != ThingCategory.PsychicEmitter)
+                        if (thingDef.category != ThingCategory.Ethereal 
+                            && thingDef.category != ThingCategory.PsychicEmitter
+                            && typeof(Hive).IsAssignableFrom(thingDef.thingClass) is false)
                         {
                             props = new CompProperties_TemperatureSource();
                             if (compHeatPusher.heatPerSecond > 0)
@@ -50,6 +52,7 @@ namespace ProxyHeat
                                 {
                                     props.minTemperature = compHeatPusher.heatPushMinTemperature;
                                 }
+                                props.smeltSnowPower = 0.001f;
                             }
                             props.tempOutcome = Mathf.Clamp(props.tempOutcome.Value, -50f, 50f);
                             SetData(thingDef, props);
@@ -100,6 +103,7 @@ namespace ProxyHeat
         {
             props.radius = ((thingDef.Size.x + thingDef.Size.z) / 2f) + 0.5f;
             props.smeltSnowRadius = props.radius;
+
         }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
+	<PH.EnableProxyHeat>Enable proxy heat</PH.EnableProxyHeat>
 	<PH.EnableProxyHeatEffectIndoors>Enable proxy heat effect indoors</PH.EnableProxyHeatEffectIndoors>
 	<PH.AllowPlantGrowthInsideProxyHeatEffectRadius>Allow plant growth inside proxy heat effect radius</PH.AllowPlantGrowthInsideProxyHeatEffectRadius>
 	<PH.ProxyHeatBuildings>Proxy heat building settings:</PH.ProxyHeatBuildings>

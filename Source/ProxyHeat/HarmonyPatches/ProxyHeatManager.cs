@@ -56,10 +56,6 @@ namespace ProxyHeat
                         if (comp.parent.Spawned)
                         {
                             comp.RecalculateAffectedCells();
-                            if (!comp.AffectedCells.Any())
-                            {
-                                RemoveComp(comp);
-                            }
                         }
                         else
                         {
@@ -71,9 +67,12 @@ namespace ProxyHeat
                 this.dirty = false;
             }
 
-            foreach (var comp in compTemperaturesToTick)
+            if (ProxyHeatMod.settings.enableProxyHeat)
             {
-                comp.TempTick();
+                foreach (var comp in compTemperaturesToTick)
+                {
+                    comp.TempTick();
+                }
             }
         }
 
