@@ -274,6 +274,7 @@
     <researchPrerequisites> 
       <li>VTE_HVAC</li>
     </researchPrerequisites>
+	<rotatable>false</rotatable>
     <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
   </ThingDef>
   
@@ -453,6 +454,7 @@
       <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <rotatable>false</rotatable>
   </ThingDef>
   
   <ThingDef ParentName="BuildingBase">
@@ -510,6 +512,7 @@
       <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <rotatable>false</rotatable>
   </ThingDef>
   
 </Defs>

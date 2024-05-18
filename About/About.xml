@@ -15,6 +15,7 @@ There are lots of new structures to play with, such as industrial coolers, heate
     <li>1.4</li>
     <li>1.5</li>
   </supportedVersions>
+	<modIconPath IgnoreIfNoMatchingField="True">UI/VELogo</modIconPath>
   <packageId>VanillaExpanded.Temperature</packageId>
   <modDependencies>
     <li>
