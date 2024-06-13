@@ -10,18 +10,21 @@ public class Building_AcUnit : Building_TempControl
     private CompResourceTrader resourceComp;
     public AcPipeNet AcPipeNet => resourceComp.PipeNet as AcPipeNet;
 
+    private IntVec3 outputOffsetNorth;
+
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
         base.SpawnSetup(map, respawningAfterLoad);
 
         resourceComp = GetComp<CompResourceTrader>();
+        outputOffsetNorth = def.HasModExtension<AcUnitPositionModExtension>() ? def.GetModExtension<AcUnitPositionModExtension>().offsetNorth : IntVec3.North;
     }
 
     public override void TickRare()
     {
         if (compPowerTrader.PowerOn && resourceComp.ResourceOn)
         {
-            var coolerVec = Position + IntVec3.North.RotatedBy(Rotation);
+            var coolerVec = Position + outputOffsetNorth.RotatedBy(Rotation);
             var highPowerMode = false;
             if (!coolerVec.Impassable(Map))
             {

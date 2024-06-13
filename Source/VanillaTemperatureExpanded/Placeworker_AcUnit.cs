@@ -8,10 +8,15 @@ namespace VanillaTemperatureExpanded;
 
 public class Placeworker_AcUnit : PlaceWorker_Cooler
 {
+    private IntVec3 GetOutputCell(BuildableDef def)
+    {
+        return def.HasModExtension<AcUnitPositionModExtension>() ? def.GetModExtension<AcUnitPositionModExtension>().offsetNorth : IntVec3.North;
+    }
+
     public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)
     {
         var currentMap = Find.CurrentMap;
-        var intVec = center + IntVec3.North.RotatedBy(rot);
+        var intVec = center + GetOutputCell(def).RotatedBy(rot);
         GenDraw.DrawFieldEdges(new List<IntVec3> { intVec }, GenTemperature.ColorSpotCold);
         var room = intVec.GetRoom(currentMap);
         if (room is { UsesOutdoorTemperature: false })
@@ -23,7 +28,7 @@ public class Placeworker_AcUnit : PlaceWorker_Cooler
     public override AcceptanceReport AllowsPlacing(BuildableDef def, IntVec3 center, Rot4 rot, Map map, Thing thingToIgnore = null, Thing thing = null)
     {
         
-        IntVec3 intVec2 = center + IntVec3.North.RotatedBy(rot);
+        IntVec3 intVec2 = center + GetOutputCell(def).RotatedBy(rot);
         
         if (intVec2.Impassable(map))
         {
