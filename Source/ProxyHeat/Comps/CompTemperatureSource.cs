@@ -305,7 +305,7 @@ namespace ProxyHeat
 		public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref active, "active");
+            Scribe_Values.Look(ref active, "ProxyHeat_active");
             Scribe_Values.Look(ref lastRoomTemperatureChange, "lastRoomTemperatureChange");
             Scribe_Values.Look(ref lastRoomTemperatureChangeTicks, "lastRoomTemperatureChangeTicks");
         }
