@@ -88,7 +88,10 @@ namespace ProxyHeat
                     }
                     return result;
                 }
-
+                if (cell.GetEdifice(map) != null)
+                {
+                    return result;
+                }
                 var tempResults = new List<float>();
                 foreach (var tempSourceCandidate in tempSources)
                 {
