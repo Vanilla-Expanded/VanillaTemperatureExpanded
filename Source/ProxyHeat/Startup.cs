@@ -27,6 +27,7 @@ namespace ProxyHeat
             foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
             {
                 var props = thingDef.GetCompProperties<CompProperties_TemperatureSource>();
+
                 if (props is null)
                 {
                     var compHeatPusher = thingDef.GetCompProperties<CompProperties_HeatPusher>();
@@ -101,9 +102,22 @@ namespace ProxyHeat
 
         private static void SetData(ThingDef thingDef, CompProperties_TemperatureSource props)
         {
-            props.radius = ((thingDef.Size.x + thingDef.Size.z) / 2f) + 0.5f;
-            props.smeltSnowRadius = props.radius;
-
+            var extension = thingDef.GetModExtension<ProxyHeatExtension>();
+            if (extension != null)
+            {
+                props.radius = extension.radius;
+                props.smeltSnowRadius = props.radius;
+            }
+            else
+            {
+                props.radius = ((thingDef.Size.x + thingDef.Size.z) / 2f) + 0.5f;
+                props.smeltSnowRadius = props.radius;
+            }
         }
+    }
+
+    public class ProxyHeatExtension : DefModExtension
+    {
+        public float radius;
     }
 }

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Quests Expanded - The Generator</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_WoodFired"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>14</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_WoodFueled"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>14</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_WoodPowered"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>10</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_WoodBlasting"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>10</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_ChemfuelPowered"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>14</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_ChemfuelBoosted"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>14</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_ChemfuelCharged"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>14</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_ChemfuelFortified"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>16</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_Geothermal"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>28</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_SteamPowered"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>28</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_ThermalVent"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>22</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_HeatPowered"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>26</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_UraniumPowered"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>28</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_Nuclear"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>30</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_Isotopic"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>32</radius>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/ThingDef[defName = "VQE_Genetron_Atomic"]</xpath>
+					<value>
+						<li Class="ProxyHeat.ProxyHeatExtension">
+							<radius>48</radius>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>
