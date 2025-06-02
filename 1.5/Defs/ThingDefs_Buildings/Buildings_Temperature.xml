@@ -482,6 +482,7 @@
 			<Steel>50</Steel>
 		</costList>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <clearBuildingArea>false</clearBuildingArea>
 		<building>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
@@ -542,6 +543,7 @@
 			<Steel>100</Steel>
 		</costList>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <clearBuildingArea>false</clearBuildingArea>
 		<placeWorkers>
 			<li>PlaceWorker_CoolerSimple</li>
 			<li>VanillaTemperatureExpanded.PlaceWorker_UnderRoof</li>
