@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+		<!-- Campfire -->
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[defName = "Campfire"]/comps</xpath>
+				<success>Always</success>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "Campfire"]</xpath>
+					<value>
+						<comps />
+					</value>
+				</nomatch>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName = "Campfire"]/comps</xpath>
+				<value>
+					<li Class="ProxyHeat.CompProperties_TemperatureSource">
+						<radius>2.5</radius>
+						<tempOutcome>18</tempOutcome>
+						<maxTemperature>30</maxTemperature>
+						
+						<smeltSnowRadius>3</smeltSnowRadius>
+						<smeltSnowAtTemperature>0</smeltSnowAtTemperature>
+						<smeltSnowPower>0.001</smeltSnowPower>
+					</li>
+				</value>
+			</li>
+		<!-- PassiveCooler -->
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[defName = "PassiveCooler"]/comps</xpath>
+				<success>Always</success>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "PassiveCooler"]</xpath>
+					<value>
+						<comps />
+					</value>
+				</nomatch>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName = "PassiveCooler"]/comps</xpath>
+				<value>
+					<li Class="ProxyHeat.CompProperties_TemperatureSource">
+						<radius>1.5</radius>
+						<tempOutcome>-6</tempOutcome>
+					</li>
+				</value>
+			</li>
+		<!-- SteamGeyser -->
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[defName = "SteamGeyser"]/comps</xpath>
+				<success>Always</success>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName = "SteamGeyser"]</xpath>
+					<value>
+						<comps />
+					</value>
+				</nomatch>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName = "SteamGeyser"]/comps</xpath>
+				<value>
+					<li Class="ProxyHeat.CompProperties_TemperatureSource">
+						<radius>2.5</radius>
+						<tempOutcome>30</tempOutcome>
+					</li>
+				</value>
+			</li>
+
+		</operations>
+	</Operation>
+</Patch>

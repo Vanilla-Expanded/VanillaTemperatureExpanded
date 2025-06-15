@@ -32,11 +32,11 @@ public class CompResourceSingleton : CompResourceTrader
         base.PostSpawnSetup(respawningAfterLoad);
     }
 
-    public override void PostDeSpawn(Map map)
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
         pipeNetOverlayDrawer.TogglePulsing(parent, missingCompressorsMat, false);
-        base.PostDeSpawn(map);
+        base.PostDeSpawn(map,mode);
     }
 
     public AcPipeNet AcPipeNet => PipeNet as AcPipeNet;

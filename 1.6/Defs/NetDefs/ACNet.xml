@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <PipeSystem.PipeNetDef>
+    <defName>VTE_EfficiencyNet</defName>
+    <pipeNetClass>VanillaTemperatureExpanded.AcPipeNet</pipeNetClass>
+    <resource>
+      <name>Efficiency</name>
+      <unit>l</unit>
+      <color>(244, 144, 12)</color>
+      <onlyShowStored>True</onlyShowStored>
+    </resource>
+    <pipeDefs>
+      <li>VTE_AirDuct</li>
+      <li>VTE_UndergroundAirDuct</li>
+    </pipeDefs>
+    <designator>
+      <deconstructIconPath>UI/Commands/Deconstruct_ACDuct_MenuIcon</deconstructIconPath>
+      <designationCategoryDef>Temperature</designationCategoryDef>
+    </designator>
+    <overlayOptions>
+      <overlayColor>(244, 144, 12)</overlayColor>
+    </overlayOptions>
+  </PipeSystem.PipeNetDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_AirDuct</defName>
+    <label>air duct</label>
+    <description>An air duct used by the AC network to transport air between the AC units and compressors.</description>
+    <thingClass>PipeSystem.Building_Pipe</thingClass>
+    <category>Building</category>
+    <tickerType>Rare</tickerType>
+    <graphicData>
+      <texPath>Things/Building/Linked/ACDuct_Atlas</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <linkType>Basic</linkType>
+      <linkFlags>
+        <li>Custom7</li>
+      </linkFlags>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Things/Building/Linked/ACDuct_MenuIcon</uiIconPath>
+    <uiIconScale>0.7</uiIconScale>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <blueprintGraphicData>
+        <texPath>Things/Building/Linked/ACDuct_Blueprint_Atlas</texPath>
+      </blueprintGraphicData>
+    </building>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>35</WorkToBuild>
+      <Flammability>0.7</Flammability>
+    </statBases>
+   <drawStyleCategory>Conduits</drawStyleCategory>
+    <costList>
+      <Steel>1</Steel>
+    </costList>
+    <comps>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="PipeSystem.CompProperties_SpillWhenDamaged">
+        <spillEachTicks>600</spillEachTicks>
+        <startAtHitPointsPercent>0.333</startAtHitPointsPercent>
+        <amountToDraw>1</amountToDraw>
+        <filthMaxSpawnRadius>1</filthMaxSpawnRadius>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PipeSystem.PlaceWorker_Pipe</li>
+    </placeWorkers>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Temperature</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <clearBuildingArea>false</clearBuildingArea>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_VentValve</defName>
+    <label>air duct valve</label>
+    <description>Switches air flow on/off.</description>
+    <thingClass>PipeSystem.Building_PipeValve</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Things/Building/Linked/VentValve</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <allowWireConnection>false</allowWireConnection>
+    </building>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToBuild>200</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Beauty>-2</Beauty>
+    </statBases>
+   
+    <costList>
+      <Steel>10</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="PipeSystem.CompProperties_PipeValve">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <alwaysLinkToPipes>true</alwaysLinkToPipes>
+      </li>
+      <li Class="CompProperties_Flickable">
+        <commandTexture>UI/Overlays/AirFlowIcon</commandTexture>
+        <commandLabelKey>VTE_VentValve</commandLabelKey>
+        <commandDescKey>VTE_VentValveDesc</commandDescKey>
+      </li>
+    </comps>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>false</neverMultiSelect>
+    <tickerType>Normal</tickerType>
+    <designationCategory>Temperature</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_UndergroundAirDuct</defName>
+    <label>subterranean air duct</label>
+    <description>A subterranean air duct used by the AC network to transport air between the AC units and compressors.</description>
+    <thingClass>PipeSystem.Building_Pipe</thingClass>
+    <category>Building</category>
+    <tickerType>Rare</tickerType>
+    <graphicData>
+      <texPath>UI/CSG/IConduit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <linkType>Basic</linkType>
+      <linkFlags>
+        <li>Custom7</li>
+      </linkFlags>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Things/Building/Linked/ACDuct_MenuIcon</uiIconPath>
+    <uiIconScale>0.7</uiIconScale>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <blueprintGraphicData>
+        <texPath>Things/Building/Linked/ACDuct_Blueprint_Atlas</texPath>
+      </blueprintGraphicData>
+    </building>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>35</WorkToBuild>
+      <Flammability>0.7</Flammability>
+    </statBases>
+   <drawStyleCategory>Conduits</drawStyleCategory>
+    <costList>
+      <Steel>1</Steel>
+    </costList>
+    <comps>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+      </li>
+      <li Class="PipeSystem.CompProperties_SpillWhenDamaged">
+        <spillEachTicks>600</spillEachTicks>
+        <startAtHitPointsPercent>0.333</startAtHitPointsPercent>
+        <amountToDraw>1</amountToDraw>
+        <filthMaxSpawnRadius>1</filthMaxSpawnRadius>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PipeSystem.PlaceWorker_Pipe</li>
+    </placeWorkers>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Temperature</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <clearBuildingArea>false</clearBuildingArea>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACControlUnit</defName>
+    <label>AC control unit</label>
+    <description>A main air conditioning control unit. Connects to compressors to allow AC units to generate cool or hot air. Needs to be connected to compressors by air ducts. AC control unit dictates the desired temperature for all AC units in the same network. Installing too many AC units may decrease the efficiency of the network, increasing the power drain of all devices. Constructing additional compressors will improve the efficiency of the network.</description>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcControlUnit</thingClass>
+    <graphicData>
+      <texPath>Things/Building/ACControlUnit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+	  <drawSize>(2, 2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+	<size>(2, 2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.5</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+	<minifiedDef>MinifiedThing</minifiedDef>
+    <statBases>
+      <WorkToBuild>12000</WorkToBuild>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+	  <Mass>60</Mass>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>80</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+	  <Silver>100</Silver>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>200</basePowerConsumption>
+      </li>
+      <li Class="VanillaTemperatureExpanded.Comps.CompProperties_ResourceSingleton">
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>-2</consumptionPerTick>
+        <idleConsumptionPerTick>-2</idleConsumptionPerTick>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <thingCategories>
+      <li>BuildingsTemperature</li>
+    </thingCategories>
+    <researchPrerequisites> 
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+	<rotatable>false</rotatable>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACUnit</defName>
+    <label>AC unit</label>
+    <description>An air-conditioning machine that fits into a wall. Emits either cool or warm air in the same direction, depending on the current temperature of the room. Unless unlinked from the network settings, it will aim to achieve the temperature specified in the AC control unit. Needs to be connected to the AC control unit via air ducts.</description>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcUnit</thingClass>
+    <graphicData>
+      <texPath>Things/Building/ACUnit/ACUnit</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <placeWorkers>
+      <li>VanillaTemperatureExpanded.Placeworker_AcUnit</li>
+    </placeWorkers>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>1</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <statBases>
+      <WorkToBuild>1600</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>120</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="CompProperties_TempControl">
+        <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
+        <energyPerSecond>-21</energyPerSecond>
+      </li>
+      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceTrader_AC">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>1</consumptionPerTick>
+        <idleConsumptionPerTick>1</idleConsumptionPerTick>
+      </li>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACUnitWall</defName>
+    <label>wall-mounted AC unit</label>
+    <description>A wall-mounted air-conditioning machine. Emits either cool or warm air in the same direction, depending on the current temperature of the room. Unless unlinked from the network settings, it will aim to achieve the temperature specified in the AC control unit. Needs to be connected to the AC control unit via air ducts. Can only be constructed on a wall.</description>
+    <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcUnit</thingClass>
+    <graphicData>
+      <texPath>Things/Building/WallMountedAC/WallMountedAC</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+    </graphicData>
+    <placeWorkers>
+      <li>VanillaTemperatureExpanded.Placeworker_AcUnit</li>
+    </placeWorkers>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>false</castEdgeShadows>
+	<uiIconPath>Things/Building/WallMountedAC/WallMountedAC_MenuIcon</uiIconPath>
+    <statBases>
+      <WorkToBuild>1600</WorkToBuild>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>80</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <building>
+	  <isInert>true</isInert>
+	  <isEdifice>false</isEdifice>
+	  <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="VEF.Buildings.CompProperties_MountableOnWall"/>
+      <li Class="CompProperties_TempControl">
+        <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
+        <energyPerSecond>-21</energyPerSecond>
+      </li>
+      <li Class="VanillaTemperatureExpanded.CompProperties_ResourceTrader_AC">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_AC</compClass>
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>1</consumptionPerTick>
+        <idleConsumptionPerTick>1</idleConsumptionPerTick>
+      </li>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_ACCompressor</defName>
+    <label>AC compressor</label>
+    <description>An air conditioning compressor that needs to be connected to an AC control unit via air ducts. Can only be placed outside. When powered, it allows the AC network to operate two additional AC devices without losing efficiency.</description>
+    <graphicData>
+      <texPath>Things/Building/ACCompressorSmall</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <statBases>
+      <WorkToBuild>1200</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>50</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_ResourceTrader">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_Compressor</compClass>
+        <soundAmbientReceivingResource>GeothermalPlant_Ambience</soundAmbientReceivingResource>
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>-2</consumptionPerTick>
+        <idleConsumptionPerTick>-2</idleConsumptionPerTick>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <rotatable>false</rotatable>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>VTE_LargeACCompressor</defName>
+    <label>large AC compressor</label>
+    <description>A large air conditioning compressor that needs to be connected to an AC control unit via air ducts. Can only be placed outside. When powered, it allows the AC network to operate six additional AC devices without losing efficiency.</description>
+    <graphicData>
+      <texPath>Things/Building/ACCompressorLarge</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+	  <drawSize>(2, 2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <fillPercent>0.75</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+	<size>(2, 2)</size>
+    <statBases>
+      <WorkToBuild>1200</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <costList>
+      <Steel>110</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_ResourceTrader">
+        <compClass>VanillaTemperatureExpanded.CompResourceTrader_Compressor</compClass>
+        <soundAmbientReceivingResource>GeothermalPlant_Ambience</soundAmbientReceivingResource>
+        <pipeNet>VTE_EfficiencyNet</pipeNet>
+        <consumptionPerTick>-6</consumptionPerTick>
+        <idleConsumptionPerTick>-6</idleConsumptionPerTick>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <researchPrerequisites>
+      <li>VTE_HVAC</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <rotatable>false</rotatable>
+  </ThingDef>
+  
+</Defs>

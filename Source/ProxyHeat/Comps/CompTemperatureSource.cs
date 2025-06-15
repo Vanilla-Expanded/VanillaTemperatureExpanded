@@ -91,9 +91,9 @@ namespace ProxyHeat
 			this.MarkDirty();
 		}
 
-		public override void PostDeSpawn(Map map)
-		{
-			base.PostDeSpawn(map);
+		public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+        {
+			base.PostDeSpawn(map,mode);
 			proxyHeatManager.RemoveComp(this);
 			if (proxyHeatManager.compTemperaturesToTick.Contains(this))
             {

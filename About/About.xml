@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>Vanilla Temperature Expanded</name>
-  <author>Oskar Potocki, xrushha, Arquebus, Taranchuk</author>
-  <description>Introducing "Vanilla Temperature Expanded," a mod that adds a detailed and controllable central heating system to your game. This mod brings in a new feature called Efficiency, which affects how well your heating system runs. It's all about giving you more control over the temperature in your colony.
+	<name>Vanilla Temperature Expanded</name>
+	<author>Oskar Potocki, xrushha, Arquebus, Taranchuk</author>
+	<description>Introducing "Vanilla Temperature Expanded," a mod that adds a detailed and controllable central heating system to your game. This mod brings in a new feature called Efficiency, which affects how well your heating system runs. It's all about giving you more control over the temperature in your colony.
 
 You'll find new research options that lead you to better ways of managing temperature, creating a more engaging gameplay experience. The mod includes various components like air ducts, AC units, and compressors that you can connect to manage your air conditioning system efficiently.
 
@@ -11,31 +11,30 @@ We've also added a new mechanic, AC Efficiency, to keep things interesting. It's
 There are lots of new structures to play with, such as industrial coolers, heaters, wall-mounted units, and ceiling fans, giving you plenty of options for controlling your environment's temperature.
 
 "Vanilla Temperature Expanded" is designed to enhance your game by making temperature management more interactive and fun, without complicating things too much. If you're interested in adding more depth to your game's temperature system, give this mod a try!</description>
-  <supportedVersions>
-    <li>1.4</li>
-    <li>1.5</li>
-  </supportedVersions>
+	<supportedVersions>
+		<li>1.4</li>
+		<li>1.5</li>
+		<li>1.6</li>
+	</supportedVersions>
 	<modIconPath IgnoreIfNoMatchingField="True">UI/VELogo</modIconPath>
-  <packageId>VanillaExpanded.Temperature</packageId>
-  <modDependencies>
-    <li>
-      <packageId>brrainz.harmony</packageId>
-      <displayName>Harmony</displayName>
-      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
-      <steamWorkshopUrl>https://steamcommunity.com/workshop/filedetails/?id=2009463077</steamWorkshopUrl>
-    </li>
-    <li>
-      <packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
-      <displayName>Vanilla Expanded Framework</displayName>
-      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1854607105</steamWorkshopUrl>
-    </li>
-  </modDependencies>
-  <loadAfter>
-    <li>brrainz.harmony</li>
-    <li>Ludeon.RimWorld</li>
-    <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
-  </loadAfter>
-  <incompatibleWith>
-	<li>LongerCFloor.ProxyHeat</li>
-  </incompatibleWith>
+	<packageId>VanillaExpanded.Temperature</packageId>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+			<steamWorkshopUrl>https://steamcommunity.com/workshop/filedetails/?id=2009463077</steamWorkshopUrl>
+		</li>
+		<li>
+			<packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
+			<displayName>Vanilla Expanded Framework</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1854607105</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+	</loadAfter>
+	<incompatibleWith>
+		<li>LongerCFloor.ProxyHeat</li>
+	</incompatibleWith>
 </ModMetaData>

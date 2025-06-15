@@ -32,12 +32,12 @@ public class CompResourceTrader_Compressor : CompResourceTrader
         UpdateOverlayHandle();
     }
 
-    public override void PostDeSpawn(Map map)
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         pipeNetOverlayDrawer.TogglePulsing(parent, tooManyMat, false);
         pipeNetOverlayDrawer.TogglePulsing(parent, missingControlMat, false);
         pipeNetOverlayDrawer.TogglePulsing(parent, roofedBadMat, false);
-        base.PostDeSpawn(map);
+        base.PostDeSpawn(map,mode);
     }
 
     // private PipeNetOverlayDrawer pipeNetOverlayDrawer;
