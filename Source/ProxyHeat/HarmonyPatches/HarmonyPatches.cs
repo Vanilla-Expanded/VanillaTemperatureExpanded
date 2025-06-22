@@ -474,11 +474,12 @@ namespace ProxyHeat
 			}
 		}
 
-
-		[HarmonyPatch(typeof(PlantUtility), nameof(PlantUtility.GrowthSeasonNow))]
+		// There's a second GrowthSeasonNow method, but that one is for map-wide temperature,
+		// while we're patching behaviour of temperature in a specific cell only.
+		[HarmonyPatch(typeof(PlantUtility), nameof(PlantUtility.GrowthSeasonNow), typeof(IntVec3), typeof(Map), typeof(ThingDef))]
 		public static class Patch_GrowthSeasonNow
 		{
-			private static bool Prefix(ref bool __result, IntVec3 c, Map map, bool forSowing = false)
+			private static bool Prefix(ref bool __result, IntVec3 c, Map map)
             {
                 if (ProxyHeatMod.settings.enableProxyHeat is false) return true;
 
