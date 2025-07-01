@@ -14,9 +14,7 @@ public class PlaceWorker_NeverAdjacentCeilingFan : PlaceWorker
             List<Thing> list = map.thingGrid.ThingsListAt(item);
             for (int i = 0; i < list.Count; i++)
             {
-                Thing thing2 = list[i];
-                var comp = thing2.TryGetComp<CompCeilingFan>();
-                if (comp != null)
+                if (GenConstruct.BuiltDefOf(list[i].def) is ThingDef builtDef && builtDef.HasComp<CompCeilingFan>())
                 {
                     return "VTE.CannotPlaceAdjacentCeilingFan".Translate();
                 }

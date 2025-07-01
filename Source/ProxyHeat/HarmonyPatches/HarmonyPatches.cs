@@ -67,7 +67,7 @@ namespace ProxyHeat
 			{
 				var prefix = AccessTools.Method(typeof(HarmonyPatches), nameof(TryGiveJobPrefix));
 				postfix = AccessTools.Method(typeof(HarmonyPatches), nameof(TryGiveJobPostfix));
-				foreach (var type in GenTypes.AllSubclasses(typeof(ThinkNode_JobGiver)))
+				foreach (var type in typeof(ThinkNode_JobGiver).AllSubclasses())
 				{
 					if (type.Namespace == "Brrr")
 					{

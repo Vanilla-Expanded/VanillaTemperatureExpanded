@@ -490,6 +490,7 @@
 		<placeWorkers>
 			<li>PlaceWorker_CoolerSimple</li>
 			<li>VanillaTemperatureExpanded.PlaceWorker_UnderRoof</li>
+			<li>VanillaTemperatureExpanded.PlaceWorker_NeverAdjacentCeilingFan</li>
 		</placeWorkers>
 		<comps>
 			<li Class="CompProperties_Power">
