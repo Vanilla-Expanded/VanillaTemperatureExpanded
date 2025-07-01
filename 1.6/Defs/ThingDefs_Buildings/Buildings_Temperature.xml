@@ -202,19 +202,22 @@
 		<description>A wall-mounted device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature. Can only be constructed on a wall.</description>
 		<thingClass>VanillaTemperatureExpanded.Buildings.Building_HeaterWithOffset</thingClass>
 		<graphicData>
-			<texPath>Things/Building/WallMountedHeater/WallMountedHeater</texPath>
+			<texPath>Things/Building/WallMountedHeater/WallMountedHeaterM</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
+			<drawOffsetNorth>(0,0,0.9)</drawOffsetNorth>
+			<drawOffsetSouth>(0,0,-0.9)</drawOffsetSouth>
+			<drawOffsetWest>(-0.9,0,0)</drawOffsetWest>
+			<drawOffsetEast>(0.9,0,0)</drawOffsetEast>
 			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
+				<enabled>false</enabled>
 			</damageData>
 		</graphicData>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
-		<passability>PassThroughOnly</passability>
+		<passability>Standable</passability>
+		<terrainAffordanceNeeded IsNull="True"/>
+		<pathCost>0</pathCost>
 		<blockWind>true</blockWind>
-		<fillPercent>0.75</fillPercent>
+		<fillPercent>0</fillPercent>
 		<canOverlapZones>false</canOverlapZones>
 		<castEdgeShadows>false</castEdgeShadows>
 		<uiIconPath>Things/Building/WallMountedHeater/WallMountedHeater_MenuIcon</uiIconPath>
@@ -228,7 +231,7 @@
 		<building>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
-			<canPlaceOverWall>true</canPlaceOverWall>
+			<isAttachment>true</isAttachment>
 			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
 		</building>
 		<costList>
@@ -237,7 +240,7 @@
 		</costList>
 		<placeWorkers>
 			<li>VanillaTemperatureExpanded.PlaceWorker_HeaterWithOffset</li>
-			<li>VEF.Buildings.PlaceWorker_OnWall</li>
+			<li>Placeworker_AttachedToWall</li>
 		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<comps>
@@ -255,7 +258,6 @@
 				<glowColor>(255,150,100,0)</glowColor>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
-			<li Class="VEF.Buildings.CompProperties_MountableOnWall"/>
 		</comps>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<designationCategory>Temperature</designationCategory>
@@ -263,6 +265,11 @@
 			<li>Electricity</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+		<modExtensions>
+			<li Class="VanillaTemperatureExpanded.TemperatureOutputPositionModExtension">
+				<offsetNorth>(0,0,0)</offsetNorth>
+			</li>
+		</modExtensions>
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">

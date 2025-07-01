@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcPipeNet.cs" />
-    <Compile Include="AcUnitPositionModExtension.cs" />
+    <Compile Include="TemperatureOutputPositionModExtension.cs" />
     <Compile Include="Buildings\Building_AcControlUnit.cs" />
     <Compile Include="Buildings\Building_AcUnit.cs" />
     <Compile Include="Buildings\Building_TwoCellHeater.cs" />

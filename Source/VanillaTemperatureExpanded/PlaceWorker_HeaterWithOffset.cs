@@ -8,17 +8,18 @@ namespace VanillaTemperatureExpanded;
 
 public class PlaceWorker_HeaterWithOffset : PlaceWorker
 {
+    private IntVec3 GetOutputCell(BuildableDef def)
+    {
+        return def.HasModExtension<TemperatureOutputPositionModExtension>() ? def.GetModExtension<TemperatureOutputPositionModExtension>().offsetNorth : IntVec3.North;
+    }
+
     public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)
     {
-        Map currentMap = Find.CurrentMap;
-        IntVec3 intVec2 = center + IntVec3.North.RotatedBy(rot);
-        GenDraw.DrawFieldEdges(new List<IntVec3> { intVec2 }, GenTemperature.ColorSpotHot);
-        Room room = intVec2.GetRoom(currentMap);
-        if (room == null)
-        {
-            return;
-        }
-        if (!room.UsesOutdoorTemperature)
+        var currentMap = Find.CurrentMap;
+        var pos = center + GetOutputCell(def).RotatedBy(rot);
+        GenDraw.DrawFieldEdges([pos], GenTemperature.ColorSpotHot);
+        var room = pos.GetRoom(currentMap);
+        if (room is { UsesOutdoorTemperature: false })
         {
             GenDraw.DrawFieldEdges(room.Cells.ToList(), GenTemperature.ColorRoomHot);
         }
@@ -26,7 +27,7 @@ public class PlaceWorker_HeaterWithOffset : PlaceWorker
 
     public override AcceptanceReport AllowsPlacing(BuildableDef def, IntVec3 center, Rot4 rot, Map map, Thing thingToIgnore = null, Thing thing = null)
     {
-        IntVec3 intVec = center + IntVec3.North.RotatedBy(rot);
+        var intVec = center + GetOutputCell(def).RotatedBy(rot);
         var result = CheckCell(map, intVec);
         return result;
     }
@@ -37,12 +38,12 @@ public class PlaceWorker_HeaterWithOffset : PlaceWorker
         {
             return "VTE.MustPlaceHeaterWithFreeSpaces".Translate();
         }
-        Frame firstThing = c.GetFirstThing<Frame>(map);
+        var firstThing = c.GetFirstThing<Frame>(map);
         if ((firstThing != null && firstThing.def.entityDefToBuild != null && firstThing.def.entityDefToBuild.passability == Traversability.Impassable))
         {
             return "VTE.MustPlaceHeaterWithFreeSpaces".Translate();
         }
-        Blueprint firstThing3 = c.GetFirstThing<Blueprint>(map);
+        var firstThing3 = c.GetFirstThing<Blueprint>(map);
         if ((firstThing3 != null && firstThing3.def.entityDefToBuild != null && firstThing3.def.entityDefToBuild.passability == Traversability.Impassable))
         {
             return "VTE.MustPlaceHeaterWithFreeSpaces".Translate();

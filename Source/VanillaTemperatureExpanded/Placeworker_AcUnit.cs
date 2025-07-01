@@ -10,15 +10,15 @@ public class Placeworker_AcUnit : PlaceWorker_Cooler
 {
     private IntVec3 GetOutputCell(BuildableDef def)
     {
-        return def.HasModExtension<AcUnitPositionModExtension>() ? def.GetModExtension<AcUnitPositionModExtension>().offsetNorth : IntVec3.North;
+        return def.HasModExtension<TemperatureOutputPositionModExtension>() ? def.GetModExtension<TemperatureOutputPositionModExtension>().offsetNorth : IntVec3.North;
     }
 
     public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)
     {
         var currentMap = Find.CurrentMap;
-        var intVec = center + GetOutputCell(def).RotatedBy(rot);
-        GenDraw.DrawFieldEdges(new List<IntVec3> { intVec }, GenTemperature.ColorSpotCold);
-        var room = intVec.GetRoom(currentMap);
+        var pos = center + GetOutputCell(def).RotatedBy(rot);
+        GenDraw.DrawFieldEdges([pos], GenTemperature.ColorSpotCold);
+        var room = pos.GetRoom(currentMap);
         if (room is { UsesOutdoorTemperature: false })
         {
             GenDraw.DrawFieldEdges(room.Cells.ToList(), GenTemperature.ColorRoomCold);

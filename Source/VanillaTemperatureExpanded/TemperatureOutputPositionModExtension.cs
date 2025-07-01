@@ -2,7 +2,7 @@
 
 namespace VanillaTemperatureExpanded;
 
-public class AcUnitPositionModExtension : DefModExtension
+public class TemperatureOutputPositionModExtension : DefModExtension
 {
     public IntVec3 offsetNorth;
 }

@@ -5,11 +5,20 @@ using Verse;
 namespace VanillaTemperatureExpanded.Buildings;
 public class Building_HeaterWithOffset : Building_TempControl
 {
+    private IntVec3 outputOffsetNorth;
+
+    public override void SpawnSetup(Map map, bool respawningAfterLoad)
+    {
+        base.SpawnSetup(map, respawningAfterLoad);
+
+        outputOffsetNorth = def.HasModExtension<TemperatureOutputPositionModExtension>() ? def.GetModExtension<TemperatureOutputPositionModExtension>().offsetNorth : IntVec3.North;
+    }
+
     public override void TickRare()
     {
         if (compPowerTrader.PowerOn)
         {
-            IntVec3 intVec = base.Position + IntVec3.North.RotatedBy(base.Rotation);
+            IntVec3 intVec = base.Position + outputOffsetNorth.RotatedBy(base.Rotation);
             var flag = PushHeat(intVec);
             CompProperties_Power props = compPowerTrader.Props;
             if (flag)

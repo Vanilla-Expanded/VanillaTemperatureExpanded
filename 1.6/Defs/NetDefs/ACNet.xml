@@ -17,6 +17,9 @@
       <deconstructIconPath>UI/Commands/Deconstruct_ACDuct_MenuIcon</deconstructIconPath>
       <designationCategoryDef>Temperature</designationCategoryDef>
     </designator>
+    <noLinkedGraphicDefs>
+      <li>VTE_ACUnitWall</li>
+    </noLinkedGraphicDefs>
     <overlayOptions>
       <overlayColor>(244, 144, 12)</overlayColor>
     </overlayOptions>
@@ -59,7 +62,7 @@
       <WorkToBuild>35</WorkToBuild>
       <Flammability>0.7</Flammability>
     </statBases>
-   <drawStyleCategory>Conduits</drawStyleCategory>
+    <drawStyleCategory>Conduits</drawStyleCategory>
     <costList>
       <Steel>1</Steel>
     </costList>
@@ -89,7 +92,7 @@
       <li>VTE_HVAC</li>
     </researchPrerequisites>
   </ThingDef>
-  
+
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_VentValve</defName>
     <label>air duct valve</label>
@@ -117,7 +120,7 @@
       <Flammability>1.0</Flammability>
       <Beauty>-2</Beauty>
     </statBases>
-   
+
     <costList>
       <Steel>10</Steel>
       <ComponentIndustrial>1</ComponentIndustrial>
@@ -143,7 +146,7 @@
       <li>VTE_HVAC</li>
     </researchPrerequisites>
   </ThingDef>
-  
+
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_UndergroundAirDuct</defName>
     <label>subterranean air duct</label>
@@ -181,7 +184,7 @@
       <WorkToBuild>35</WorkToBuild>
       <Flammability>0.7</Flammability>
     </statBases>
-   <drawStyleCategory>Conduits</drawStyleCategory>
+    <drawStyleCategory>Conduits</drawStyleCategory>
     <costList>
       <Steel>1</Steel>
     </costList>
@@ -221,7 +224,7 @@
     <graphicData>
       <texPath>Things/Building/ACControlUnit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-	  <drawSize>(2, 2)</drawSize>
+      <drawSize>(2, 2)</drawSize>
       <damageData>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
@@ -229,7 +232,7 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
-	<size>(2, 2)</size>
+    <size>(2, 2)</size>
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
     <blockWind>true</blockWind>
@@ -237,18 +240,18 @@
     <canOverlapZones>false</canOverlapZones>
     <castEdgeShadows>true</castEdgeShadows>
     <staticSunShadowHeight>1.0</staticSunShadowHeight>
-	<minifiedDef>MinifiedThing</minifiedDef>
+    <minifiedDef>MinifiedThing</minifiedDef>
     <statBases>
       <WorkToBuild>12000</WorkToBuild>
       <MaxHitPoints>200</MaxHitPoints>
       <Flammability>1.0</Flammability>
-	  <Mass>60</Mass>
+      <Mass>60</Mass>
     </statBases>
     <tickerType>Rare</tickerType>
     <costList>
       <Steel>80</Steel>
       <ComponentIndustrial>6</ComponentIndustrial>
-	  <Silver>100</Silver>
+      <Silver>100</Silver>
     </costList>
     <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
     <comps>
@@ -268,13 +271,13 @@
     <thingCategories>
       <li>BuildingsTemperature</li>
     </thingCategories>
-    <researchPrerequisites> 
+    <researchPrerequisites>
       <li>VTE_HVAC</li>
     </researchPrerequisites>
-	<rotatable>false</rotatable>
+    <rotatable>false</rotatable>
     <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
   </ThingDef>
-  
+
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACUnit</defName>
     <label>AC unit</label>
@@ -335,26 +338,36 @@
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
   </ThingDef>
-  
+
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACUnitWall</defName>
     <label>wall-mounted AC unit</label>
     <description>A wall-mounted air-conditioning machine. Emits either cool or warm air in the same direction, depending on the current temperature of the room. Unless unlinked from the network settings, it will aim to achieve the temperature specified in the AC control unit. Needs to be connected to the AC control unit via air ducts. Can only be constructed on a wall.</description>
     <thingClass>VanillaTemperatureExpanded.Buildings.Building_AcUnit</thingClass>
     <graphicData>
-      <texPath>Things/Building/WallMountedAC/WallMountedAC</texPath>
+      <texPath>Things/Building/WallMountedAC/WallMountedACM</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
+      <drawOffsetNorth>(0,0,0.9)</drawOffsetNorth>
+      <drawOffsetSouth>(0,0,-0.9)</drawOffsetSouth>
+      <drawOffsetWest>(-0.9,0,0)</drawOffsetWest>
+      <drawOffsetEast>(0.9,0,0)</drawOffsetEast>
+      <damageData>
+        <enabled>false</enabled>
+      </damageData>
     </graphicData>
     <placeWorkers>
       <li>VanillaTemperatureExpanded.Placeworker_AcUnit</li>
+      <li>Placeworker_AttachedToWall</li>
     </placeWorkers>
     <altitudeLayer>BuildingOnTop</altitudeLayer>
-    <passability>PassThroughOnly</passability>
-    <blockWind>true</blockWind>
-    <fillPercent>0.75</fillPercent>
+    <passability>Standable</passability>
+    <pathCost>0</pathCost>
+    <fillPercent>0</fillPercent>
+    <overrideMinifiedRot>North</overrideMinifiedRot>
+    <minifiedDrawOffset>(0, 0, 0.2)</minifiedDrawOffset>
     <canOverlapZones>false</canOverlapZones>
     <castEdgeShadows>false</castEdgeShadows>
-	<uiIconPath>Things/Building/WallMountedAC/WallMountedAC_MenuIcon</uiIconPath>
+    <uiIconPath>Things/Building/WallMountedAC/WallMountedAC_MenuIcon</uiIconPath>
     <statBases>
       <WorkToBuild>1600</WorkToBuild>
       <MaxHitPoints>60</MaxHitPoints>
@@ -366,9 +379,9 @@
       <ComponentIndustrial>3</ComponentIndustrial>
     </costList>
     <building>
-	  <isInert>true</isInert>
-	  <isEdifice>false</isEdifice>
-	  <canPlaceOverWall>true</canPlaceOverWall>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <isAttachment>true</isAttachment>
     </building>
     <comps>
       <li Class="CompProperties_Power">
@@ -377,7 +390,6 @@
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
-      <li Class="VEF.Buildings.CompProperties_MountableOnWall"/>
       <li Class="CompProperties_TempControl">
         <compClass>VanillaTemperatureExpanded.Comps.CompAcTempControl</compClass>
         <energyPerSecond>-21</energyPerSecond>
@@ -394,8 +406,13 @@
       <li>VTE_HVAC</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <modExtensions>
+      <li Class="VanillaTemperatureExpanded.TemperatureOutputPositionModExtension">
+        <offsetNorth>(0,0,0)</offsetNorth>
+      </li>
+    </modExtensions>
   </ThingDef>
-  
+
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_ACCompressor</defName>
     <label>AC compressor</label>
@@ -450,7 +467,7 @@
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
     <rotatable>false</rotatable>
   </ThingDef>
-  
+
   <ThingDef ParentName="BuildingBase">
     <defName>VTE_LargeACCompressor</defName>
     <label>large AC compressor</label>
@@ -458,7 +475,7 @@
     <graphicData>
       <texPath>Things/Building/ACCompressorLarge</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-	  <drawSize>(2, 2)</drawSize>
+      <drawSize>(2, 2)</drawSize>
       <damageData>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
@@ -473,7 +490,7 @@
     <canOverlapZones>false</canOverlapZones>
     <castEdgeShadows>true</castEdgeShadows>
     <staticSunShadowHeight>1.0</staticSunShadowHeight>
-	<size>(2, 2)</size>
+    <size>(2, 2)</size>
     <statBases>
       <WorkToBuild>1200</WorkToBuild>
       <MaxHitPoints>100</MaxHitPoints>
@@ -507,5 +524,5 @@
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
     <rotatable>false</rotatable>
   </ThingDef>
-  
+
 </Defs>

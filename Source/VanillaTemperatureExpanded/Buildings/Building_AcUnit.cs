@@ -17,7 +17,7 @@ public class Building_AcUnit : Building_TempControl
         base.SpawnSetup(map, respawningAfterLoad);
 
         resourceComp = GetComp<CompResourceTrader>();
-        outputOffsetNorth = def.HasModExtension<AcUnitPositionModExtension>() ? def.GetModExtension<AcUnitPositionModExtension>().offsetNorth : IntVec3.North;
+        outputOffsetNorth = def.HasModExtension<TemperatureOutputPositionModExtension>() ? def.GetModExtension<TemperatureOutputPositionModExtension>().offsetNorth : IntVec3.North;
     }
 
     public override void TickRare()
