@@ -289,6 +289,10 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
+		<building>
+			<canPlaceOverWall>true</canPlaceOverWall>
+			<isAirtight>true</isAirtight>
+		</building>
 		<placeWorkers>
 			<li>VanillaTemperatureExpanded.Placeworker_AcUnit</li>
 		</placeWorkers>

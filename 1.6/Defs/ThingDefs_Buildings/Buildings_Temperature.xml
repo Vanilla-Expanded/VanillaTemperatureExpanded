@@ -36,6 +36,8 @@
 		<tickerType>Rare</tickerType>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+      <canPlaceOverWall>true</canPlaceOverWall>
+      <isAirtight>true</isAirtight>
 		</building>
 		<costList>
 			<Steel>90</Steel>
@@ -67,6 +69,11 @@
 			<li>Electricity</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <modExtensions>
+      <li Class="VEF.Buildings.GravshipLaunchExtension">
+        <isHeater>true</isHeater>
+      </li>
+    </modExtensions>
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
@@ -112,6 +119,7 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<building>
 			<canPlaceOverWall>true</canPlaceOverWall>
+      <isAirtight>true</isAirtight>
 		</building>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -173,6 +181,7 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<building>
 			<canPlaceOverWall>true</canPlaceOverWall>
+      <isAirtight>true</isAirtight>
 		</building>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -194,6 +203,11 @@
 			<li>AirConditioning</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <modExtensions>
+      <li Class="VEF.Buildings.GravshipLaunchExtension">
+        <isHeater>true</isHeater>
+      </li>
+    </modExtensions>
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
@@ -269,6 +283,9 @@
 			<li Class="VanillaTemperatureExpanded.TemperatureOutputPositionModExtension">
 				<offsetNorth>(0,0,0)</offsetNorth>
 			</li>
+      <li Class="VEF.Buildings.GravshipLaunchExtension">
+        <isHeater>true</isHeater>
+      </li>
 		</modExtensions>
 	</ThingDef>
 
