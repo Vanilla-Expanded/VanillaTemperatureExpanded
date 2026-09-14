@@ -466,7 +466,7 @@
 			<li Class="CompProperties_HeatPusher">
 				<compClass>VanillaTemperatureExpanded.Comps.CompHeatPusherPoweredWithIdleDraw</compClass>
 				<heatPerSecond>-21</heatPerSecond>
-				<heatPushMinTemperature>14</heatPushMinTemperature>
+				<heatPushMinTemperature>16</heatPushMinTemperature>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
