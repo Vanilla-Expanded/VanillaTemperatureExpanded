@@ -364,7 +364,6 @@
 		<fillPercent>0</fillPercent>
 		<overrideMinifiedRot>North</overrideMinifiedRot>
 		<minifiedDrawOffset>(0, 0, 0.2)</minifiedDrawOffset>
-		<canOverlapZones>false</canOverlapZones>
 		<castEdgeShadows>false</castEdgeShadows>
 		<uiIconPath>Things/Building/WallMountedAC/WallMountedAC_MenuIcon</uiIconPath>
 		<statBases>

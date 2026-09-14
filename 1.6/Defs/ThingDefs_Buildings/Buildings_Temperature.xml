@@ -232,7 +232,6 @@
 		<pathCost>0</pathCost>
 		<blockWind>true</blockWind>
 		<fillPercent>0</fillPercent>
-		<canOverlapZones>false</canOverlapZones>
 		<castEdgeShadows>false</castEdgeShadows>
 		<uiIconPath>Things/Building/WallMountedHeater/WallMountedHeater_MenuIcon</uiIconPath>
 		<statBases>
