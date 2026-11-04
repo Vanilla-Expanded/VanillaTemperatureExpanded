@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_IndustrialHeater</defName>
 		<label>industrial heater</label>
@@ -36,8 +35,8 @@
 		<tickerType>Rare</tickerType>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
-      <canPlaceOverWall>true</canPlaceOverWall>
-      <isAirtight>true</isAirtight>
+			<canPlaceOverWall>true</canPlaceOverWall>
+			<isAirtight>true</isAirtight>
 		</building>
 		<costList>
 			<Steel>90</Steel>
@@ -69,13 +68,12 @@
 			<li>Electricity</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
-    <modExtensions>
-      <li Class="VEF.Buildings.GravshipLaunchExtension">
-        <isHeater>true</isHeater>
-      </li>
-    </modExtensions>
+		<modExtensions>
+			<li Class="VEF.Buildings.GravshipLaunchExtension">
+				<isHeater>true</isHeater>
+			</li>
+		</modExtensions>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_IndustrialCooler</defName>
 		<label>industrial cooler</label>
@@ -119,7 +117,7 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<building>
 			<canPlaceOverWall>true</canPlaceOverWall>
-      <isAirtight>true</isAirtight>
+			<isAirtight>true</isAirtight>
 		</building>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -138,7 +136,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_WallHeater</defName>
 		<label>wall heater</label>
@@ -181,7 +178,7 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<building>
 			<canPlaceOverWall>true</canPlaceOverWall>
-      <isAirtight>true</isAirtight>
+			<isAirtight>true</isAirtight>
 		</building>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -203,13 +200,12 @@
 			<li>AirConditioning</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
-    <modExtensions>
-      <li Class="VEF.Buildings.GravshipLaunchExtension">
-        <isHeater>true</isHeater>
-      </li>
-    </modExtensions>
+		<modExtensions>
+			<li Class="VEF.Buildings.GravshipLaunchExtension">
+				<isHeater>true</isHeater>
+			</li>
+		</modExtensions>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_WallMountedHeater</defName>
 		<label>wall-mounted heater</label>
@@ -282,12 +278,11 @@
 			<li Class="VanillaTemperatureExpanded.TemperatureOutputPositionModExtension">
 				<offsetNorth>(0,0,0)</offsetNorth>
 			</li>
-      <li Class="VEF.Buildings.GravshipLaunchExtension">
-        <isHeater>true</isHeater>
-      </li>
+			<li Class="VEF.Buildings.GravshipLaunchExtension">
+				<isHeater>true</isHeater>
+			</li>
 		</modExtensions>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_WallMountedCooler</defName>
 		<label>wall-mounted cooler</label>
@@ -349,7 +344,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_WallMountedVent</defName>
 		<label>wall-mounted vent</label>
@@ -405,7 +399,6 @@
 		</comps>
 		<defaultPlacingRot>South</defaultPlacingRot>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_StandingCooler</defName>
 		<label>standing cooler</label>
@@ -475,7 +468,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_SmallCeilingFan</defName>
 		<label>small ceiling fan</label>
@@ -505,7 +497,7 @@
 			<Steel>50</Steel>
 		</costList>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-        <clearBuildingArea>false</clearBuildingArea>
+		<clearBuildingArea>false</clearBuildingArea>
 		<building>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
@@ -536,7 +528,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VTE_LargeCeilingFan</defName>
 		<label>large ceiling fan</label>
@@ -567,7 +558,7 @@
 			<Steel>100</Steel>
 		</costList>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-        <clearBuildingArea>false</clearBuildingArea>
+		<clearBuildingArea>false</clearBuildingArea>
 		<placeWorkers>
 			<li>PlaceWorker_CoolerSimple</li>
 			<li>VanillaTemperatureExpanded.PlaceWorker_UnderRoof</li>
@@ -598,5 +589,4 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-
 </Defs>
